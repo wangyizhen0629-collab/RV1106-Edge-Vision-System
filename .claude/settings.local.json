@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C /home/wangyizhen/Echo-Mate status)",
+      "Bash(gh auth *)",
+      "Bash(git config *)",
+      "Bash(ssh -T git@github.com)",
+      "Bash(chmod -R u+w /home/wangyizhen/Echo-Mate/Demo/.git)",
+      "Bash(rm -rf /home/wangyizhen/Echo-Mate/Demo/.git)",
+      "Bash(echo \"Demo/.git removal: $?\")",
+      "Bash(sudo chmod -R u+w /home/wangyizhen/Echo-Mate/Demo/.git)",
+      "Bash(sudo rm -rf /home/wangyizhen/Echo-Mate/Demo/.git)",
+      "Bash(echo \"Demo/.git: $?\")",
+      "Bash(sudo chmod -R u+w /home/wangyizhen/Echo-Mate/Demo/DeskBot_demo/lvgl/.git)",
+      "Bash(sudo rm -rf /home/wangyizhen/Echo-Mate/Demo/DeskBot_demo/lvgl/.git)",
+      "Bash(git init *)",
+      "Bash(git branch *)",
+      "Bash(git add *)",
+      "Bash(echo \"=== Exit code: $? ===\")",
+      "Bash(git rm *)",
+      "Bash(rm /home/wangyizhen/Echo-Mate/Demo/.gitmodules)",
+      "Bash(rm /home/wangyizhen/Echo-Mate/SDK/rv1106-sdk/.gitmodules)",
+      "Bash(rm /home/wangyizhen/Echo-Mate/SDK/rv1106-sdk/project/app/ipcweb/ipcweb-backend/.gitmodules)",
+      "Bash(git count-objects *)"
+    ]
+  }
+}

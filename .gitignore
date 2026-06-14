@@ -1,0 +1,55 @@
+# Build artifacts
+*.o
+*.ko
+*.a
+*.so
+*.bin
+*.elf
+*.img
+*.7z
+*.tar
+*.zip
+*.dtb
+*.mod
+*.mod.c
+*.symvers
+*.order
+*.tmp_*
+!.gitignore
+
+# IDE
+.vscode
+.idea
+
+# Nested .git remnants (originally submodules, now part of the monorepo)
+Demo/.git/
+Demo/DeskBot_demo/lvgl/.git/
+Demo/DeskBot_demo/build/websocketpp/.git/
+
+# Demo build outputs
+Demo/DeskBot_demo/build/
+
+# SDK build outputs (firmware images, release packages)
+SDK/rv1106-sdk/output/
+SDK/rv1106-sdk/IMAGE/
+SDK/rv1106-sdk/sysdrv/out/
+
+# Kernel build artifacts
+SDK/rv1106-sdk/sysdrv/source/kernel/vmlinux
+SDK/rv1106-sdk/sysdrv/source/kernel/vmlinux.o
+SDK/rv1106-sdk/sysdrv/source/kernel/.tmp_*
+SDK/rv1106-sdk/sysdrv/source/kernel/tools/
+
+# Large model files (download separately)
+Demo/yolov5_demo/model/*.onnx
+Demo/yolov5_demo/model/*.rknn
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Model checkpoint files
+*.pth
+*.ckpt
+*.pt
+
