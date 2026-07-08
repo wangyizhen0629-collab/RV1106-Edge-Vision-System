@@ -6,6 +6,18 @@
 
 任何性能优化开始前，应记录对应 Git commit、SDK/固件版本、BoardConfig、顶层 DTS/DTB、内核版本、测试场景和采样方法。
 
+## 主机侧版本记录
+
+2026-07-08 已在主机上创建 Baseline 记录分支：
+
+- 分支：`baseline/board-metrics`
+- 记录锚点：`198322396726c401c2cd2e1d69000ca395cc0974`
+- 采集前工作区：`git status --short` 无输出，表示干净。
+- 远程仓库：`origin` → `https://github.com/wangyizhen0629-collab/Echo-mate-v1.git`
+- 主机侧日志：`docs/logs/baseline/2026-07-08/host_git_state.md`
+
+注意：以上只完成主机 Git/仓库状态记录，RV1106 板端系统信息、设备枚举、功能状态和性能数据仍需补采。
+
 ## 当前功能
 
 ### GUI
@@ -143,7 +155,7 @@ TODO：记录当前实机所选 lunch/BoardConfig、输出固件名、烧录方�
 
 ## Baseline 采集清单
 
-- [ ] TODO：记录 Git commit 和工作区状态。
+- [x] 记录 Git commit 和工作区状态（主机侧已记录，见 `docs/logs/baseline/2026-07-08/host_git_state.md`）。
 - [ ] TODO：记录板型、硬件修订、SC3336 模组、ST7789V 屏幕和供电方式。
 - [ ] TODO：记录 BoardConfig、顶层 DTS/DTB、内核版本和 rootfs 信息。
 - [ ] TODO：保存完整启动 `dmesg`。

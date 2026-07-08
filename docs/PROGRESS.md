@@ -4,6 +4,7 @@
 
 - [x] 原开源 Echo-Mate / DeskBot 项目已在 RV1106 板子上完整复现全部功能。
 - [x] 初始化二次开发路线、基线和进度文档。
+- [x] 创建 Baseline 记录分支并完成主机侧 Git 状态记录。
 - [ ] TODO：补采并归档 Baseline 性能数据。
 - [ ] TODO：完成蓝色 LED DTS 使能/禁用与板端验证。
 - [ ] TODO：完成 SC3336 原厂/参考/Echo-Mate DTS 对比和摄像头链路验证。
@@ -33,6 +34,29 @@
 - 下一步：
 
 ## 历史记录
+
+### 2026-07-08：Baseline 主机侧记录初始化
+
+- 状态：部分完成
+- 目标：创建 Baseline 记录分支，并记录后续板端采样前的主机 Git/仓库状态。
+- 分支：`baseline/board-metrics`
+- 基线版本/commit：`198322396726c401c2cd2e1d69000ca395cc0974`
+- 板型与硬件：RV1106 Echo-Mate；本次未连接板端采集，硬件修订、SC3336 模组和 ST7789V 屏幕参数仍待补充。
+- 修改文件：
+  - `docs/BASELINE.md`
+  - `docs/PROGRESS.md`
+  - `docs/logs/baseline/2026-07-08/host_git_state.md`
+- 验证命令：
+  - `git status --short`
+  - `git branch --show-current`
+  - `git rev-parse HEAD`
+  - `git log --oneline --decorate --max-count=8`
+  - `git remote -v`
+- 日志路径：`docs/logs/baseline/2026-07-08/host_git_state.md`
+- 结果：已从 `docs/embedded-roadmap` 创建 `baseline/board-metrics`，并确认主机侧记录前工作区干净。
+- 性能数据：未采集；本次仅记录主机侧 Git 状态。
+- 遗留问题：仍需在 RV1106 板端补采系统信息、设备枚举、media graph、YOLO 性能、AI Chat 状态和显示链路状态。
+- 下一步：在板端执行 Baseline 采集命令，并将输出保存到 `docs/logs/baseline/2026-07-08/` 后回填 `docs/BASELINE.md`。
 
 ### 2026-06-26：二次开发文档初始化
 
