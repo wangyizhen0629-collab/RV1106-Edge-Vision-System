@@ -31,6 +31,7 @@ LV_IMG_DECLARE(ui_img_hand60_png);    // assets/hand60.png
 LV_IMG_DECLARE(ui_img_muyu128_png);    // assets/muyu128.png
 LV_IMG_DECLARE(ui_img_sun_png);    // assets/sun.png
 LV_IMG_DECLARE(ui_img_clouds_png);    // assets/clouds.png
+LV_IMG_DECLARE(ui_img_pomodoro64_png);    // assets/pomodoro64.png
 
 // FONTS
 LV_FONT_DECLARE(ui_font_iconfont20);

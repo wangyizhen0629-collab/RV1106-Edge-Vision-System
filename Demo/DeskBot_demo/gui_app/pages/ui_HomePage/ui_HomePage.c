@@ -2,7 +2,7 @@
 
 ///////////////////// VARIABLES ////////////////////
 
-#define _APP_CONTAINER_MAX_PAGES 2
+#define _APP_CONTAINER_MAX_PAGES 3
 
 ui_desktop_data_t ui_desktop_data = {
     .witdh = 320,
@@ -735,6 +735,22 @@ void ui_HomePage_init(void)
     lv_obj_set_style_text_font(ui_CalculatorIcon, &ui_font_iconfont48, LV_PART_MAIN | LV_STATE_DEFAULT);
     // event
     lv_obj_add_event_cb(ui_CalculatorBtn, ui_event_AppsBtn, LV_EVENT_CLICKED, "CalculatorPage");
+
+    // Pomodoro app (page 3)
+    lv_obj_t * ui_PomodoroBtn = lv_button_create(ui_AppIconContainer);
+    lv_obj_set_width(ui_PomodoroBtn, 70);
+    lv_obj_set_height(ui_PomodoroBtn, 70);
+    lv_obj_set_x(ui_PomodoroBtn, 655);
+    lv_obj_set_y(ui_PomodoroBtn, -45);
+    lv_obj_set_align(ui_PomodoroBtn, LV_ALIGN_LEFT_MID);
+    lv_obj_add_flag(ui_PomodoroBtn, LV_OBJ_FLAG_SCROLL_ON_FOCUS);
+    lv_obj_remove_flag(ui_PomodoroBtn, LV_OBJ_FLAG_SCROLLABLE);
+    lv_obj_set_style_radius(ui_PomodoroBtn, 15, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui_PomodoroBtn, lv_color_hex(0xE94560), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_PomodoroBtn, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_image_src(ui_PomodoroBtn, &ui_img_pomodoro64_png, LV_PART_MAIN | LV_STATE_DEFAULT);
+    // event
+    lv_obj_add_event_cb(ui_PomodoroBtn, ui_event_AppsBtn, LV_EVENT_CLICKED, "PomodoroPage");
 
     // timer
     ui_home_timer = lv_timer_create(ui_home_timer_cb, 5000, ui_TimeLabel);
