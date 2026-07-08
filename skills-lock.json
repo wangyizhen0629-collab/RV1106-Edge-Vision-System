@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "skills": {
+    "cross-gcc": {
+      "source": "mohitmishra786/low-level-dev-skills",
+      "sourceType": "github",
+      "skillPath": "skills/compilers/cross-gcc/SKILL.md",
+      "computedHash": "eee03f5623935025ebec55a056c520cc76411cdab94255925cf5795160289270"
+    },
+    "embedded-systems": {
+      "source": "jeffallan/claude-skills",
+      "sourceType": "github",
+      "skillPath": "skills/embedded-systems/SKILL.md",
+      "computedHash": "1631345781a5ed3ba2a780a710b8c23cb1b0abaaf576164c40d15b20683d2f6e"
+    },
+    "linux-kernel-modules": {
+      "source": "mohitmishra786/low-level-dev-skills",
+      "sourceType": "github",
+      "skillPath": "skills/low-level-programming/linux-kernel-modules/SKILL.md",
+      "computedHash": "aaecdf5f4e7459076ea3e9a7c4a9242b2225465fbf057b836cd2557cf9e1755c"
+    }
+  }
+}
