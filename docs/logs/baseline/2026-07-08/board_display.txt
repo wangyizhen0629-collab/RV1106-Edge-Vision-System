@@ -1,0 +1,13 @@
+{
+  ls -l /dev/fb* 2>/dev/null
+  ls -l /dev/dri/* 2>/dev/null
+  cat /sys/class/graphics/fb0/name 2>/dev/null
+  cat /sys/class/graphics/fb0/virtual_size 2>/dev/null
+  cat /sys/class/graphics/fb0/bits_per_pixel 2>/dev/null
+  cat /sys/class/drm/*/status 2>/dev/null
+} > board_display.txt 2>&1
+
+crw-rw----    1 root     video      29,   0 Jan  1 12:07 /dev/fb0
+fb_st7789v
+320,240
+16

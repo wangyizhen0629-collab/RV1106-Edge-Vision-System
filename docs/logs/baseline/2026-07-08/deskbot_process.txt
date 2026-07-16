@@ -1,0 +1,52 @@
+Fri Jan  1 12:46:11 UTC 2021
+Name:	main
+Umask:	0022
+State:	S (sleeping)
+Tgid:	596
+Ngid:	0
+Pid:	596
+PPid:	440
+TracerPid:	0
+Uid:	0	0	0	0
+Gid:	0	0	0	0
+FDSize:	32
+Groups:	0 10
+VmPeak:	   28020 kB
+VmSize:	   26544 kB
+VmLck:	       0 kB
+VmPin:	       0 kB
+VmHWM:	   13060 kB
+VmRSS:	   12540 kB
+RssAnon:	    3928 kB
+RssFile:	    8612 kB
+RssShmem:	       0 kB
+VmData:	    7140 kB
+VmStk:	     132 kB
+VmExe:	    6256 kB
+VmLib:	   11420 kB
+VmPTE:	      30 kB
+VmSwap:	       0 kB
+CoreDumping:	0
+THP_enabled:	0
+Threads:	1
+SigQ:	1/433
+SigPnd:	0000000000000000
+ShdPnd:	0000000000000000
+SigBlk:	0000000000000000
+SigIgn:	0000000000000000
+SigCgt:	0000000180000000
+CapInh:	0000000000000000
+CapPrm:	000001ffffffffff
+CapEff:	000001ffffffffff
+CapBnd:	000001ffffffffff
+CapAmb:	0000000000000000
+NoNewPrivs:	0
+Seccomp:	0
+Seccomp_filters:	0
+Speculation_Store_Bypass:	unknown
+Cpus_allowed:	1
+Cpus_allowed_list:	0
+voluntary_ctxt_switches:	45235
+nonvoluntary_ctxt_switches:	1139
+596 (main) S 440 596 440 34816 596 4194304 1622 0 494 0 183 94 0 0 20 0 1 0 240421 27181056 3135 4294967295 65536 6468516 2932858208 0 0 0 0 0 0 1 0 0 17 0 0 0 0 0 0 6537576 6570032 7880704 2932858474 2932858481 2932858481 2932858869 0
+./main
