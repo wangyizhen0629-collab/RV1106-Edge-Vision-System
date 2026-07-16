@@ -6,7 +6,8 @@
 - [x] 初始化二次开发路线、基线和进度文档。
 - [x] 创建 Baseline 记录分支并完成主机侧 Git 状态记录。
 - [x] 初步归档 Baseline 板端系统、显示、摄像头 media graph 和 DeskBot 进程采样日志。
-- [ ] TODO：补齐 Baseline 的应用内 FPS、分段耗时、端到端延迟、完整 dmesg 和人工功能检查。
+- [x] 补充 Baseline 人工功能检查和 video/media 设备枚举分析。
+- [ ] TODO：补齐 Baseline 的应用内 FPS、分段耗时、端到端延迟、完整 dmesg，以及 framebuffer/DRM/input 直接枚举。
 - [ ] TODO：完成蓝色 LED DTS 使能/禁用与板端验证。
 - [ ] TODO：完成 SC3336 原厂/参考/Echo-Mate DTS 对比和摄像头链路验证。
 - [ ] TODO：实现 VI/VPSS 采图链路并完成前后性能对比。
@@ -70,15 +71,17 @@
   - 当前显示链路确认为 `/dev/fb0` + `fb_st7789v`，320×240，16 bpp；本次日志未枚举到 DRM 节点。
   - media graph 确认 `m00_b_sc3336 4-0030` 连接到 `rockchip-csi2-dphy0`、`rockchip-mipi-csi2` 和 rkcif。
   - rkcif 暴露 `/dev/video0` 到 `/dev/video10`，rkisp mainpath 暴露 `/dev/video11` 到 `/dev/video18` 和 `/dev/media1`。
+  - `board_devices.md` 已补充 video/media/V4L2 subdev 节点映射，推荐 YOLO baseline 输入节点为 `/dev/video11`，当前格式 `864x480 NV21`。
+  - 人工功能检查显示 GUI 首页、触摸/按键、摄像头画面、AI Chat、显示颜色/方向均正常。
+  - YOLO 页面整体可用，但进入时会有一瞬间花屏；检测框有时会过大，显示到屏幕外。
 - 性能数据：
   - DeskBot 进程样本：PID `596`，`VmRSS` 12540 kB，`VmHWM` 13060 kB。
   - 60 秒 `top` 采样中 `./main` CPU 平均约 46.6%，最小 38%，最大 50%；VSZ 稳定为 69208 kB。
 - 遗留问题：
-  - `function_check.md` 尚未记录人工功能检查结果。
-  - `board_devices.md` 原始直接设备枚举为空。
+  - framebuffer、DRM 和 input 的直接枚举仍需补采。
   - `board_dmesg.txt` 以 `fb_st7789v` 刷屏日志为主，尚不能替代完整启动 dmesg。
   - BoardConfig、实际 DTB、固件镜像名、YOLO 有效 FPS、分段耗时、端到端延迟和长稳运行数据仍待补。
-- 下一步：补采缺失的直接设备枚举和人工功能检查；随后进入 LED DTS 阶段。
+- 下一步：补采 framebuffer/DRM/input 直接枚举和完整启动 dmesg；随后进入 LED DTS 阶段。
 
 ### 2026-07-08：Baseline 主机侧记录初始化
 

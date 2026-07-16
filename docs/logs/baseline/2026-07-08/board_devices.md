@@ -493,15 +493,15 @@ Format: 864x480 NV21
 
 ## 11. Framebuffer / DRM / Input 节点状态
 
-当前尚未采集以下节点信息：
+本文件重点补充 video/media/V4L2 subdev 节点分析。Framebuffer 与 DRM 信息已在 `board_display.txt` 中初步记录，Input 节点仍需后续直接枚举。
 
 | 类型          | 节点                                        | 当前状态 |
 | ----------- | ----------------------------------------- | ---- |
-| Framebuffer | `/dev/fb*`                                | 待采集  |
-| DRM/KMS     | `/dev/dri/*`, `/sys/class/drm/`           | 待采集  |
+| Framebuffer | `/dev/fb*`                                | 已由 `board_display.txt` 确认 `/dev/fb0`、`fb_st7789v`、320x240、16 bpp |
+| DRM/KMS     | `/dev/dri/*`, `/sys/class/drm/`           | `board_display.txt` 未枚举到 `/dev/dri/*` 输出，仍建议后续专项复查 |
 | Input       | `/dev/input/*`, `/proc/bus/input/devices` | 待采集  |
 
-后续需要继续执行：
+后续若要补齐直接枚举，建议继续执行：
 
 ```bash
 echo "========== framebuffer =========="
@@ -523,7 +523,7 @@ ls -l /dev/input/* 2>/dev/null || echo "no /dev/input/*"
 cat /proc/bus/input/devices 2>/dev/null || echo "no /proc/bus/input/devices"
 ```
 
-Framebuffer / DRM 信息将用于判断当前屏幕显示链路是传统 framebuffer 方式，还是 DRM/KMS 方式。
+Framebuffer / DRM 信息将用于判断当前屏幕显示链路是传统 framebuffer 方式，还是 DRM/KMS 方式。当前 Baseline 结论倾向于传统 framebuffer/fbtft 路径。
 
 Input 信息将用于判断系统是否识别了触摸屏、按键、键盘、鼠标或其他输入设备。
 
@@ -558,38 +558,3 @@ SC3336 sensor → CSI-2 DPHY → MIPI CSI-2 → rkcif → rkisp → /dev/video11
 ```
 
 因此，当前 board devices baseline 的 video/media 部分状态良好。下一步应继续补充 framebuffer、DRM 和 input 节点枚举结果，并基于 `/dev/video11` 进行实际出帧测试和 YOLO 性能 baseline 采集。
-# Board device enumeration
-
-状态：待补采直接枚举
-
-原计划保存以下命令的直接输出：
-
-```bash
-ls -l /dev/video* 2>/dev/null
-ls -l /dev/media* 2>/dev/null
-ls -l /dev/fb* 2>/dev/null
-ls -l /dev/dri/* 2>/dev/null
-ls -l /dev/input/* 2>/dev/null
-ls -l /sys/class/drm 2>/dev/null
-ls -l /sys/class/graphics 2>/dev/null
-ls -l /sys/class/video4linux 2>/dev/null
-```
-
-本次该文件为空，暂未获得上述直接枚举结果。
-
-可从其它日志间接确认的节点：
-
-- `board_display.txt`：
-  - `/dev/fb0`
-  - `fb_st7789v`
-  - `320,240`
-  - `16` bpp
-- `board_camera_media.txt`：
-  - `/dev/media0`
-  - `/dev/media1`
-  - `/dev/video0` 到 `/dev/video20`
-  - `/dev/v4l-subdev0`
-  - `/dev/v4l-subdev1`
-  - `/dev/v4l-subdev2`
-
-后续建议补采直接枚举输出，特别是 `/dev/input/*`、`/dev/dri/*` 和 `/sys/class/drm`。

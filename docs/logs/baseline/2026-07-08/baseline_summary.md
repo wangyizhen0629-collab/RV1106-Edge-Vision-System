@@ -29,22 +29,30 @@
   - 样本数：60
   - `./main` CPU：平均约 46.6%，最小 38%，最大 50%
   - `./main` VSZ：69208 kB，采样期间保持稳定
+- 人工功能检查：
+  - GUI 首页、触摸/按键、摄像头画面、AI Chat、显示颜色/方向均正常。
+  - YOLO 页面整体可用，但进入时会有一瞬间花屏。
+  - YOLO 检测框有时会过大，显示到屏幕外。
+- 设备枚举分析：
+  - `board_devices.md` 已补充 video/media/V4L2 subdev 节点分析。
+  - 推荐 YOLO baseline 输入节点为 `/dev/video11`，格式为 `864x480 NV21`。
 
 ## 已归档原始日志
 
 - `host_git_state.md`：主机侧 Git 状态。
 - `board_system_info.md`：板端内核、启动参数、RootFS 和分区信息。
 - `board_display.txt`：fbdev/ST7789V 显示节点信息。
+- `board_devices.md`：video/media/V4L2 subdev 节点分析与 YOLO 输入节点建议。
 - `board_camera_media.txt`：`media-ctl`、`v4l2-ctl` 输出。
 - `board_dmesg.txt`：本次保存的 dmesg 片段。
 - `board_key_dmesg.txt`：本次保存的关键 dmesg 片段。
 - `deskbot_process.txt`：`/proc/<pid>/status`、`stat`、`cmdline` 输出。
 - `deskbot_yolo_top_60s.txt`：YOLO 页面运行期间 60 秒 `top` 采样。
+- `function_check.md`：人工功能检查记录。
 
 ## 当前缺口
 
-- `function_check.md` 未记录人工功能检查结果，GUI、触摸、YOLO 画面、AI Chat、显示颜色/方向仍需补充。
-- `board_devices.md` 原始直接设备枚举为空；当前只能从 display/media 日志间接确认部分节点。
+- `board_devices.md` 已补充 video/media 节点分析，但 framebuffer、DRM 和 input 的直接枚举仍需补采。
 - `board_dmesg.txt` 内容以 `fb_st7789v` 刷屏日志为主，未覆盖完整启动 dmesg；后续 LED、SC3336、DRM 阶段仍建议重新保存完整启动日志。
 - 尚未记录 BoardConfig、实际顶层 DTS/DTB、固件镜像名和烧录方式。
 - 尚未采集应用内 YOLO 有效 FPS、分段耗时、端到端延迟和长稳运行数据。

@@ -2,7 +2,7 @@
 
 ## 基线说明
 
-当前基线是“原开源 Echo-Mate / DeskBot 已在 RV1106 板子上完整复现全部功能”。本文依据仓库现状梳理软件结构和数据流，并已归档一轮板端 Baseline 日志；板卡修订、BoardConfig、实际 DTB、应用内 FPS/延迟和人工功能检查仍需继续补齐。
+当前基线是“原开源 Echo-Mate / DeskBot 已在 RV1106 板子上完整复现全部功能”。本文依据仓库现状梳理软件结构和数据流，并已归档一轮板端 Baseline 日志；板卡修订、BoardConfig、实际 DTB、应用内 FPS/延迟、分段耗时和完整启动 dmesg 仍需继续补齐。
 
 任何性能优化开始前，应记录对应 Git commit、SDK/固件版本、BoardConfig、顶层 DTS/DTB、内核版本、测试场景和采样方法。
 
@@ -30,13 +30,14 @@
 - 显示：当前板端枚举到 `/dev/fb0`，`fb0` 名称为 `fb_st7789v`，分辨率 `320,240`，位深 `16`；`board_display.txt` 未显示 `/dev/dri/*`。
 - 摄像头：media graph 中存在 `m00_b_sc3336 4-0030`，格式 `SBGGR10_1X10/2304x1296@10000/250000`，链路为 `SC3336 -> rockchip-csi2-dphy0 -> rockchip-mipi-csi2 -> rkcif`。
 - 视频节点：rkcif 暴露 `/dev/video0` 到 `/dev/video10`；rkisp mainpath 暴露 `/dev/video11` 到 `/dev/video18` 和 `/dev/media1`；rkisp statistics 暴露 `/dev/video19`、`/dev/video20`。
+- 设备枚举分析：`board_devices.md` 已补充 video/media/V4L2 subdev 节点映射；推荐 YOLO baseline 输入节点为 `/dev/video11`，当前格式 `864x480 NV21`。
 - DeskBot 进程样本：`main`，PID `596`，`VmRSS` 12540 kB，`VmHWM` 13060 kB。
 - YOLO/DeskBot 外部采样：60 个 `top` 样本中，`./main` CPU 平均约 46.6%，最小 38%，最大 50%；VSZ 为 69208 kB。
+- 人工功能检查：GUI 首页、触摸/按键、摄像头画面、AI Chat、显示颜色/方向均正常；YOLO 页面整体可用，但进入时会有一瞬间花屏，检测框有时会过大并显示到屏幕外。
 
 仍需补齐：
 
-- `function_check.md` 尚未记录人工功能检查结果。
-- `board_devices.md` 的直接设备枚举为空，只能从 display/media 日志间接确认部分节点。
+- `board_devices.md` 已补充 video/media 节点分析，但 framebuffer、DRM 和 input 的直接枚举仍需补采。
 - `board_dmesg.txt` 内容以 `fb_st7789v` 刷屏日志为主，尚不能替代完整启动 dmesg。
 - BoardConfig、实际顶层 DTS/DTB、固件镜像名、烧录方式、YOLO 有效 FPS、分段耗时、端到端延迟和长稳运行数据仍待补采。
 
@@ -55,6 +56,7 @@
 - `AIcamera_c_interface.cc` 创建独立 pthread，加载 RKNN YOLOv5 模型并执行推理、后处理和画框。
 - 当前输出方式是将已画框画面的 RGB565 像素复制到 `yolo_pic_buf`，DeskBot/LVGL 侧读取像素缓冲刷新页面。
 - 当前代码存在采集、缩放、推理、画框、再次缩放、颜色转换和内存复制等环节，后续优化需要逐段计时，不能只比较最终 FPS。
+- 板端设备枚举建议后续优先围绕 `/dev/video11` 复测 YOLO 输入，因为该节点是 `rkisp_mainpath`，当前输出 `864x480 NV21`；`/dev/video0` 当前默认是 `2304x1296 BG10` raw Bayer，不建议作为 YOLO 首选输入节点。
 
 当前主要链路：
 
@@ -170,10 +172,10 @@ TODO：记录当前实机所选 lunch/BoardConfig、输出固件名、烧录方�
 | 进程 CPU 占用 | 初采：`top` 60 样本，`./main` 平均约 46.6%，最小 38%，最大 50% | `top`/`pidstat` 或 `/proc/<pid>/stat` 周期采样 | 固定采样周期和运行时长 |
 | RSS/峰值内存 | 初采：`VmRSS` 12540 kB，`VmHWM` 13060 kB；`top` VSZ 69208 kB | `/proc/<pid>/status` 的 VmRSS/VmHWM | 记录进入/退出 YOLO 前后 |
 | 启动时间 | TODO | 从进程启动到首页可交互；YOLO 页面另测首次出帧 | 每项至少 3 次 |
-| 丢帧/超时 | TODO | 应用计数器、VI/V4L2 日志 | 记录总帧数和错误类型 |
+| 丢帧/超时 | 初采：YOLO 页面进入时有一瞬间花屏；检测框偶尔过大显示到屏幕外 | 应用计数器、VI/V4L2 日志 | 记录总帧数和错误类型 |
 | 长稳运行 | TODO | 连续运行 30 分钟起步 | 记录温度、内存趋势、错误日志 |
 | 显示刷新率/撕裂 | 初采：`/dev/fb0`，`fb_st7789v`，320×240，16 bpp；DRM 未枚举 | DRM/fbdev 状态与可视化测试 | 记录接口、像素格式、旋转 |
-| AI Chat 时延 | TODO | listening→thinking→speaking 分段时间戳 | 固定网络与服务端模型 |
+| AI Chat 时延 | 功能正常，时延未量化 | listening→thinking→speaking 分段时间戳 | 固定网络与服务端模型 |
 
 ## Baseline 采集清单
 
@@ -181,8 +183,8 @@ TODO：记录当前实机所选 lunch/BoardConfig、输出固件名、烧录方�
 - [ ] TODO：记录板型、硬件修订、SC3336 模组、ST7789V 屏幕和供电方式。
 - [ ] TODO：记录 BoardConfig、顶层 DTS/DTB、固件镜像名和烧录方式；内核版本和 rootfs 信息已初采。
 - [ ] TODO：保存完整启动 `dmesg`（本次只归档到显示刷屏相关 dmesg 片段）。
-- [ ] TODO：保存 `/dev/video*`、`/dev/media*`、`/dev/fb*`、`/dev/dri/*` 直接枚举（本次 `board_devices.md` 为空，已从其它日志间接确认部分节点）。
+- [ ] TODO：保存 framebuffer、DRM 和 input 的直接枚举；video/media/V4L2 subdev 节点分析已补充到 `board_devices.md`。
 - [x] 保存 `media-ctl -p` 和关键 `v4l2-ctl --all` 输出。
 - [ ] TODO：采集完整 YOLO 性能数据（本次已初采 CPU、RSS/峰值内存和 VSZ；FPS、分段耗时、端到端延迟待补）。
-- [ ] TODO：记录 GUI、AI Chat、摄像头和显示的功能性检查结果。
+- [x] 记录 GUI、AI Chat、摄像头和显示的功能性检查结果。
 - [x] 将日志路径和初步结果回填到 `docs/PROGRESS.md`。
