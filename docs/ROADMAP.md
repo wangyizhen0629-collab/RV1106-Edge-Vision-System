@@ -55,8 +55,10 @@ ls -l /dev/video* /dev/media* /dev/fb* /dev/dri/* 2>/dev/null
 ### 目标
 
 - 找到 Echo-Mate 蓝色 LED 对应 GPIO、极性、pinctrl 和 `gpio-leds` 节点。
-- 分别验证设备树使能、禁用以及亮灭/trigger 控制。
+- 完成设备树使能配置，并理解亮灭/trigger 控制方式。
 - 理解设备树节点到 LED class sysfs 的映射关系。
+
+当前阶段范围已收口为蓝色 LED DTS 使能代码接入；不再单独制作禁用节点固件做反向对照。板端使能验证若随后续固件更新执行，再追加到进度记录，不虚写为已验证。
 
 ### 涉及目录
 
@@ -73,7 +75,7 @@ ls -l /dev/video* /dev/media* /dev/fb* /dev/dri/* 2>/dev/null
 
 - 最小 DTS/DTSI 改动。
 - LED 节点、GPIO、有效电平和 pinctrl 的说明。
-- 启用/禁用两组板端日志和实物观察结果。
+- 使能配置记录；若执行板端烧录，则补充 sysfs 日志和实物观察结果。
 
 ### 建议验证命令
 
@@ -94,9 +96,9 @@ echo 0 > /sys/class/leds/<led-name>/brightness
 
 ### 完成标准
 
-- LED 节点启用时 sysfs 设备和实物控制均符合预期。
-- LED 节点禁用时 sysfs 枚举变化符合预期，且无新增关键内核错误。
-- 构建、烧录、回退和验证过程均有记录。
+- DTS/defconfig 使能改动明确，GPIO、有效电平、trigger 和资源占用关系均有记录。
+- 若执行板端构建和烧录，LED 节点启用后的 sysfs 枚举、亮灭和 trigger 控制符合预期，且无新增关键内核错误。
+- 专门的禁用节点对照验证不再纳入本阶段完成标准；未执行的板端步骤必须在进度记录中注明。
 
 ## 阶段 2：SC3336 DTS / Camera Pipeline
 

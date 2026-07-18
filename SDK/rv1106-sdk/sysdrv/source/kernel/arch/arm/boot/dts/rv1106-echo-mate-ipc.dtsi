@@ -51,11 +51,23 @@
 	};
 	leds: leds {
 		compatible = "gpio-leds";
+		pinctrl-names = "default";
+		pinctrl-0 = <&gpio0_pa4>;
+
 		work_led: work{
 			gpios = <&gpio0 RK_PA3 GPIO_ACTIVE_HIGH>;
 			linux,default-trigger = "activity";
 			default-state = "on";
-		};	
+		};
+
+		blue_led: blue {
+			label = "echo-mate:blue:status";
+			gpios = <&gpio0 RK_PA4 GPIO_ACTIVE_HIGH>;
+			linux,default-trigger = "timer";
+			led-pattern = <500 500>;
+			default-state = "off";
+			status = "okay";
+		};
 	};
 
 	backlight: backlight {
@@ -78,6 +90,7 @@
         pinctrl-0 = <&gpio0_pa4>;
         regulator-name = "gpio0_pa4";
         regulator-always-on;
+		status = "disabled";
     };
 
 };
@@ -439,5 +452,4 @@
 
 
 };
-
 
