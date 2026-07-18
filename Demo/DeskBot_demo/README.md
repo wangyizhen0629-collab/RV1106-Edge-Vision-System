@@ -25,17 +25,20 @@
     注意更改conf/dev_conf, 将`LV_USE_SIMULATOR`置`0`
 
     ```sh
-    cd ./build
-    cmake .. -DTARGET_ARM=ON
-    make
+    cd ./DeskBot_demo
+    cmake -S . -B build-arm -DTARGET_ARM=ON -DCMAKE_BUILD_TYPE=Release
+    cmake --build build-arm --target main -j4
     ```
+
+    ARM 构建请使用独立的 `build-arm` 目录，不要复用桌面仿真的 `build` 目录，
+    否则 CMake 会继续使用缓存中的 x86 编译器。
 
     然后把可执行文件所在的文件夹`/bin`, copy到开发板, 在开发板上就能运行了
 
     **注意:** 
 
     ```sh
-    cd ../bin
+    cd bin
     ./main
     ```
 

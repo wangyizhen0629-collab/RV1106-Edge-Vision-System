@@ -3,6 +3,28 @@ cmake_minimum_required(VERSION 3.10)
 # Option to choose target architecture
 option(TARGET_ARM "Build for ARM architecture" OFF)
 
+# The current codebase supports exactly two platform combinations:
+# x86 simulator, or the RV1106 hardware target.  Catch a mixed setup before
+# hardware-only symbols reach the final link step.
+file(STRINGS "${CMAKE_CURRENT_SOURCE_DIR}/conf/dev_conf.h"
+    DESKBOT_SIMULATOR_DEFINE
+    REGEX "^[ \t]*#[ \t]*define[ \t]+LV_USE_SIMULATOR[ \t]+[01]([ \t]|$)")
+if(NOT DESKBOT_SIMULATOR_DEFINE)
+    message(FATAL_ERROR
+        "conf/dev_conf.h must define LV_USE_SIMULATOR as either 0 or 1.")
+endif()
+string(REGEX REPLACE ".*LV_USE_SIMULATOR[ \t]+([01]).*" "\\1"
+    DESKBOT_SIMULATOR "${DESKBOT_SIMULATOR_DEFINE}")
+
+if(TARGET_ARM AND NOT "${DESKBOT_SIMULATOR}" STREQUAL "0")
+    message(FATAL_ERROR
+        "TARGET_ARM=ON requires LV_USE_SIMULATOR=0 in conf/dev_conf.h.")
+elseif(NOT TARGET_ARM AND NOT "${DESKBOT_SIMULATOR}" STREQUAL "1")
+    message(FATAL_ERROR
+        "LV_USE_SIMULATOR=0 requires an ARM build. Configure a fresh directory "
+        "with: cmake -S . -B build-arm -DTARGET_ARM=ON")
+endif()
+
 # If building for ARM, set the toolchain file before anything else
 if(TARGET_ARM)
     if(NOT DEFINED CMAKE_TOOLCHAIN_FILE)
@@ -14,12 +36,13 @@ else()
     message(STATUS "Building for x86 native architecture.")
 endif()
 
-if(TARGET_ARM)
-    # 设置交叉编译环境下 pkg-config 使用的路径
-    set(ENV{PKG_CONFIG_PATH} "${CMAKE_SYSROOT}/usr/lib/pkgconfig")
-endif()
-
 project(DeskBot)
+
+if(TARGET_ARM AND NOT CMAKE_CROSSCOMPILING)
+    message(FATAL_ERROR
+        "TARGET_ARM=ON but the ARM toolchain is not active. Use a fresh "
+        "build-arm directory instead of reusing an x86 CMake cache.")
+endif()
 
 set(CMAKE_C_STANDARD 99)#C99 # lvgl officially support C99 and above
 set(CMAKE_CXX_STANDARD 17)#C17
@@ -53,9 +76,11 @@ target_link_libraries(
 include(${CMAKE_CURRENT_LIST_DIR}/lvgl/tests/FindLibDRM.cmake)
 include_directories(${Libdrm_INCLUDE_DIRS})
 
-find_package(SDL2)
-find_package(SDL2_image)
-include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_IMAGE_INCLUDE_DIRS})
+if(NOT TARGET_ARM)
+    find_package(SDL2)
+    find_package(SDL2_image)
+    include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_IMAGE_INCLUDE_DIRS})
+endif()
 
 target_link_libraries(main lvgl lvgl::examples lvgl::demos lvgl::thorvg ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES} ${Libdrm_LIBRARIES} m pthread)
 add_custom_target (run COMMAND ${OUTPUT_PATH}/main DEPENDS main)

@@ -9,6 +9,7 @@ demo
 *.obj
 *.elf
 /build/
+/build-arm/
 /bin/
 
 # Linker output
