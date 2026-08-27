@@ -1,0 +1,29 @@
+Sitronix ST7789V display using the SPI pixel interface
+
+This binding describes an ST7789V controller using MIPI DBI Type C option 3:
+8-bit SPI data plus a dedicated data/command GPIO. It is distinct from the
+"sitronix,st7789v" binding, where SPI carries control commands and pixels are
+provided by a separate parallel RGB/DPI bus.
+
+Required properties:
+- compatible: must be "sitronix,st7789v-dbi"
+- reg: SPI chip select
+- spi-max-frequency: maximum SPI clock frequency
+- dc-gpios: data/command selection; physical low is command and high is data
+- reset-gpios: reset signal, normally GPIO_ACTIVE_LOW
+
+Optional properties:
+- backlight: phandle of the backlight device attached to the panel
+- rotation: panel rotation in degrees counter-clockwise (0, 90, 180 or 270)
+
+Example:
+
+	display@0 {
+		compatible = "sitronix,st7789v-dbi";
+		reg = <0>;
+		spi-max-frequency = <60000000>;
+		dc-gpios = <&gpio1 24 GPIO_ACTIVE_HIGH>;
+		reset-gpios = <&gpio1 20 GPIO_ACTIVE_LOW>;
+		rotation = <270>;
+		backlight = <&backlight>;
+	};

@@ -210,7 +210,7 @@ dmesg | tail -n 200
 - `Demo/DeskBot_demo/lvgl/src/drivers/display/drm/`
 - `docs/`
 
-已确认 `rv1106-echo-mate-ipc.dtsi` 中存在 `compatible = "sitronix,st7789v"`，最终驱动绑定和生效配置仍须通过内核源码、config 与板端日志验证。
+阶段一确认旧链路由 `fbtft@0`/`sitronix,st7789v` 绑定 `fb_st7789v`。阶段二已完成：新增 `sitronix,st7789v-dbi` TinyDRM 驱动、切换 DTS/defconfig、解绑 fbtft，并修复 Rockchip SPI 奇数分片导致的 16-bit partial word。实机确认 connector connected、mode 320×240，颜色/方向/offset/刷新正常，Home/YOLO 持续运行约 30 分钟。下一步接入 LVGL linux_drm 并采集性能数据。
 
 ### 预期产出
 

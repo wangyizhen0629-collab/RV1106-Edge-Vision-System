@@ -1137,6 +1137,12 @@ int mipi_dbi_spi_transfer(struct spi_device *spi, u32 speed_hz,
 	size_t chunk;
 	int ret;
 
+	/*
+	 * __spi_validate() rejects partial words. Align the controller's
+	 * maximum transfer size so 16-bit pixel transfers remain valid.
+	 */
+	max_chunk = ALIGN_DOWN(max_chunk, 2);
+
 	spi_message_init_with_transfers(&m, &tr, 1);
 
 	while (len) {

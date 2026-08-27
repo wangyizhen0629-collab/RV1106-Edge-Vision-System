@@ -11,7 +11,8 @@
 - [x] 完成蓝色 LED DTS 使能、SDK 构建与固件打包；禁用节点对照验证不再纳入本阶段，未执行的板端验证已在历史记录中注明。
 - [ ] TODO：完成 SC3336 原厂/参考/Echo-Mate DTS 对比和摄像头链路验证。
 - [ ] TODO：实现 VI/VPSS 采图链路并完成前后性能对比。
-- [ ] TODO：完成 ST7789V DRM/tinyDRM/mipi-dbi 调研、适配和 LVGL 接入。
+- [x] ST7789V DRM 阶段一完成：Home/YOLO 实机 FB 基线、运行时链路、驱动迁移参数和人工视觉结果均已固化；实测 SCLK/reset/DC 波形未采集，作为非阻塞证据限制保留。
+- [x] ST7789V DRM 阶段二完成：mipi-dbi TinyDRM 驱动、fbtft 解绑和 16-bit SPI 分片修复已通过实机验证；DRM connector connected、mode 320×240，颜色/方向/offset/刷新正常，Home/YOLO 持续运行约 30 分钟。
 - [ ] TODO：形成最终 Performance Report。
 
 ## 记录约定

@@ -326,18 +326,14 @@
 		reg = <0>;
 	};
 
-	fbtft@0{
-		compatible = "sitronix,st7789v";
+	st7789v: display@0 {
+		compatible = "sitronix,st7789v-dbi";
 		reg = <0>;
 		spi-max-frequency = <60000000>;
-		fps = <60>;
-		buswidth = <8>;
-		debug = <0x7>;
-		rotate = <270>;
-		//bgr = <1>;	//RGB->BGR
-		//led-gpios = <&gpio1 RK_PC5 GPIO_ACTIVE_HIGH>;		//BL
-		dc-gpios = <&gpio1 RK_PD0 GPIO_ACTIVE_HIGH>;		//DC
-		reset-gpios = <&gpio1 RK_PC4 GPIO_ACTIVE_LOW>;		//RES
+		rotation = <270>;
+		backlight = <&backlight>;
+		dc-gpios = <&gpio1 RK_PD0 GPIO_ACTIVE_HIGH>;
+		reset-gpios = <&gpio1 RK_PC4 GPIO_ACTIVE_LOW>;
 	};
 };
 // I2C
