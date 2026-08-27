@@ -19,6 +19,9 @@ lv_image_dsc_t img_dsc = {
 };
 lv_obj_t *img_cam; //要显示图像
 static bool _first_into = true;
+static bool _camera_ready = false;
+static uint64_t _last_frame_sequence = 0;
+static uint8_t *_img_buffer = NULL;
 
 static lv_timer_t * timer;
 ///////////////////// ANIMATIONS ////////////////////
@@ -38,41 +41,60 @@ static void ui_enent_Gesture(lv_event_t * e)
     }
 }
 #if LV_USE_SIMULATOR == 0
-static void _ai_camera_init()
+static int _ai_camera_init(void)
 {
     const char * model_path = "./model/yolov5.rknn";
-    start_ai_camera(model_path);
+    return start_ai_camera(model_path);
 }
 
-static void _ai_camera_deinit()
+static void _ai_camera_deinit(void)
 {
-    stop_ai_camera();
+    if(_camera_ready)
+    {
+        stop_ai_camera();
+        _camera_ready = false;
+    }
 }
 #endif
 
-static void timer_flash()
+static void timer_flash(lv_timer_t * timer_instance)
 {
+    (void)timer_instance;
 #if LV_USE_SIMULATOR == 0
     if(_first_into)
     {
         _first_into = false;
         // 分配内存给 img_dsc.data
-        img_dsc.data = (uint8_t *)malloc(320 * 240 * 2);
-        if (!img_dsc.data) {
+        _img_buffer = (uint8_t *)malloc(320 * 240 * 2);
+        img_dsc.data = _img_buffer;
+        if (!_img_buffer) {
             printf("Failed to allocate memory for img_dsc.data\n");
             // show msg box
             ui_msgbox_info("Error", "Failed to allocate memory for img_dsc.data");
-            // 停止
-            stop_ai_camera();
             // 返回上一页
             lv_lib_pm_OpenPrePage(&page_manager);
+            return;
         }
-        _ai_camera_init();
+        if(_ai_camera_init() != 0)
+        {
+            printf("Failed to start AI camera\n");
+            ui_msgbox_info("Error", "Failed to start AI camera");
+            lv_lib_pm_OpenPrePage(&page_manager);
+            return;
+        }
+        _camera_ready = true;
     }
-    else
+    else if(_camera_ready)
     {
-        get_buf_data(img_dsc.data);
-        lv_img_set_src(img_cam, &img_dsc);
+        uint64_t frame_sequence = 0;
+        if(get_buf_data_ex(_img_buffer, img_dsc.data_size,
+                           &frame_sequence) == 0 &&
+           frame_sequence != _last_frame_sequence)
+        {
+            _last_frame_sequence = frame_sequence;
+            lv_img_set_src(img_cam, &img_dsc);
+            lv_obj_invalidate(img_cam);
+        }
     }
 #endif
 }
@@ -83,6 +105,8 @@ void ui_YOLOPage_init(void)
 {
 
     _first_into = true;
+    _camera_ready = false;
+    _last_frame_sequence = 0;
 
     lv_obj_t * ui_YOLOPage = lv_obj_create(NULL);
 
@@ -107,7 +131,8 @@ void ui_YOLOPage_deinit(void)
 #if LV_USE_SIMULATOR == 0
     _ai_camera_deinit();
     // 释放 img_dsc.data 分配的内存
-    free(img_dsc.data);
+    free(_img_buffer);
+    _img_buffer = NULL;
     img_dsc.data = NULL;
 #endif
     lv_timer_del(timer);

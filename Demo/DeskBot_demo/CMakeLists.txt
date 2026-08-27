@@ -168,6 +168,13 @@ if(TARGET_ARM)
         "${AI_CAMERA_PATH}/cpp/3rdparty/librga/Linux/armhf_uclibc/librga.so"
         "${AI_CAMERA_PATH}/cpp/3rdparty/rknpu2/Linux/armhf-uclibc/librknnmrt.so"
     )
+    if(ENABLE_RK_MPI_PIPELINE)
+        list(APPEND SHARED_LIBS
+            "${RV1106_SDK_PATH}/media/rockit/out/lib/librockit.so"
+            "${RV1106_SDK_PATH}/media/mpp/out/lib/librockchip_mpp.so.1"
+            "${RV1106_SDK_PATH}/media/isp/out/lib/librkaiq.so"
+        )
+    endif()
 
     # 创建目标目录
     add_custom_command(

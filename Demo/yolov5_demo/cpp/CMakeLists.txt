@@ -8,6 +8,8 @@ message(STATUS "Building for ARM using toolchain file: ${CMAKE_TOOLCHAIN_FILE}")
 
 project(rknn_yolov5_demo)
 
+option(ENABLE_RK_MPI_PIPELINE "Enable the RV1106 VI/VPSS camera backend" ON)
+
 if (ENABLE_ASAN)
 	message(STATUS "BUILD WITH ADDRESS SANITIZER")
 	set (CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -fno-omit-frame-pointer -fsanitize=address")
@@ -42,6 +44,63 @@ add_library(yoloCameraCore STATIC
     AIcamera_c_interface.cc
     ${rknpu2_yolov5_file}
 )
+target_compile_features(yoloCameraCore PUBLIC cxx_std_17)
+
+if(ENABLE_RK_MPI_PIPELINE)
+    if(NOT DEFINED RV1106_SDK_PATH)
+        get_filename_component(ECHO_MATE_ROOT
+            "${CMAKE_CURRENT_SOURCE_DIR}/../../.." ABSOLUTE)
+        set(RV1106_SDK_PATH "${ECHO_MATE_ROOT}/SDK/rv1106-sdk"
+            CACHE PATH "Path to the RV1106 SDK")
+    endif()
+
+    set(RK_MPI_INCLUDE_DIR
+        "${RV1106_SDK_PATH}/media/rockit/rockit/mpi/sdk/include")
+    set(RK_MPI_LIBRARY
+        "${RV1106_SDK_PATH}/media/rockit/out/lib/librockit.so")
+    set(RK_MPP_LIBRARY
+        "${RV1106_SDK_PATH}/media/mpp/out/lib/librockchip_mpp.so.0")
+    set(RK_RGA_LIBRARY
+        "${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/librga/Linux/armhf_uclibc/librga.so")
+    set(RKAIQ_INCLUDE_ROOT
+        "${RV1106_SDK_PATH}/media/isp/out/include/rkaiq")
+    set(RKAIQ_LIBRARY
+        "${RV1106_SDK_PATH}/media/isp/out/lib/librkaiq.so")
+
+    foreach(REQUIRED_PATH
+            "${RK_MPI_INCLUDE_DIR}"
+            "${RK_MPI_LIBRARY}"
+            "${RK_MPP_LIBRARY}"
+            "${RK_RGA_LIBRARY}"
+            "${RKAIQ_INCLUDE_ROOT}"
+            "${RKAIQ_LIBRARY}")
+        if(NOT EXISTS "${REQUIRED_PATH}")
+            message(FATAL_ERROR
+                "RV1106 media dependency is missing: ${REQUIRED_PATH}")
+        endif()
+    endforeach()
+
+    target_sources(yoloCameraCore PRIVATE rk_media_pipeline.cc)
+    target_compile_definitions(yoloCameraCore PRIVATE
+        DESKBOT_HAS_RK_MPI=1
+        DESKBOT_HAS_RKAIQ=1)
+    target_include_directories(yoloCameraCore SYSTEM PRIVATE
+        "${RK_MPI_INCLUDE_DIR}"
+        "${RKAIQ_INCLUDE_ROOT}"
+        "${RKAIQ_INCLUDE_ROOT}/common"
+        "${RKAIQ_INCLUDE_ROOT}/uAPI2"
+        "${RKAIQ_INCLUDE_ROOT}/algos"
+        "${RKAIQ_INCLUDE_ROOT}/iq_parser"
+        "${RKAIQ_INCLUDE_ROOT}/iq_parser_v2"
+        "${RKAIQ_INCLUDE_ROOT}/xcore"
+        "${RKAIQ_INCLUDE_ROOT}/xcore/base")
+    target_link_libraries(yoloCameraCore
+        "${RK_MPI_LIBRARY}"
+        "${RK_MPP_LIBRARY}"
+        "${RK_RGA_LIBRARY}"
+        "${RKAIQ_LIBRARY}"
+        dl)
+endif()
 
 # Link libraries for opus and websocketpp
 target_link_libraries(yoloCameraCore
@@ -58,6 +117,11 @@ target_include_directories(yoloCameraCore PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/allocator/dma
     ${OpenCV_LIBS}
 )
+
+set_source_files_properties(
+    AIcamera_c_interface.cc
+    rk_media_pipeline.cc
+    PROPERTIES COMPILE_OPTIONS "-Wall;-Wextra;-Werror")
 
 # add_executable(c_face_test main2.cc)
 # target_link_libraries(c_face_test yoloCameraCore)

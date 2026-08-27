@@ -16,6 +16,8 @@
 #ifndef _RKNN_DEMO_YOLOV5_H_
 #define _RKNN_DEMO_YOLOV5_H_
 
+#include <stddef.h>
+
 #include "rknn_api.h"
 #include "common.h"
 #if defined(RV1106_1103) 
@@ -52,5 +54,11 @@ int init_yolov5_model(const char* model_path, rknn_app_context_t* app_ctx);
 int release_yolov5_model(rknn_app_context_t* app_ctx);
 
 int inference_yolov5_model(rknn_app_context_t* app_ctx,  object_detect_result_list* od_results);
+
+int inference_yolov5_model_dmabuf(rknn_app_context_t* app_ctx,
+                                  int dma_buf_fd,
+                                  void* virt_addr,
+                                  size_t buffer_size,
+                                  object_detect_result_list* od_results);
 
 #endif //_RKNN_DEMO_YOLOV5_H_
