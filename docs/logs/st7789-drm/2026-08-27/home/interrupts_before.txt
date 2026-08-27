@@ -1,0 +1,42 @@
+[interrupts before samples]
+           CPU0       
+ 17:     349900     GIC-0  29 Level     arch_timer
+ 19:          0     GIC-0 157 Edge      debug-signal
+ 20:          0     GIC-0 118 Level     rknpor_powergood
+ 21:          0     GIC-0 130 Level     RTC alarm
+ 22:       2571     GIC-0  94 Level     ff3c0000.saradc
+ 23:          0     GIC-0 129 Level     rockchip_thermal
+ 24:       1710     GIC-0  95 Level     ff420000.dma-controller
+ 25:          0     GIC-0  96 Level     ff420000.dma-controller
+ 26:          0     GIC-0  97 Level     ff420000.dma-controller
+ 27:          0     GIC-0  98 Level     ff420000.dma-controller
+ 28:          0     GIC-0  99 Level     ff420000.dma-controller
+ 29:          0     GIC-0 100 Level     ff420000.dma-controller
+ 30:          0     GIC-0 101 Level     ff420000.dma-controller
+ 31:          0     GIC-0 102 Level     ff420000.dma-controller
+ 32:          0     GIC-0 111 Level     ff420000.dma-controller
+ 34:          2     GIC-0  53 Level     ff460000.i2c
+ 35:          1     GIC-0  54 Level     ff470000.i2c
+ 36:        252     GIC-0  55 Level     ff500000.spi
+ 37:          0     GIC-0 141 Level     ff660000.npu
+ 38:          0     GIC-0 119 Level     rga2
+ 39:      48802     GIC-0  81 Level     dw-mci
+ 40:          0     GIC-0 137 Level     rkisp_hw
+ 41:          0     GIC-0 136 Level     rkisp_hw
+ 42:          0     GIC-0 135 Level     rkisp_hw
+ 43:          0     GIC-0 138 Level     rkcifhw
+ 44:          0     GIC-0 131 Level     rockchip-mipi-csi2
+ 45:          0     GIC-0 132 Level     rockchip-mipi-csi2
+ 46:          0     GIC-0 139 Level     ffa50000.rkvenc
+ 47:          0     GIC-0 140 Level     ffa60000.rkvenc-pp
+ 48:          0     GIC-0 148 Level     ffa70000.rkdvbm
+ 49:       4942     GIC-0  84 Level     dw-mci
+ 50:          0     GIC-0  85 Level     ffac0000.spi
+ 52:          0     GIC-0 112 Level     i2s
+ 59:          0     GIC-0  92 Level     rockchip_usb2phy_ls
+ 60:          0     GIC-0  90 Level     rockchip_usb2phy_bvalid
+ 61:          0     GIC-0  91 Level     rockchip_usb2phy_id
+ 62:       2066     GIC-0  86 Level     dwc3
+ 63:          0  rockchip_gpio_irq  23 Level     fts
+FIQ:              fiq_glue
+Err:          0

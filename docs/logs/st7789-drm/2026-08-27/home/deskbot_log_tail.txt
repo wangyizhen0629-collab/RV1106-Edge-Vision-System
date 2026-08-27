@@ -1,0 +1,361 @@
+[DeskBot log tail]
++ cd /userdata/deskbot
++ export 'LD_LIBRARY_PATH=/oem/usr/share/deskbot/lib:/oem/usr/lib:/oem/usr/lib:/oem/lib:'
++ exec /oem/usr/share/deskbot/main
+opencv-mobile MIPI CSI camera with v4l2 rkaiq
+getaddrinfo failed: No such file or directory
+[Warn]	(205.335, +205335)	 _sys_para_init: Get time from NTP failed, use system time. ui.c:176
+[User]	(205.569, +234)	 _sys_para_init: Manual location city: 东城区, adcode: 110101 ui.c:208
+[User]	(205.569, +0)	 _sys_para_init: System para init done. ui.c:210
+getaddrinfo failed: No such file or directory
+[Warn]	(206.614, +1045)	 _maintimer_cb: Get time from NTP failed, use system time. ui.c:253
+opencv-mobile MIPI CSI camera with v4l2 rkaiq
+getaddrinfo failed: No such file or directory
+[Warn]	(255.869, +255869)	 _sys_para_init: Get time from NTP failed, use system time. ui.c:176
+[User]	(256.027, +158)	 _sys_para_init: Manual location city: 东城区, adcode: 110101 ui.c:208
+[User]	(256.027, +0)	 _sys_para_init: System para init done. ui.c:210
+getaddrinfo failed: No such file or directory
+[Warn]	(257.054, +1027)	 _maintimer_cb: Get time from NTP failed, use system time. ui.c:253
+[User]	(294.592, +37538)	 ui_SettingPage_init: SettingPage sub menus created. ui_SettingPage.c:1314
+[User]	(297.800, +3208)	 back_event_handler: Save system parameters. ui_SettingPage.c:21
+RTVersion        12:05:00-827 {dump              :064} ---------------------------------------------------------
+RTVersion        12:05:00-831 {dump              :065} rockit version: git-8cb4d25b8 Tue Feb 28 11:12:39 2023 +0800
+RTVersion        12:05:00-831 {dump              :066} rockit building: built- 2023-02-28 15:23:19
+RTVersion        12:05:00-831 {dump              :067} ---------------------------------------------------------
+(null)           12:05:00-832 {read_log_level    :093} text is all=4
+(null)           12:05:00-832 {read_log_level    :095} module is all, log_level is 4
+(null)           12:05:00-834 {monitor_log_level :144} #Start monitor_log_level thread, arg:(nil)
+RKViChn          12:05:00-862 {prepareRuntime    :334} ---------------------------------------------------------
+RKViChn          12:05:00-862 {prepareRuntime    :336} vi version: 1.86, name:vvi
+RKViChn          12:05:00-862 {prepareRuntime    :337} rockit-ko version: vmpi:fb2eed2be49e
+RKViChn          12:05:00-862 {prepareRuntime    :338} rockit-ko building: -2023-02-09-11:04:49
+RKViChn          12:05:00-862 {prepareRuntime    :339} ---------------------------------------------------------
+RKViChn          12:05:00-862 {prepareRuntime    :358} mb pool create success, MBCnt= 4
+  index=0, name=images, n_dims=4, dims=[1, 640, 640, 3], n_elems=1228800, size=1228800, fmt=NHWC, type=INT8, qnt_type=AFFINE, zp=-128, scale=0.003922
+  index=0, name=output0, n_dims=4, dims=[1, 80, 80, 255], n_elems=1632000, size=1632000, fmt=NHWC, type=INT8, qnt_type=AFFINE, zp=-128, scale=0.003922
+  index=1, name=286, n_dims=4, dims=[1, 40, 40, 255], n_elems=408000, size=408000, fmt=NHWC, type=INT8, qnt_type=AFFINE, zp=-128, scale=0.003922
+  index=2, name=288, n_dims=4, dims=[1, 20, 20, 255], n_elems=102000, size=102000, fmt=NHWC, type=INT8, qnt_type=AFFINE, zp=-128, scale=0.003922
+model is NHWC input fmt
+model input height=640, width=640, channel=3
+load lable ./model/coco_80_labels_list.txt
+rkaiq log level ff0
+[32m[1mrockit log path (null), log_size = 0, can use export rt_log_path=, export rt_log_size= change[0m
+log_file = (nil) 
+[32m[1mrockit default level 4, can use export rt_log_level=x, x=0,1,2,3,4,5,6 change[0m
+RTIsp3x          12:05:00-845 {ispInitDevice     :208} [32m[1msensor name = m00_b_sc3336 4-0030[0m
+RTIsp3x          12:05:00-845 {ispInitDevice     :211} [32m[1msensor_index = 0[0m
+RTIsp3x          12:05:00-849 {ispInitDevice     :208} [32m[1msensor name = m00_b_sc3336 4-0030[0m
+RTIsp3x          12:05:00-849 {ispInitDevice     :211} [32m[1msensor_index = 0[0m
+RKViDev          12:05:00-861 {vi_set_dev_attr   :440} [33m[1mVI_DEV_ATTR_S all parameter reserved[0m
+  === VI ATTRS INFO: ===  
+	devId  :      0
+	chnId  :      0
+	buffcnt:      0
+	buffSize:     0
+	width:        0
+	height:       0
+	Maxwidth:     0
+	Maxwidth:     0
+	streaming:    0
+cmpi             12:05:00-862 {createRuntime     :546} [non-WRAP MODE]: buff size = 622080
+RTIsp3x          12:05:00-865 {ispInitDevice     :208} [32m[1msensor name = m00_b_sc3336 4-0030[0m
+RTIsp3x          12:05:00-865 {ispInitDevice     :211} [32m[1msensor_index = 0[0m
+RTDeviceV4L2     12:05:00-868 {open              :138} [32m[1mopen video name(/dev/video11)[0m
+RTDeviceV4L2     12:05:00-868 {ispCameraInfo     :549} [33m[1mcurrent device:/dev/video11 isn't compatible(cap:0x84201000) device,memoryType:4, retry:0[0m
+RTDeviceV4L2     12:05:00-868 {ispInitFormat     :726} [32m[1mioctl VIDIOC_S_FMT OK[0m
+RKViChn          12:05:00-869 {start             :813} [32m[1m=========== vi Start startRuntime ===========[0m
+RTDeviceV4L2     12:05:00-869 {ispStreamOn       :440} [32m[1mdo ispStreamOn start[0m
+RTDeviceV4L2     12:05:00-889 {ispStreamOn       :493} [32m[1mdo ispStreamOn done[0m
+rga_api version 1.10.0_[2]
+[rk_media] VI(0,0,0) 864x480 NV12 -> VPSS(0,0) 640x640 RGB888, queue=2, timeout=200ms
+cmpi             12:05:00-970 {mb_get_buffer_by_i:422} allocated buffer(this=0x8303b0, data=(nil), size=0, id=-1)
+cmpi             12:05:01-011 {mb_get_buffer_by_i:422} allocated buffer(this=0x7d6768, data=(nil), size=0, id=-1)
+cmpi             12:05:01-049 {mb_get_buffer_by_i:422} allocated buffer(this=0x7dc378, data=(nil), size=0, id=-1)
+cmpi             12:05:01-090 {mb_get_buffer_by_i:422} allocated buffer(this=0x82e010, data=(nil), size=0, id=-1)
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=37.115 frames=300 published=330 warmup=30 acquired=909 fps=9.095 e2e_avg_ms=171.648 e2e_p95_ms=189.000 infer_avg_ms=88.416 infer_p95_ms=93.000 queue_avg_ms=60.243 queue_p95_ms=76.000 queue_drop=577 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=300 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=70.127 frames=600 published=630 warmup=30 acquired=1734 fps=9.091 e2e_avg_ms=171.696 e2e_p95_ms=189.000 infer_avg_ms=88.512 infer_p95_ms=93.000 queue_avg_ms=60.261 queue_p95_ms=76.000 queue_drop=1102 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=600 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=103.066 frames=900 published=930 warmup=30 acquired=2558 fps=9.097 e2e_avg_ms=171.388 e2e_p95_ms=189.000 infer_avg_ms=88.483 infer_p95_ms=93.000 queue_avg_ms=60.037 queue_p95_ms=76.000 queue_drop=1626 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=900 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=136.253 frames=1200 published=1230 warmup=30 acquired=3387 fps=9.082 e2e_avg_ms=171.626 e2e_p95_ms=189.000 infer_avg_ms=88.524 infer_p95_ms=93.000 queue_avg_ms=60.097 queue_p95_ms=76.000 queue_drop=2155 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=1200 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=169.476 frames=1500 published=1530 warmup=30 acquired=4218 fps=9.072 e2e_avg_ms=171.804 e2e_p95_ms=189.000 infer_avg_ms=88.549 infer_p95_ms=93.000 queue_avg_ms=60.140 queue_p95_ms=76.000 queue_drop=2686 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=1500 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=202.780 frames=1800 published=1830 warmup=30 acquired=5050 fps=9.061 e2e_avg_ms=172.005 e2e_p95_ms=189.000 infer_avg_ms=88.581 infer_p95_ms=93.000 queue_avg_ms=60.211 queue_p95_ms=76.000 queue_drop=3218 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=1800 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=235.965 frames=2100 published=2130 warmup=30 acquired=5880 fps=9.058 e2e_avg_ms=172.067 e2e_p95_ms=189.000 infer_avg_ms=88.584 infer_p95_ms=93.000 queue_avg_ms=60.240 queue_p95_ms=76.000 queue_drop=3748 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=2100 software_start=0
+getaddrinfo failed: No such file or directory
+[Warn]	(557.847, +260047)	 _maintimer_cb: Get time from NTP failed, use system time. ui.c:253
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=269.078 frames=2400 published=2430 warmup=30 acquired=6708 fps=9.058 e2e_avg_ms=172.055 e2e_p95_ms=189.000 infer_avg_ms=88.577 infer_p95_ms=93.000 queue_avg_ms=60.236 queue_p95_ms=76.000 queue_drop=4276 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=2400 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=302.096 frames=2700 published=2730 warmup=30 acquired=7533 fps=9.061 e2e_avg_ms=171.988 e2e_p95_ms=189.000 infer_avg_ms=88.570 infer_p95_ms=93.000 queue_avg_ms=60.205 queue_p95_ms=76.000 queue_drop=4801 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=2700 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=335.253 frames=3000 published=3030 warmup=30 acquired=8362 fps=9.060 e2e_avg_ms=172.021 e2e_p95_ms=189.000 infer_avg_ms=88.596 infer_p95_ms=93.000 queue_avg_ms=60.220 queue_p95_ms=76.000 queue_drop=5330 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=3000 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=368.413 frames=3300 published=3330 warmup=30 acquired=9191 fps=9.059 e2e_avg_ms=172.047 e2e_p95_ms=189.000 infer_avg_ms=88.614 infer_p95_ms=93.000 queue_avg_ms=60.229 queue_p95_ms=76.000 queue_drop=5859 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=3300 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=401.536 frames=3600 published=3630 warmup=30 acquired=10019 fps=9.059 e2e_avg_ms=172.100 e2e_p95_ms=189.000 infer_avg_ms=88.616 infer_p95_ms=93.000 queue_avg_ms=60.277 queue_p95_ms=76.000 queue_drop=6387 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=3600 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=434.565 frames=3900 published=3930 warmup=30 acquired=10845 fps=9.061 e2e_avg_ms=172.021 e2e_p95_ms=189.000 infer_avg_ms=88.611 infer_p95_ms=93.000 queue_avg_ms=60.221 queue_p95_ms=76.000 queue_drop=6913 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=3900 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=467.685 frames=4200 published=4230 warmup=30 acquired=11673 fps=9.060 e2e_avg_ms=172.050 e2e_p95_ms=189.000 infer_avg_ms=88.620 infer_p95_ms=93.000 queue_avg_ms=60.247 queue_p95_ms=76.000 queue_drop=7441 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=4200 software_start=0
+opencv-mobile MIPI CSI camera with v4l2 rkaiq
+getaddrinfo failed: No such file or directory
+[Warn]	(798.822, +798822)	 _sys_para_init: Get time from NTP failed, use system time. ui.c:176
+[User]	(798.990, +168)	 _sys_para_init: Manual location city: 东城区, adcode: 110101 ui.c:208
+[User]	(798.990, +0)	 _sys_para_init: System para init done. ui.c:210
+getaddrinfo failed: No such file or directory
+[Warn]	(800.019, +1029)	 _maintimer_cb: Get time from NTP failed, use system time. ui.c:253
+   devpath = /dev/video11
+   driver = rkisp_v7
+   card = rkisp_mainpath
+   bus_info = platform:rkisp-vir0
+   version = 20000
+   capabilities = 84201000
+   device_caps = 4201000
+   fmt = UYVY 4:2:2  59565955
+   fmt = Y/CbCr 4:2:2  3631564e
+   fmt = Y/CrCb 4:2:2  3136564e
+   fmt = Y/CrCb 4:2:0  3132564e
+       size = 32 x 16  ~  2304 x 1296  (+8 +8)
+   fmt = Y/CbCr 4:2:0  3231564e
+   fmt = Y/CrCb 4:2:0 (N-C)  31324d4e
+   fmt = Y/CbCr 4:2:0 (N-C)  32314d4e
+/dev/video11 does not support changing fps
+  index=0, name=images, n_dims=4, dims=[1, 640, 640, 3], n_elems=1228800, size=1228800, fmt=NHWC, type=INT8, qnt_type=AFFINE, zp=-128, scale=0.003922
+  index=0, name=output0, n_dims=4, dims=[1, 80, 80, 255], n_elems=1632000, size=1632000, fmt=NHWC, type=INT8, qnt_type=AFFINE, zp=-128, scale=0.003922
+  index=1, name=286, n_dims=4, dims=[1, 40, 40, 255], n_elems=408000, size=408000, fmt=NHWC, type=INT8, qnt_type=AFFINE, zp=-128, scale=0.003922
+  index=2, name=288, n_dims=4, dims=[1, 20, 20, 255], n_elems=102000, size=102000, fmt=NHWC, type=INT8, qnt_type=AFFINE, zp=-128, scale=0.003922
+model is NHWC input fmt
+model input height=640, width=640, channel=3
+load lable ./model/coco_80_labels_list.txt
+rkaiq log level ff0
+rga_api version 1.10.0_[2]
+[ai_camera_metrics] final=0 backend=opencv uptime_s=52.447 frames=300 published=330 warmup=30 acquired=330 fps=6.373 e2e_avg_ms=156.873 e2e_p95_ms=166.000 infer_avg_ms=87.072 infer_p95_ms=91.000 queue_avg_ms=0.000 queue_p95_ms=0.000 queue_drop=0 timeouts=0 recoveries=0 failures=0 max_queue=0 media_pts=0 software_start=300
+MessageParser process loop exit!
+[ai_camera_metrics] final=1 backend=opencv uptime_s=70.799 frames=416 published=446 warmup=30 acquired=446 fps=6.362 e2e_avg_ms=157.147 e2e_p95_ms=167.000 infer_avg_ms=87.031 infer_p95_ms=91.000 queue_avg_ms=0.000 queue_p95_ms=0.000 queue_drop=0 timeouts=0 recoveries=0 failures=0 max_queue=0 media_pts=0 software_start=416
+[Warn]	(876.594, +76575)	 lv_draw_image: Couldn't get info about the image lv_draw_image.c:109
+[Warn]	(876.609, +15)	 lv_draw_image: Couldn't get info about the image lv_draw_image.c:109
+[Warn]	(876.631, +22)	 lv_draw_image: Couldn't get info about the image lv_draw_image.c:109
+[Warn]	(876.649, +18)	 lv_draw_image: Couldn't get info about the image lv_draw_image.c:109
+   devpath = /dev/video11
+   driver = rkisp_v7
+   card = rkisp_mainpath
+   bus_info = platform:rkisp-vir0
+   version = 20000
+   capabilities = 84201000
+   device_caps = 4201000
+   fmt = UYVY 4:2:2  59565955
+   fmt = Y/CbCr 4:2:2  3631564e
+   fmt = Y/CrCb 4:2:2  3136564e
+   fmt = Y/CrCb 4:2:0  3132564e
+       size = 32 x 16  ~  2304 x 1296  (+8 +8)
+   fmt = Y/CbCr 4:2:0  3231564e
+   fmt = Y/CrCb 4:2:0 (N-C)  31324d4e
+   fmt = Y/CbCr 4:2:0 (N-C)  32314d4e
+/dev/video11 does not support changing fps
+  index=0, name=images, n_dims=4, dims=[1, 640, 640, 3], n_elems=1228800, size=1228800, fmt=NHWC, type=INT8, qnt_type=AFFINE, zp=-128, scale=0.003922
+  index=0, name=output0, n_dims=4, dims=[1, 80, 80, 255], n_elems=1632000, size=1632000, fmt=NHWC, type=INT8, qnt_type=AFFINE, zp=-128, scale=0.003922
+  index=1, name=286, n_dims=4, dims=[1, 40, 40, 255], n_elems=408000, size=408000, fmt=NHWC, type=INT8, qnt_type=AFFINE, zp=-128, scale=0.003922
+  index=2, name=288, n_dims=4, dims=[1, 20, 20, 255], n_elems=102000, size=102000, fmt=NHWC, type=INT8, qnt_type=AFFINE, zp=-128, scale=0.003922
+model is NHWC input fmt
+model input height=640, width=640, channel=3
+load lable ./model/coco_80_labels_list.txt
+MessageParser process loop exit!
+[ai_camera_metrics] final=1 backend=opencv uptime_s=4.654 frames=0 published=28 warmup=28 acquired=28 fps=0.000 e2e_avg_ms=0.000 e2e_p95_ms=0.000 infer_avg_ms=0.000 infer_p95_ms=0.000 queue_avg_ms=0.000 queue_p95_ms=0.000 queue_drop=0 timeouts=0 recoveries=0 failures=0 max_queue=0 media_pts=0 software_start=0
+[Warn]	(950.204, +73555)	 lv_draw_image: Couldn't get info about the image lv_draw_image.c:109
+[Warn]	(950.219, +15)	 lv_draw_image: Couldn't get info about the image lv_draw_image.c:109
+[Warn]	(950.239, +20)	 lv_draw_image: Couldn't get info about the image lv_draw_image.c:109
+[Warn]	(950.259, +20)	 lv_draw_image: Couldn't get info about the image lv_draw_image.c:109
+opencv-mobile MIPI CSI camera with v4l2 rkaiq
+getaddrinfo failed: No such file or directory
+[Warn]	(1026.491, +1026491)	 _sys_para_init: Get time from NTP failed, use system time. ui.c:176
+[User]	(1026.702, +211)	 _sys_para_init: Manual location city: 东城区, adcode: 110101 ui.c:208
+[User]	(1026.702, +0)	 _sys_para_init: System para init done. ui.c:210
+getaddrinfo failed: No such file or directory
+[Warn]	(1027.732, +1030)	 _maintimer_cb: Get time from NTP failed, use system time. ui.c:253
+RTVersion        12:17:42-039 {dump              :064} ---------------------------------------------------------
+RTVersion        12:17:42-039 {dump              :065} rockit version: git-8cb4d25b8 Tue Feb 28 11:12:39 2023 +0800
+RTVersion        12:17:42-039 {dump              :066} rockit building: built- 2023-02-28 15:23:19
+RTVersion        12:17:42-039 {dump              :067} ---------------------------------------------------------
+(null)           12:17:42-039 {log_level_init    :203} 
+
+[32m[1m please use echo name=level > /tmp/rt_log_level set log level 
+	name: all cmpi mb sys vdec venc rgn vpss vgs tde avs wbc vo vi ai ao aenc adec
+	log_level: 0 1 2 3 4 5 6[0m 
+
+(null)           12:17:42-040 {read_log_level    :093} text is all=4
+(null)           12:17:42-040 {read_log_level    :095} module is all, log_level is 4
+(null)           12:17:42-043 {monitor_log_level :144} #Start monitor_log_level thread, arg:(nil)
+RKViChn          12:17:42-058 {prepareRuntime    :334} ---------------------------------------------------------
+RKViChn          12:17:42-058 {prepareRuntime    :336} vi version: 1.86, name:vvi
+RKViChn          12:17:42-058 {prepareRuntime    :337} rockit-ko version: vmpi:fb2eed2be49e
+RKViChn          12:17:42-058 {prepareRuntime    :338} rockit-ko building: -2023-02-09-11:04:49
+RKViChn          12:17:42-058 {prepareRuntime    :339} ---------------------------------------------------------
+RKViChn          12:17:42-058 {prepareRuntime    :358} mb pool create success, MBCnt= 4
+  index=0, name=images, n_dims=4, dims=[1, 640, 640, 3], n_elems=1228800, size=1228800, fmt=NHWC, type=INT8, qnt_type=AFFINE, zp=-128, scale=0.003922
+  index=0, name=output0, n_dims=4, dims=[1, 80, 80, 255], n_elems=1632000, size=1632000, fmt=NHWC, type=INT8, qnt_type=AFFINE, zp=-128, scale=0.003922
+  index=1, name=286, n_dims=4, dims=[1, 40, 40, 255], n_elems=408000, size=408000, fmt=NHWC, type=INT8, qnt_type=AFFINE, zp=-128, scale=0.003922
+  index=2, name=288, n_dims=4, dims=[1, 20, 20, 255], n_elems=102000, size=102000, fmt=NHWC, type=INT8, qnt_type=AFFINE, zp=-128, scale=0.003922
+model is NHWC input fmt
+model input height=640, width=640, channel=3
+load lable ./model/coco_80_labels_list.txt
+rkaiq log level ff0
+[32m[1mrockit log path (null), log_size = 0, can use export rt_log_path=, export rt_log_size= change[0m
+log_file = (nil) 
+[32m[1mrockit default level 4, can use export rt_log_level=x, x=0,1,2,3,4,5,6 change[0m
+RTIsp3x          12:17:42-048 {ispInitDevice     :208} [32m[1msensor name = m00_b_sc3336 4-0030[0m
+RTIsp3x          12:17:42-048 {ispInitDevice     :211} [32m[1msensor_index = 0[0m
+RTIsp3x          12:17:42-052 {ispInitDevice     :208} [32m[1msensor name = m00_b_sc3336 4-0030[0m
+RTIsp3x          12:17:42-052 {ispInitDevice     :211} [32m[1msensor_index = 0[0m
+RKViDev          12:17:42-057 {vi_set_dev_attr   :440} [33m[1mVI_DEV_ATTR_S all parameter reserved[0m
+  === VI ATTRS INFO: ===  
+	devId  :      0
+	chnId  :      0
+	buffcnt:      0
+	buffSize:     0
+	width:        0
+	height:       0
+	Maxwidth:     0
+	Maxwidth:     0
+	streaming:    0
+cmpi             12:17:42-059 {createRuntime     :546} [non-WRAP MODE]: buff size = 622080
+RTIsp3x          12:17:42-061 {ispInitDevice     :208} [32m[1msensor name = m00_b_sc3336 4-0030[0m
+RTIsp3x          12:17:42-061 {ispInitDevice     :211} [32m[1msensor_index = 0[0m
+RTDeviceV4L2     12:17:42-064 {open              :138} [32m[1mopen video name(/dev/video11)[0m
+RTDeviceV4L2     12:17:42-064 {ispCameraInfo     :549} [33m[1mcurrent device:/dev/video11 isn't compatible(cap:0x84201000) device,memoryType:4, retry:0[0m
+RTDeviceV4L2     12:17:42-064 {ispInitFormat     :726} [32m[1mioctl VIDIOC_S_FMT OK[0m
+RKViChn          12:17:42-065 {start             :813} [32m[1m=========== vi Start startRuntime ===========[0m
+RTDeviceV4L2     12:17:42-065 {ispStreamOn       :440} [32m[1mdo ispStreamOn start[0m
+RTDeviceV4L2     12:17:42-084 {ispStreamOn       :493} [32m[1mdo ispStreamOn done[0m
+rga_api version 1.10.0_[2]
+[rk_media] VI(0,0,0) 864x480 NV12 -> VPSS(0,0) 640x640 RGB888, queue=2, timeout=200ms
+cmpi             12:17:42-165 {mb_get_buffer_by_i:422} allocated buffer(this=0x8c77e8, data=(nil), size=0, id=-1)
+cmpi             12:17:42-205 {mb_get_buffer_by_i:422} allocated buffer(this=0x8c6e48, data=(nil), size=0, id=-1)
+cmpi             12:17:42-245 {mb_get_buffer_by_i:422} allocated buffer(this=0x8c4260, data=(nil), size=0, id=-1)
+cmpi             12:17:42-324 {mb_get_buffer_by_i:422} allocated buffer(this=0x7d64a8, data=(nil), size=0, id=-1)
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=37.002 frames=300 published=330 warmup=30 acquired=916 fps=9.006 e2e_avg_ms=172.762 e2e_p95_ms=190.000 infer_avg_ms=88.698 infer_p95_ms=94.000 queue_avg_ms=60.329 queue_p95_ms=76.000 queue_drop=584 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=300 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=70.215 frames=600 published=630 warmup=30 acquired=1747 fps=9.019 e2e_avg_ms=172.540 e2e_p95_ms=190.000 infer_avg_ms=88.677 infer_p95_ms=94.000 queue_avg_ms=60.290 queue_p95_ms=76.000 queue_drop=1115 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=600 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=103.515 frames=900 published=930 warmup=30 acquired=2579 fps=9.016 e2e_avg_ms=172.657 e2e_p95_ms=191.000 infer_avg_ms=88.753 infer_p95_ms=94.000 queue_avg_ms=60.363 queue_p95_ms=76.000 queue_drop=1647 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=900 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=136.795 frames=1200 published=1230 warmup=30 acquired=3411 fps=9.015 e2e_avg_ms=172.829 e2e_p95_ms=191.000 infer_avg_ms=88.765 infer_p95_ms=94.000 queue_avg_ms=60.534 queue_p95_ms=77.000 queue_drop=2179 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=1200 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=170.161 frames=1500 published=1530 warmup=30 acquired=4245 fps=9.011 e2e_avg_ms=172.896 e2e_p95_ms=191.000 infer_avg_ms=88.778 infer_p95_ms=94.000 queue_avg_ms=60.531 queue_p95_ms=77.000 queue_drop=2713 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=1500 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=203.357 frames=1800 published=1830 warmup=30 acquired=5075 fps=9.015 e2e_avg_ms=172.897 e2e_p95_ms=191.000 infer_avg_ms=88.782 infer_p95_ms=94.000 queue_avg_ms=60.583 queue_p95_ms=77.000 queue_drop=3243 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=1800 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=236.593 frames=2100 published=2130 warmup=30 acquired=5906 fps=9.017 e2e_avg_ms=173.010 e2e_p95_ms=190.000 infer_avg_ms=88.795 infer_p95_ms=94.000 queue_avg_ms=60.709 queue_p95_ms=77.000 queue_drop=3774 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=2100 software_start=0
+getaddrinfo failed: No such file or directory
+[Warn]	(1328.035, +300303)	 _maintimer_cb: Get time from NTP failed, use system time. ui.c:253
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=269.678 frames=2400 published=2430 warmup=30 acquired=6733 fps=9.023 e2e_avg_ms=172.910 e2e_p95_ms=190.000 infer_avg_ms=88.759 infer_p95_ms=94.000 queue_avg_ms=60.682 queue_p95_ms=77.000 queue_drop=4301 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=2400 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=302.954 frames=2700 published=2730 warmup=30 acquired=7565 fps=9.022 e2e_avg_ms=172.937 e2e_p95_ms=190.000 infer_avg_ms=88.778 infer_p95_ms=94.000 queue_avg_ms=60.695 queue_p95_ms=77.000 queue_drop=4833 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=2700 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=336.122 frames=3000 published=3030 warmup=30 acquired=8394 fps=9.024 e2e_avg_ms=172.934 e2e_p95_ms=190.000 infer_avg_ms=88.764 infer_p95_ms=94.000 queue_avg_ms=60.714 queue_p95_ms=77.000 queue_drop=5362 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=3000 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=369.141 frames=3300 published=3330 warmup=30 acquired=9220 fps=9.030 e2e_avg_ms=172.894 e2e_p95_ms=190.000 infer_avg_ms=88.735 infer_p95_ms=94.000 queue_avg_ms=60.737 queue_p95_ms=77.000 queue_drop=5888 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=3300 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=402.257 frames=3600 published=3630 warmup=30 acquired=10048 fps=9.032 e2e_avg_ms=172.866 e2e_p95_ms=190.000 infer_avg_ms=88.721 infer_p95_ms=94.000 queue_avg_ms=60.739 queue_p95_ms=77.000 queue_drop=6416 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=3600 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=435.557 frames=3900 published=3930 warmup=30 acquired=10880 fps=9.031 e2e_avg_ms=172.847 e2e_p95_ms=190.000 infer_avg_ms=88.738 infer_p95_ms=94.000 queue_avg_ms=60.699 queue_p95_ms=77.000 queue_drop=6948 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=3900 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=468.640 frames=4200 published=4230 warmup=30 acquired=11707 fps=9.033 e2e_avg_ms=172.813 e2e_p95_ms=190.000 infer_avg_ms=88.734 infer_p95_ms=94.000 queue_avg_ms=60.693 queue_p95_ms=77.000 queue_drop=7475 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=4200 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=501.777 frames=4500 published=4530 warmup=30 acquired=12536 fps=9.035 e2e_avg_ms=172.799 e2e_p95_ms=190.000 infer_avg_ms=88.729 infer_p95_ms=94.000 queue_avg_ms=60.695 queue_p95_ms=77.000 queue_drop=8004 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=4500 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=534.927 frames=4800 published=4830 warmup=30 acquired=13364 fps=9.036 e2e_avg_ms=172.779 e2e_p95_ms=190.000 infer_avg_ms=88.726 infer_p95_ms=94.000 queue_avg_ms=60.686 queue_p95_ms=77.000 queue_drop=8532 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=4800 software_start=0
+getaddrinfo failed: No such file or directory
+[Warn]	(1628.076, +300041)	 _maintimer_cb: Get time from NTP failed, use system time. ui.c:253
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=568.155 frames=5100 published=5130 warmup=30 acquired=14195 fps=9.035 e2e_avg_ms=172.781 e2e_p95_ms=190.000 infer_avg_ms=88.726 infer_p95_ms=94.000 queue_avg_ms=60.684 queue_p95_ms=77.000 queue_drop=9063 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=5100 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=601.366 frames=5400 published=5430 warmup=30 acquired=15025 fps=9.035 e2e_avg_ms=172.781 e2e_p95_ms=190.000 infer_avg_ms=88.722 infer_p95_ms=94.000 queue_avg_ms=60.683 queue_p95_ms=77.000 queue_drop=9593 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=5400 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=634.595 frames=5700 published=5730 warmup=30 acquired=15856 fps=9.035 e2e_avg_ms=172.760 e2e_p95_ms=190.000 infer_avg_ms=88.724 infer_p95_ms=94.000 queue_avg_ms=60.659 queue_p95_ms=77.000 queue_drop=10124 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=5700 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=667.943 frames=6000 published=6030 warmup=30 acquired=16690 fps=9.033 e2e_avg_ms=172.805 e2e_p95_ms=190.000 infer_avg_ms=88.726 infer_p95_ms=94.000 queue_avg_ms=60.681 queue_p95_ms=77.000 queue_drop=10658 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=6000 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=701.236 frames=6300 published=6330 warmup=30 acquired=17522 fps=9.032 e2e_avg_ms=172.833 e2e_p95_ms=190.000 infer_avg_ms=88.732 infer_p95_ms=94.000 queue_avg_ms=60.696 queue_p95_ms=77.000 queue_drop=11190 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=6300 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=734.628 frames=6600 published=6630 warmup=30 acquired=18357 fps=9.030 e2e_avg_ms=172.864 e2e_p95_ms=190.000 infer_avg_ms=88.741 infer_p95_ms=94.000 queue_avg_ms=60.700 queue_p95_ms=77.000 queue_drop=11725 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=6600 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=768.098 frames=6900 published=6930 warmup=30 acquired=19194 fps=9.027 e2e_avg_ms=172.904 e2e_p95_ms=190.000 infer_avg_ms=88.757 infer_p95_ms=94.000 queue_avg_ms=60.703 queue_p95_ms=77.000 queue_drop=12262 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=6900 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=801.538 frames=7200 published=7230 warmup=30 acquired=20030 fps=9.024 e2e_avg_ms=172.918 e2e_p95_ms=190.000 infer_avg_ms=88.765 infer_p95_ms=94.000 queue_avg_ms=60.688 queue_p95_ms=77.000 queue_drop=12798 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=7200 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=834.803 frames=7500 published=7530 warmup=30 acquired=20861 fps=9.024 e2e_avg_ms=172.908 e2e_p95_ms=190.000 infer_avg_ms=88.761 infer_p95_ms=94.000 queue_avg_ms=60.677 queue_p95_ms=77.000 queue_drop=13329 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=7500 software_start=0
+getaddrinfo failed: No such file or directory
+[Warn]	(1928.137, +300061)	 _maintimer_cb: Get time from NTP failed, use system time. ui.c:253
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=868.032 frames=7800 published=7830 warmup=30 acquired=21692 fps=9.024 e2e_avg_ms=172.914 e2e_p95_ms=190.000 infer_avg_ms=88.761 infer_p95_ms=94.000 queue_avg_ms=60.685 queue_p95_ms=77.000 queue_drop=13860 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=7800 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=901.365 frames=8100 published=8130 warmup=30 acquired=22525 fps=9.023 e2e_avg_ms=172.942 e2e_p95_ms=190.000 infer_avg_ms=88.767 infer_p95_ms=94.000 queue_avg_ms=60.702 queue_p95_ms=77.000 queue_drop=14393 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=8100 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=934.446 frames=8400 published=8430 warmup=30 acquired=23352 fps=9.025 e2e_avg_ms=172.916 e2e_p95_ms=190.000 infer_avg_ms=88.761 infer_p95_ms=94.000 queue_avg_ms=60.694 queue_p95_ms=77.000 queue_drop=14920 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=8400 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=967.526 frames=8700 published=8730 warmup=30 acquired=24179 fps=9.026 e2e_avg_ms=172.885 e2e_p95_ms=190.000 infer_avg_ms=88.755 infer_p95_ms=94.000 queue_avg_ms=60.681 queue_p95_ms=77.000 queue_drop=15447 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=8700 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=1000.649 frames=9000 published=9030 warmup=30 acquired=25007 fps=9.027 e2e_avg_ms=172.870 e2e_p95_ms=190.000 infer_avg_ms=88.750 infer_p95_ms=94.000 queue_avg_ms=60.678 queue_p95_ms=77.000 queue_drop=15975 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=9000 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=1034.004 frames=9300 published=9330 warmup=30 acquired=25841 fps=9.026 e2e_avg_ms=172.879 e2e_p95_ms=190.000 infer_avg_ms=88.755 infer_p95_ms=94.000 queue_avg_ms=60.674 queue_p95_ms=77.000 queue_drop=16509 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=9300 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=1067.227 frames=9600 published=9630 warmup=30 acquired=26672 fps=9.026 e2e_avg_ms=172.875 e2e_p95_ms=190.000 infer_avg_ms=88.753 infer_p95_ms=94.000 queue_avg_ms=60.671 queue_p95_ms=77.000 queue_drop=17040 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=9600 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=1100.458 frames=9900 published=9930 warmup=30 acquired=27503 fps=9.027 e2e_avg_ms=172.868 e2e_p95_ms=190.000 infer_avg_ms=88.752 infer_p95_ms=94.000 queue_avg_ms=60.664 queue_p95_ms=77.000 queue_drop=17571 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=9900 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=1133.748 frames=10200 published=10230 warmup=30 acquired=28335 fps=9.026 e2e_avg_ms=172.893 e2e_p95_ms=190.000 infer_avg_ms=88.755 infer_p95_ms=94.000 queue_avg_ms=60.683 queue_p95_ms=77.000 queue_drop=18103 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=10200 software_start=0
+getaddrinfo failed: No such file or directory
+[Warn]	(2228.190, +300053)	 _maintimer_cb: Get time from NTP failed, use system time. ui.c:253
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=1166.993 frames=10500 published=10530 warmup=30 acquired=29166 fps=9.026 e2e_avg_ms=172.893 e2e_p95_ms=190.000 infer_avg_ms=88.758 infer_p95_ms=94.000 queue_avg_ms=60.682 queue_p95_ms=77.000 queue_drop=18634 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=10500 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=1200.198 frames=10800 published=10830 warmup=30 acquired=29996 fps=9.026 e2e_avg_ms=172.888 e2e_p95_ms=190.000 infer_avg_ms=88.757 infer_p95_ms=94.000 queue_avg_ms=60.680 queue_p95_ms=77.000 queue_drop=19164 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=10800 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=1233.441 frames=11100 published=11130 warmup=30 acquired=30827 fps=9.026 e2e_avg_ms=172.899 e2e_p95_ms=190.000 infer_avg_ms=88.757 infer_p95_ms=94.000 queue_avg_ms=60.690 queue_p95_ms=77.000 queue_drop=19695 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=11100 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=1266.710 frames=11400 published=11430 warmup=30 acquired=31659 fps=9.026 e2e_avg_ms=172.894 e2e_p95_ms=190.000 infer_avg_ms=88.763 infer_p95_ms=94.000 queue_avg_ms=60.682 queue_p95_ms=77.000 queue_drop=20227 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=11400 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=1300.062 frames=11700 published=11730 warmup=30 acquired=32493 fps=9.025 e2e_avg_ms=172.912 e2e_p95_ms=190.000 infer_avg_ms=88.765 infer_p95_ms=94.000 queue_avg_ms=60.689 queue_p95_ms=77.000 queue_drop=20761 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=11700 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=1333.314 frames=12000 published=12030 warmup=30 acquired=33324 fps=9.025 e2e_avg_ms=172.904 e2e_p95_ms=190.000 infer_avg_ms=88.767 infer_p95_ms=94.000 queue_avg_ms=60.681 queue_p95_ms=77.000 queue_drop=21292 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=12000 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=1366.606 frames=12300 published=12330 warmup=30 acquired=34156 fps=9.025 e2e_avg_ms=172.914 e2e_p95_ms=190.000 infer_avg_ms=88.767 infer_p95_ms=94.000 queue_avg_ms=60.687 queue_p95_ms=77.000 queue_drop=21824 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=12300 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=1399.933 frames=12600 published=12630 warmup=30 acquired=34990 fps=9.024 e2e_avg_ms=172.916 e2e_p95_ms=190.000 infer_avg_ms=88.770 infer_p95_ms=94.000 queue_avg_ms=60.683 queue_p95_ms=77.000 queue_drop=22358 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=12600 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=1433.382 frames=12900 published=12930 warmup=30 acquired=35826 fps=9.023 e2e_avg_ms=172.928 e2e_p95_ms=190.000 infer_avg_ms=88.770 infer_p95_ms=94.000 queue_avg_ms=60.678 queue_p95_ms=77.000 queue_drop=22894 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=12900 software_start=0
+getaddrinfo failed: No such file or directory
+[Warn]	(2528.231, +300041)	 _maintimer_cb: Get time from NTP failed, use system time. ui.c:253
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=1466.707 frames=13200 published=13230 warmup=30 acquired=36659 fps=9.022 e2e_avg_ms=172.920 e2e_p95_ms=190.000 infer_avg_ms=88.766 infer_p95_ms=94.000 queue_avg_ms=60.663 queue_p95_ms=77.000 queue_drop=23427 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=13200 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=1499.929 frames=13500 published=13530 warmup=30 acquired=37489 fps=9.023 e2e_avg_ms=172.888 e2e_p95_ms=190.000 infer_avg_ms=88.764 infer_p95_ms=94.000 queue_avg_ms=60.635 queue_p95_ms=77.000 queue_drop=23957 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=13500 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=1533.208 frames=13800 published=13830 warmup=30 acquired=38321 fps=9.022 e2e_avg_ms=172.900 e2e_p95_ms=190.000 infer_avg_ms=88.765 infer_p95_ms=94.000 queue_avg_ms=60.645 queue_p95_ms=77.000 queue_drop=24489 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=13800 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=1566.518 frames=14100 published=14130 warmup=30 acquired=39154 fps=9.022 e2e_avg_ms=172.902 e2e_p95_ms=190.000 infer_avg_ms=88.765 infer_p95_ms=94.000 queue_avg_ms=60.642 queue_p95_ms=77.000 queue_drop=25022 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=14100 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=1599.762 frames=14400 published=14430 warmup=30 acquired=39985 fps=9.022 e2e_avg_ms=172.887 e2e_p95_ms=190.000 infer_avg_ms=88.762 infer_p95_ms=94.000 queue_avg_ms=60.629 queue_p95_ms=77.000 queue_drop=25553 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=14400 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=1632.910 frames=14700 published=14730 warmup=30 acquired=40814 fps=9.023 e2e_avg_ms=172.868 e2e_p95_ms=190.000 infer_avg_ms=88.763 infer_p95_ms=94.000 queue_avg_ms=60.618 queue_p95_ms=77.000 queue_drop=26082 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=14700 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=1665.960 frames=15000 published=15030 warmup=30 acquired=41640 fps=9.024 e2e_avg_ms=172.842 e2e_p95_ms=190.000 infer_avg_ms=88.760 infer_p95_ms=94.000 queue_avg_ms=60.604 queue_p95_ms=77.000 queue_drop=26608 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=15000 software_start=0
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=1698.930 frames=15300 published=15330 warmup=30 acquired=42464 fps=9.025 e2e_avg_ms=172.815 e2e_p95_ms=190.000 infer_avg_ms=88.755 infer_p95_ms=94.000 queue_avg_ms=60.595 queue_p95_ms=77.000 queue_drop=27132 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=15300 software_start=0
++ cd /userdata/deskbot
++ export 'LD_LIBRARY_PATH=/oem/usr/share/deskbot/lib:/oem/usr/lib:/oem/usr/lib:/oem/lib:'
++ exec /oem/usr/share/deskbot/main
+opencv-mobile MIPI CSI camera with v4l2 rkaiq
+getaddrinfo failed: No such file or directory
+[Warn]	(77.382, +77382)	 _sys_para_init: Get time from NTP failed, use system time. ui.c:176
+[User]	(77.609, +227)	 _sys_para_init: Manual location city: 东城区, adcode: 110101 ui.c:208
+[User]	(77.609, +0)	 _sys_para_init: System para init done. ui.c:210
+getaddrinfo failed: No such file or directory
+[Warn]	(78.654, +1045)	 _maintimer_cb: Get time from NTP failed, use system time. ui.c:253
+RTVersion        12:50:55-022 {dump              :064} ---------------------------------------------------------
+RTVersion        12:50:55-025 {dump              :065} rockit version: git-8cb4d25b8 Tue Feb 28 11:12:39 2023 +0800
+RTVersion        12:50:55-025 {dump              :066} rockit building: built- 2023-02-28 15:23:19
+RTVersion        12:50:55-025 {dump              :067} ---------------------------------------------------------
+(null)           12:50:55-025 {read_log_level    :093} text is all=4
+(null)           12:50:55-026 {read_log_level    :095} module is all, log_level is 4
+(null)           12:50:55-031 {monitor_log_level :144} #Start monitor_log_level thread, arg:(nil)
+RKViChn          12:50:55-080 {prepareRuntime    :334} ---------------------------------------------------------
+RKViChn          12:50:55-080 {prepareRuntime    :336} vi version: 1.86, name:vvi
+RKViChn          12:50:55-080 {prepareRuntime    :337} rockit-ko version: vmpi:fb2eed2be49e
+RKViChn          12:50:55-080 {prepareRuntime    :338} rockit-ko building: -2023-02-09-11:04:49
+RKViChn          12:50:55-080 {prepareRuntime    :339} ---------------------------------------------------------
+RKViChn          12:50:55-082 {prepareRuntime    :358} mb pool create success, MBCnt= 4
+  index=0, name=images, n_dims=4, dims=[1, 640, 640, 3], n_elems=1228800, size=1228800, fmt=NHWC, type=INT8, qnt_type=AFFINE, zp=-128, scale=0.003922
+  index=0, name=output0, n_dims=4, dims=[1, 80, 80, 255], n_elems=1632000, size=1632000, fmt=NHWC, type=INT8, qnt_type=AFFINE, zp=-128, scale=0.003922
+  index=1, name=286, n_dims=4, dims=[1, 40, 40, 255], n_elems=408000, size=408000, fmt=NHWC, type=INT8, qnt_type=AFFINE, zp=-128, scale=0.003922
+  index=2, name=288, n_dims=4, dims=[1, 20, 20, 255], n_elems=102000, size=102000, fmt=NHWC, type=INT8, qnt_type=AFFINE, zp=-128, scale=0.003922
+model is NHWC input fmt
+model input height=640, width=640, channel=3
+load lable ./model/coco_80_labels_list.txt
+rkaiq log level ff0
+[32m[1mrockit log path (null), log_size = 0, can use export rt_log_path=, export rt_log_size= change[0m
+log_file = (nil) 
+[32m[1mrockit default level 4, can use export rt_log_level=x, x=0,1,2,3,4,5,6 change[0m
+RTIsp3x          12:50:55-062 {ispInitDevice     :208} [32m[1msensor name = m00_b_sc3336 4-0030[0m
+RTIsp3x          12:50:55-062 {ispInitDevice     :211} [32m[1msensor_index = 0[0m
+RTIsp3x          12:50:55-072 {ispInitDevice     :208} [32m[1msensor name = m00_b_sc3336 4-0030[0m
+RTIsp3x          12:50:55-072 {ispInitDevice     :211} [32m[1msensor_index = 0[0m
+RKViDev          12:50:55-079 {vi_set_dev_attr   :440} [33m[1mVI_DEV_ATTR_S all parameter reserved[0m
+  === VI ATTRS INFO: ===  
+	devId  :      0
+	chnId  :      0
+	buffcnt:      0
+	buffSize:     0
+	width:        0
+	height:       0
+	Maxwidth:     0
+	Maxwidth:     0
+	streaming:    0
+cmpi             12:50:55-082 {createRuntime     :546} [non-WRAP MODE]: buff size = 622080
+RTIsp3x          12:50:55-085 {ispInitDevice     :208} [32m[1msensor name = m00_b_sc3336 4-0030[0m
+RTIsp3x          12:50:55-085 {ispInitDevice     :211} [32m[1msensor_index = 0[0m
+RTDeviceV4L2     12:50:55-088 {open              :138} [32m[1mopen video name(/dev/video11)[0m
+RTDeviceV4L2     12:50:55-088 {ispCameraInfo     :549} [33m[1mcurrent device:/dev/video11 isn't compatible(cap:0x84201000) device,memoryType:4, retry:0[0m
+RTDeviceV4L2     12:50:55-088 {ispInitFormat     :726} [32m[1mioctl VIDIOC_S_FMT OK[0m
+RKViChn          12:50:55-088 {start             :813} [32m[1m=========== vi Start startRuntime ===========[0m
+RTDeviceV4L2     12:50:55-089 {ispStreamOn       :440} [32m[1mdo ispStreamOn start[0m
+RTDeviceV4L2     12:50:55-108 {ispStreamOn       :493} [32m[1mdo ispStreamOn done[0m
+rga_api version 1.10.0_[2]
+[rk_media] VI(0,0,0) 864x480 NV12 -> VPSS(0,0) 640x640 RGB888, queue=2, timeout=200ms
+cmpi             12:50:55-190 {mb_get_buffer_by_i:422} allocated buffer(this=0x7d6ee8, data=(nil), size=0, id=-1)
+cmpi             12:50:55-228 {mb_get_buffer_by_i:422} allocated buffer(this=0x8c7018, data=(nil), size=0, id=-1)
+cmpi             12:50:55-269 {mb_get_buffer_by_i:422} allocated buffer(this=0x7d6298, data=(nil), size=0, id=-1)
+cmpi             12:50:55-309 {mb_get_buffer_by_i:422} allocated buffer(this=0x8c7110, data=(nil), size=0, id=-1)
+[ai_camera_metrics] final=0 backend=rkmpi uptime_s=37.667 frames=300 published=330 warmup=30 acquired=921 fps=8.970 e2e_avg_ms=172.830 e2e_p95_ms=190.000 infer_avg_ms=89.145 infer_p95_ms=94.000 queue_avg_ms=59.969 queue_p95_ms=76.000 queue_drop=589 timeouts=0 recoveries=0 failures=0 max_queue=2 media_pts=300 software_start=0
+                                                                                                                                                                                                                                                                                                                                         + cd /userdata/deskbot
++ export 'LD_LIBRARY_PATH=/oem/usr/share/deskbot/lib:/oem/usr/lib:/oem/usr/lib:/oem/lib:'
++ exec /oem/usr/share/deskbot/main
+opencv-mobile MIPI CSI camera with v4l2 rkaiq
+getaddrinfo failed: No such file or directory
+[Warn]	(63.251, +63251)	 _sys_para_init: Get time from NTP failed, use system time. ui.c:176
+[User]	(63.477, +226)	 _sys_para_init: Manual location city: 东城区, adcode: 110101 ui.c:208
+[User]	(63.478, +1)	 _sys_para_init: System para init done. ui.c:210
+getaddrinfo failed: No such file or directory
+[Warn]	(64.521, +1043)	 _maintimer_cb: Get time from NTP failed, use system time. ui.c:253

@@ -1,0 +1,12 @@
+[device nodes]
+ls: /dev/dri: No such file or directory
+ls: /dev/dri/*: No such file or directory
+
+[drm sysfs]
+path=/sys/class/drm/version
+status=<unavailable>
+enabled=<unavailable>
+modes=<unavailable>
+dpms=<unavailable>
+device_link=<unavailable>
+

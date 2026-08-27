@@ -1,0 +1,162 @@
+pid=540
+/oem/usr/share/deskbot/main
+/oem/usr/share/deskbot/main 
+Name:	main
+Umask:	0022
+State:	S (sleeping)
+Tgid:	540
+Ngid:	0
+Pid:	540
+PPid:	1
+TracerPid:	0
+Uid:	0	0	0	0
+Gid:	0	0	0	0
+FDSize:	32
+Groups:	0 10 
+VmPeak:	   24776 kB
+VmSize:	   20432 kB
+VmLck:	       0 kB
+VmPin:	       0 kB
+VmHWM:	   10952 kB
+VmRSS:	    7412 kB
+RssAnon:	     920 kB
+RssFile:	    6492 kB
+RssShmem:	       0 kB
+VmData:	    2204 kB
+VmStk:	     132 kB
+VmExe:	    4968 kB
+VmLib:	   11476 kB
+VmPTE:	      24 kB
+VmSwap:	       0 kB
+CoreDumping:	0
+THP_enabled:	0
+Threads:	1
+SigQ:	1/433
+SigPnd:	0000000000000000
+ShdPnd:	0000000000000000
+SigBlk:	0000000000000000
+SigIgn:	0000000000000006
+SigCgt:	0000000180000000
+CapInh:	0000000000000000
+CapPrm:	000001ffffffffff
+CapEff:	000001ffffffffff
+CapBnd:	000001ffffffffff
+CapAmb:	0000000000000000
+NoNewPrivs:	0
+Seccomp:	0
+Seccomp_filters:	0
+Speculation_Store_Bypass:	unknown
+Cpus_allowed:	1
+Cpus_allowed_list:	0
+voluntary_ctxt_switches:	187036
+nonvoluntary_ctxt_switches:	3617
+[maps]
+00010000-004ea000 r-xp 00000000 b3:05 106        /oem/usr/share/deskbot/main
+004f9000-00500000 r--p 004d9000 b3:05 106        /oem/usr/share/deskbot/main
+00500000-00502000 rw-p 004e0000 b3:05 106        /oem/usr/share/deskbot/main
+00502000-0069c000 rw-p 00000000 00:00 0          [heap]
+a620f000-a6235000 rw-s 00000000 00:05 130        /dev/fb0
+a6235000-a6245000 rw-p 00000000 00:00 0 
+a6245000-a6248000 r-xp 00000000 b3:07 4026       /lib/libatomic.so.1.2.0
+a6248000-a6257000 ---p 00000000 00:00 0 
+a6257000-a6258000 r--p 00002000 b3:07 4026       /lib/libatomic.so.1.2.0
+a6258000-a6259000 rw-p 00003000 b3:07 4026       /lib/libatomic.so.1.2.0
+a6259000-a625a000 rw-p 00000000 00:00 0 
+a625a000-a6271000 r-xp 00000000 b3:07 589        /usr/lib/libz.so.1.2.13
+a6271000-a6280000 ---p 00000000 00:00 0 
+a6280000-a6281000 r--p 00016000 b3:07 589        /usr/lib/libz.so.1.2.13
+a6281000-a6282000 rw-p 00017000 b3:07 589        /usr/lib/libz.so.1.2.13
+a6282000-a6498000 r-xp 00000000 b3:07 570        /usr/lib/libcrypto.so.1.1
+a6498000-a64a7000 ---p 00000000 00:00 0 
+a64a7000-a64be000 r--p 00215000 b3:07 570        /usr/lib/libcrypto.so.1.1
+a64be000-a64bf000 rw-p 0022c000 b3:07 570        /usr/lib/libcrypto.so.1.1
+a64bf000-a64c2000 rw-p 00000000 00:00 0 
+a64c2000-a652c000 r-xp 00000000 b3:07 578        /usr/lib/libssl.so.1.1
+a652c000-a653c000 ---p 00000000 00:00 0 
+a653c000-a6541000 r--p 0006a000 b3:07 578        /usr/lib/libssl.so.1.1
+a6541000-a6544000 rw-p 0006f000 b3:07 578        /usr/lib/libssl.so.1.1
+a6544000-a65ab000 r-xp 00000000 b3:07 4052       /lib/libuClibc-1.0.31.so
+a65ab000-a65bb000 ---p 00000000 00:00 0 
+a65bb000-a65bc000 r--p 00067000 b3:07 4052       /lib/libuClibc-1.0.31.so
+a65bc000-a65bd000 rw-p 00068000 b3:07 4052       /lib/libuClibc-1.0.31.so
+a65bd000-a65d3000 rw-p 00000000 00:00 0 
+a65d3000-a65f1000 r-xp 00000000 b3:07 4027       /lib/libgcc_s.so.1
+a65f1000-a6600000 ---p 00000000 00:00 0 
+a6600000-a6601000 r--p 0001d000 b3:07 4027       /lib/libgcc_s.so.1
+a6601000-a6602000 rw-p 0001e000 b3:07 4027       /lib/libgcc_s.so.1
+a6602000-a66f3000 r-xp 00000000 b3:07 4051       /lib/libstdc++.so.6.0.25
+a66f3000-a6702000 ---p 00000000 00:00 0 
+a6702000-a6707000 r--p 000f0000 b3:07 4051       /lib/libstdc++.so.6.0.25
+a6707000-a670a000 rw-p 000f5000 b3:07 4051       /lib/libstdc++.so.6.0.25
+a670a000-a670b000 rw-p 00000000 00:00 0 
+a670b000-a6739000 r-xp 00000000 b3:05 116        /oem/usr/share/deskbot/lib/librknnmrt.so
+a6739000-a6748000 ---p 00000000 00:00 0 
+a6748000-a6749000 r--p 0002d000 b3:05 116        /oem/usr/share/deskbot/lib/librknnmrt.so
+a6749000-a674a000 rw-p 0002e000 b3:05 116        /oem/usr/share/deskbot/lib/librknnmrt.so
+a674a000-a685b000 r-xp 00000000 b3:05 112        /oem/usr/share/deskbot/lib/librkaiq.so
+a685b000-a686a000 ---p 00000000 00:00 0 
+a686a000-a6871000 r--p 00110000 b3:05 112        /oem/usr/share/deskbot/lib/librkaiq.so
+a6871000-a68aa000 rw-p 00117000 b3:05 112        /oem/usr/share/deskbot/lib/librkaiq.so
+a68aa000-a68ae000 rw-p 00000000 00:00 0 
+a68ae000-a68d6000 r-xp 00000000 b3:05 114        /oem/usr/share/deskbot/lib/librga.so
+a68d6000-a68e5000 ---p 00000000 00:00 0 
+a68e5000-a68e6000 r--p 00027000 b3:05 114        /oem/usr/share/deskbot/lib/librga.so
+a68e6000-a68e7000 rw-p 00028000 b3:05 114        /oem/usr/share/deskbot/lib/librga.so
+a68e7000-a68e8000 rw-p 00000000 00:00 0 
+a68e8000-a6912000 r-xp 00000000 b3:05 115        /oem/usr/share/deskbot/lib/librockchip_mpp.so.1
+a6912000-a6921000 ---p 00000000 00:00 0 
+a6921000-a6922000 r--p 00029000 b3:05 115        /oem/usr/share/deskbot/lib/librockchip_mpp.so.1
+a6922000-a6923000 rw-p 0002a000 b3:05 115        /oem/usr/share/deskbot/lib/librockchip_mpp.so.1
+a6923000-a6924000 rw-p 00000000 00:00 0 
+a6924000-a6a0d000 r-xp 00000000 b3:05 113        /oem/usr/share/deskbot/lib/librockit.so
+a6a0d000-a6a1c000 ---p 00000000 00:00 0 
+a6a1c000-a6a1f000 r--p 000e8000 b3:05 113        /oem/usr/share/deskbot/lib/librockit.so
+a6a1f000-a6a20000 rw-p 000eb000 b3:05 113        /oem/usr/share/deskbot/lib/librockit.so
+a6a20000-a6a23000 rw-p 00000000 00:00 0 
+a6a23000-a6ca4000 r-xp 00000000 b3:07 3519       /usr/lib/libopenblas_armv7p-r0.3.21.so
+a6ca4000-a6cb4000 ---p 00000000 00:00 0 
+a6cb4000-a6cb6000 r--p 00281000 b3:07 3519       /usr/lib/libopenblas_armv7p-r0.3.21.so
+a6cb6000-a6cb7000 rw-p 00283000 b3:07 3519       /usr/lib/libopenblas_armv7p-r0.3.21.so
+a6cb7000-a6cb8000 rw-p 00000000 00:00 0 
+a6cb8000-a6ce7000 r-xp 00000000 b3:07 505        /usr/lib/libjsoncpp.so.25
+a6ce7000-a6cf6000 ---p 00000000 00:00 0 
+a6cf6000-a6cf7000 r--p 0002e000 b3:07 505        /usr/lib/libjsoncpp.so.25
+a6cf7000-a6cf8000 rw-p 0002f000 b3:07 505        /usr/lib/libjsoncpp.so.25
+a6cf8000-a6d16000 r-xp 00000000 b3:07 636        /usr/lib/libportaudio.so.2.0.0
+a6d16000-a6d25000 ---p 00000000 00:00 0 
+a6d25000-a6d26000 r--p 0001d000 b3:07 636        /usr/lib/libportaudio.so.2.0.0
+a6d26000-a6d27000 rw-p 0001e000 b3:07 636        /usr/lib/libportaudio.so.2.0.0
+a6d27000-a6d87000 r-xp 00000000 b3:07 606        /usr/lib/libopus.so.0.8.0
+a6d87000-a6d96000 ---p 00000000 00:00 0 
+a6d96000-a6d97000 r--p 0005f000 b3:07 606        /usr/lib/libopus.so.0.8.0
+a6d97000-a6d98000 rw-p 00060000 b3:07 606        /usr/lib/libopus.so.0.8.0
+a6d98000-a6e7c000 r-xp 00000000 b3:07 507        /usr/lib/libasound.so.2.0.0
+a6e7c000-a6e8c000 ---p 00000000 00:00 0 
+a6e8c000-a6e90000 r--p 000e4000 b3:07 507        /usr/lib/libasound.so.2.0.0
+a6e90000-a6e91000 rw-p 000e8000 b3:07 507        /usr/lib/libasound.so.2.0.0
+a6e91000-a6f0c000 r-xp 00000000 b3:07 550        /usr/lib/libcurl.so.4.8.0
+a6f0c000-a6f1b000 ---p 00000000 00:00 0 
+a6f1b000-a6f1d000 r--p 0007a000 b3:07 550        /usr/lib/libcurl.so.4.8.0
+a6f1d000-a6f1f000 rw-p 0007c000 b3:07 550        /usr/lib/libcurl.so.4.8.0
+a6f1f000-a6f2b000 r-xp 00000000 b3:07 857        /usr/lib/libjson-c.so.5.2.0
+a6f2b000-a6f3a000 ---p 00000000 00:00 0 
+a6f3a000-a6f3b000 r--p 0000b000 b3:07 857        /usr/lib/libjson-c.so.5.2.0
+a6f3b000-a6f3c000 rw-p 0000c000 b3:07 857        /usr/lib/libjson-c.so.5.2.0
+a6f3c000-a6f47000 r-xp 00000000 b3:05 186        /oem/usr/lib/libdrm.so.2.4.0
+a6f47000-a6f56000 ---p 00000000 00:00 0 
+a6f56000-a6f57000 r--p 0000a000 b3:05 186        /oem/usr/lib/libdrm.so.2.4.0
+a6f57000-a6f58000 rw-p 0000b000 b3:05 186        /oem/usr/lib/libdrm.so.2.4.0
+a6f58000-a6f5e000 r-xp 00000000 b3:07 4049       /lib/ld-uClibc-1.0.31.so
+a6f6a000-a6f6e000 rw-p 00000000 00:00 0 
+a6f6e000-a6f6f000 r--p 00006000 b3:07 4049       /lib/ld-uClibc-1.0.31.so
+a6f6f000-a6f70000 rw-p 00007000 b3:07 4049       /lib/ld-uClibc-1.0.31.so
+ae971000-ae992000 rwxp 00000000 00:00 0          [stack]
+aebe3000-aebe4000 r-xp 00000000 00:00 0          [sigpage]
+ffff0000-ffff1000 r-xp 00000000 00:00 0          [vectors]
+[file descriptors]
+total 0
+lr-x------    1 root     root            64 Jan  1 12:04 0 -> /dev/null
+l-wx------    1 root     root            64 Jan  1 12:04 1 -> /userdata/deskbot/deskbot.log
+l-wx------    1 root     root            64 Jan  1 12:04 2 -> /userdata/deskbot/deskbot.log
+lrwx------    1 root     root            64 Jan  1 12:04 3 -> /dev/fb0
+lr-x------    1 root     root            64 Jan  1 12:04 4 -> /dev/input/event0

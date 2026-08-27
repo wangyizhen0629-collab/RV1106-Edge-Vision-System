@@ -1,0 +1,2 @@
+# Captured board logs are kept verbatim and may contain device-generated CR/whitespace.
+docs/logs/st7789-drm/** -whitespace

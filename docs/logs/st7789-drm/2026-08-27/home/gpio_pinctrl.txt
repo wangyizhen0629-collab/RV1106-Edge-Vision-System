@@ -1,0 +1,4 @@
+[GPIO debugfs]
+cat: can't open '/sys/kernel/debug/gpio': No such file or directory
+
+[pinctrl selections containing display/SPI signals]

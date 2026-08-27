@@ -1,0 +1,20 @@
+[SPI devices]
+path=/sys/bus/spi/devices/spi0.0
+modalias=spi:st7789v 
+driver_override= 
+uevent=DRIVER=fb_st7789v OF_NAME=fbtft OF_FULLNAME=/spi@ff500000/fbtft@0 OF_COMPATIBLE_0=sitronix,st7789v OF_COMPATIBLE_N=1 MODALIAS=spi:st7789v 
+driver_link=../../../../../../bus/spi/drivers/fb_st7789v
+of_node_link=../../../../../../firmware/devicetree/base/spi@ff500000/fbtft@0
+
+path=/sys/bus/spi/devices/spi2.0
+modalias=spi:spi-nand 
+driver_override= 
+uevent=OF_NAME=flash OF_FULLNAME=/spi@ffac0000/flash@0 OF_COMPATIBLE_0=spi-nand OF_COMPATIBLE_N=1 MODALIAS=spi:spi-nand 
+driver_link=<unbound>
+of_node_link=../../../../../../firmware/devicetree/base/spi@ffac0000/flash@0
+
+[SPI masters]
+lrwxrwxrwx    1 root     root             0 Jan  1 12:04 /sys/class/spi_master/spi0 -> ../../devices/platform/ff500000.spi/spi_master/spi0
+lrwxrwxrwx    1 root     root             0 Jan  1 12:04 /sys/class/spi_master/spi2 -> ../../devices/platform/ffac0000.spi/spi_master/spi2
+
+[loaded display/SPI modules]

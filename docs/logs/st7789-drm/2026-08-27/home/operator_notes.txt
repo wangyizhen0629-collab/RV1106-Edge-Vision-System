@@ -1,0 +1,8 @@
+scenario=home
+screen_color_correct=TODO
+screen_orientation_correct=TODO
+screen_offset_correct=TODO
+visible_tearing=TODO
+visible_flicker=TODO
+transient_corruption=TODO
+operator_notes=TODO

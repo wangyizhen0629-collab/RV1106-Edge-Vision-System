@@ -1,0 +1,1 @@
+clk_summary=<unavailable; debugfs may not be mounted>
