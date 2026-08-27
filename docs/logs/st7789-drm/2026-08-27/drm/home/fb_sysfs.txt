@@ -1,0 +1,28 @@
+[device nodes]
+crw-rw----    1 root     video      29,   0 Jan  1 15:09 /dev/fb0
+
+[graphics sysfs]
+path=/sys/class/graphics/fb0
+name=st7789v-dbidrmf 
+virtual_size=320,240 
+bits_per_pixel=16 
+stride=640 
+rotate=0 
+state=0 
+blank=
+modes=U:320x240p-0 
+device_link=../../../spi0.0
+
+path=/sys/class/graphics/fbcon
+name=<unavailable>
+virtual_size=<unavailable>
+bits_per_pixel=<unavailable>
+stride=<unavailable>
+rotate=0 
+state=<unavailable>
+blank=<unavailable>
+modes=<unavailable>
+device_link=<unavailable>
+
+[fbset]
+fbset: option 'i' not handled

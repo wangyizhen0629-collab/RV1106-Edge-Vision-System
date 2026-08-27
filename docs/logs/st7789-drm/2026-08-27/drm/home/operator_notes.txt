@@ -1,0 +1,8 @@
+scenario=home
+screen_color_correct=yes
+screen_orientation_correct=yes
+screen_offset_correct=yes
+visible_tearing=no
+visible_flicker=no
+transient_corruption=no
+operator_notes=用户确认 Home 颜色、方向、触摸/页面操作和 offset 正常，无明显撕裂、闪烁或花屏；Home/YOLO 连续刷新约 30 分钟正常。

@@ -76,6 +76,16 @@ target_link_libraries(
 include(${CMAKE_CURRENT_LIST_DIR}/lvgl/tests/FindLibDRM.cmake)
 include_directories(${Libdrm_INCLUDE_DIRS})
 
+if(TARGET_ARM)
+    if(NOT Libdrm_FOUND)
+        message(FATAL_ERROR "The ARM DRM display backend requires target libdrm headers and libraries.")
+    endif()
+    # lv_linux_drm.c is compiled as part of the lvgl target, so libdrm's
+    # include directories must be attached to that target as well. The final
+    # executable already links ${Libdrm_LIBRARIES} below.
+    target_include_directories(lvgl PRIVATE ${Libdrm_INCLUDE_DIRS})
+endif()
+
 if(NOT TARGET_ARM)
     find_package(SDL2)
     find_package(SDL2_image)

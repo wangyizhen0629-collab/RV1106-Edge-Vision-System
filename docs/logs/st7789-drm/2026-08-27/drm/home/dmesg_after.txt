@@ -1,0 +1,228 @@
+[   39.722487] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.722527] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.722558] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.722607] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.722717] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.722754] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.722787] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.722821] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.722853] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.723029] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.723158] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.723341] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.723403] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.723614] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.723660] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.723694] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.723726] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.723757] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.723868] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.723906] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.723941] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.723974] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.724004] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.724185] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.724315] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.724356] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.724392] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.724426] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.724458] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.724603] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.724802] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.724849] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.724883] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.724932] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.724966] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.725149] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.725191] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.725263] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.725298] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.725328] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.725552] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.725593] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.725626] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.725671] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.725702] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.725755] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.725939] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.725992] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.726028] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.726061] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.726091] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.726125] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.726217] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.726265] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.726341] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.726499] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.726538] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.726734] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.726776] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.726809] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.726842] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.726872] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.726919] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.727110] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.727164] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.727200] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.727233] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.727265] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.727421] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.727474] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.727514] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.727546] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.727594] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.727641] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.727674] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.727902] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.727945] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.727980] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.728015] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.728046] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.728089] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.728123] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.728325] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.728384] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.728417] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.728552] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.728598] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.728788] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.729045] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.729102] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.729137] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.729336] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.729383] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.729431] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.729661] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.729702] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.729738] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.729788] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.729820] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.729854] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.730054] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.730096] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.730129] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.730174] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.730206] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.730260] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.730443] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.730501] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.730537] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.730568] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.730598] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.730724] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.730761] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.730814] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.730970] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.731155] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.731210] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.731248] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.731282] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.731313] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.731343] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.731549] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.731775] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.732027] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.732072] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.732109] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.732178] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.732411] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.732474] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.732515] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.732549] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.732580] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.732610] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.732719] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.732760] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.732822] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.732855] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.732918] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.732953] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.733095] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.733420] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.733468] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.733501] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.733550] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.733582] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.733625] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.733657] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.733692] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.733727] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.733758] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.733788] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.733896] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.734090] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.734311] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.734361] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.734396] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.734428] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.734459] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.734491] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.734679] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.734732] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.734783] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.734997] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.735060] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.735264] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.735307] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.735344] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.735377] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.735408] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.735440] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.735723] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.735772] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.735807] RTL8723BS: ERROR sd_recv_rxfifo: alloc recvbuf FAIL!
+[   39.736477] RTL8723BS: rtw_cmd_thread: DriverStopped(0) SurpriseRemoved(1) break at line 453
+[   52.659488] stream_cif_mipi_id0: s_power 1, entity use_count 1
+[   52.660152] stream_cif_mipi_id0: s_power 0, entity use_count 0
+[   52.881163] stream_cif_mipi_id0: s_power 1, entity use_count 1
+[   52.881737] stream_cif_mipi_id0: open video, entity use_countt 2
+[   52.881857] stream_cif_mipi_id1: open video, entity use_countt 1
+[   52.896823] rkisp rkisp-vir0: first params buf queue
+[   52.913957] vsys dev open 26
+[   52.944022] rkisp queue buf done
+[   52.944421] rkisp_hw ffa00000.rkisp: set isp clk = 198000000Hz
+[   52.944477] rkcif-mipi-lvds: sditf_reinit_mode, mode->rdbk_mode 0, mode->name rkisp-vir0, link_mode 1
+[   52.946228] rkcif-mipi-lvds: stream[0] start streaming
+[   52.946374] rockchip-mipi-csi2 ffa20000.mipi-csi2: stream on, src_sd: 6f7c541c, sd_name:rockchip-csi2-dphy0
+[   52.946388] rockchip-mipi-csi2 ffa20000.mipi-csi2: stream ON
+[   52.946433] rockchip-csi2-dphy0: dphy0, data_rate_mbps 506
+[   52.946458] rockchip-csi2-dphy csi2-dphy0: csi2_dphy_s_stream stream on:1, dphy0
+[   52.946469] rockchip-csi2-dphy csi2-dphy0: csi2_dphy_s_stream stream on:1, dphy0
+[   52.986079] create vpss node = 1228800
+[   97.805031] rockit isp stream off
+[   97.844907] rkcif-mipi-lvds: stream[0] start stopping, total mode 0x2, cur 0x2
+[   97.881258] rockchip-mipi-csi2 ffa20000.mipi-csi2: stream off, src_sd: 6f7c541c, sd_name:rockchip-csi2-dphy0
+[   97.881314] rockchip-mipi-csi2 ffa20000.mipi-csi2: stream OFF
+[   97.883851] rockchip-csi2-dphy csi2-dphy0: csi2_dphy_s_stream_stop stream stop, dphy0
+[   97.883913] rockchip-csi2-dphy csi2-dphy0: csi2_dphy_s_stream stream on:0, dphy0
+[   97.883981] rockchip-csi2-dphy csi2-dphy0: csi2_dphy_s_stream stream on:0, dphy0
+[   97.884458] rkcif-mipi-lvds: stream[0] stopping finished, dma_en 0x0
+[   97.956052] stream_cif_mipi_id1: close video, entity use_count 0
+[   97.956177] stream_cif_mipi_id0: close video, entity use_count 1
+[   97.956448] stream_cif_mipi_id0: s_power 0, entity use_count 0
+[   99.832944] stream_cif_mipi_id0: s_power 1, entity use_count 1
+[   99.834079] stream_cif_mipi_id0: open video, entity use_countt 2
+[   99.834364] stream_cif_mipi_id1: open video, entity use_countt 1
+[   99.848824] rkisp rkisp-vir0: first params buf queue
+[   99.855448] vsys dev open 26
+[   99.871744] rkisp queue buf done
+[   99.872033] rkisp_hw ffa00000.rkisp: set isp clk = 198000000Hz
+[   99.872104] rkcif-mipi-lvds: sditf_reinit_mode, mode->rdbk_mode 0, mode->name rkisp-vir0, link_mode 1
+[   99.873733] rkcif-mipi-lvds: stream[0] start streaming
+[   99.873872] rockchip-mipi-csi2 ffa20000.mipi-csi2: stream on, src_sd: 6f7c541c, sd_name:rockchip-csi2-dphy0
+[   99.873888] rockchip-mipi-csi2 ffa20000.mipi-csi2: stream ON
+[   99.873945] rockchip-csi2-dphy0: dphy0, data_rate_mbps 506
+[   99.873976] rockchip-csi2-dphy csi2-dphy0: csi2_dphy_s_stream stream on:1, dphy0
+[   99.873985] rockchip-csi2-dphy csi2-dphy0: csi2_dphy_s_stream stream on:1, dphy0
+[   99.897883] create vpss node = 1228800
+[  485.212848] rockit isp stream off
+[  485.252726] rkcif-mipi-lvds: stream[0] start stopping, total mode 0x2, cur 0x2
+[  485.288647] rockchip-mipi-csi2 ffa20000.mipi-csi2: stream off, src_sd: 6f7c541c, sd_name:rockchip-csi2-dphy0
+[  485.288703] rockchip-mipi-csi2 ffa20000.mipi-csi2: stream OFF
+[  485.291133] rockchip-csi2-dphy csi2-dphy0: csi2_dphy_s_stream_stop stream stop, dphy0
+[  485.291187] rockchip-csi2-dphy csi2-dphy0: csi2_dphy_s_stream stream on:0, dphy0
+[  485.291250] rockchip-csi2-dphy csi2-dphy0: csi2_dphy_s_stream stream on:0, dphy0
+[  485.291502] rkcif-mipi-lvds: stream[0] stopping finished, dma_en 0x0
+[  486.132889] stream_cif_mipi_id1: close video, entity use_count 0
+[  486.133073] stream_cif_mipi_id0: close video, entity use_count 1
+[  486.133833] stream_cif_mipi_id0: s_power 0, entity use_count 0

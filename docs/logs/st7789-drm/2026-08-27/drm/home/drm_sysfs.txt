@@ -1,0 +1,34 @@
+[device nodes]
+crw-rw----    1 root     video     226,   0 Jan  1 15:09 /dev/dri/card0
+
+/dev/dri:
+total 0
+drwxr-xr-x    2 root     root            60 Jan  1 15:09 by-path
+crw-rw----    1 root     video     226,   0 Jan  1 15:09 card0
+
+/dev/dri/by-path:
+total 0
+lrwxrwxrwx    1 root     root             8 Jan  1 15:09 platform-ff500000.spi-card -> ../card0
+
+[drm sysfs]
+path=/sys/class/drm/card0
+status=<unavailable>
+enabled=<unavailable>
+modes=<unavailable>
+dpms=<unavailable>
+device_link=../../../spi0.0
+
+path=/sys/class/drm/card0-SPI-1
+status=connected 
+enabled=enabled 
+modes=320x240 
+dpms=On 
+device_link=../../card0
+
+path=/sys/class/drm/version
+status=<unavailable>
+enabled=<unavailable>
+modes=<unavailable>
+dpms=<unavailable>
+device_link=<unavailable>
+

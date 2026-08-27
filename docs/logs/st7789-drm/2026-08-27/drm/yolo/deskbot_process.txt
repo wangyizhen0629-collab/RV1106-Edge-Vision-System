@@ -1,0 +1,281 @@
+pid=258
+/oem/usr/share/deskbot/main
+/oem/usr/share/deskbot/main 
+Name:	main
+Umask:	0022
+State:	S (sleeping)
+Tgid:	258
+Ngid:	0
+Pid:	258
+PPid:	1
+TracerPid:	0
+Uid:	0	0	0	0
+Gid:	0	0	0	0
+FDSize:	256
+Groups:	 
+VmPeak:	   90256 kB
+VmSize:	   90256 kB
+VmLck:	       0 kB
+VmPin:	       0 kB
+VmHWM:	   13432 kB
+VmRSS:	   11460 kB
+RssAnon:	    5808 kB
+RssFile:	    5652 kB
+RssShmem:	       0 kB
+VmData:	   48332 kB
+VmStk:	     132 kB
+VmExe:	    4976 kB
+VmLib:	   11476 kB
+VmPTE:	      92 kB
+VmSwap:	       0 kB
+CoreDumping:	0
+THP_enabled:	0
+Threads:	20
+SigQ:	1/433
+SigPnd:	0000000000000000
+ShdPnd:	0000000000000000
+SigBlk:	0000000000000000
+SigIgn:	0000000000000006
+SigCgt:	0000000180000000
+CapInh:	0000000000000000
+CapPrm:	000001ffffffffff
+CapEff:	000001ffffffffff
+CapBnd:	000001ffffffffff
+CapAmb:	0000000000000000
+NoNewPrivs:	0
+Seccomp:	0
+Seccomp_filters:	0
+Speculation_Store_Bypass:	unknown
+Cpus_allowed:	1
+Cpus_allowed_list:	0
+voluntary_ctxt_switches:	680132
+nonvoluntary_ctxt_switches:	8670
+[maps]
+00010000-004ec000 r-xp 00000000 b3:05 190        /oem/usr/share/deskbot/main
+004fb000-00502000 r--p 004db000 b3:05 190        /oem/usr/share/deskbot/main
+00502000-00504000 rw-p 004e2000 b3:05 190        /oem/usr/share/deskbot/main
+00504000-00957000 rw-p 00000000 00:00 0          [heap]
+a2043000-a216f000 rw-s 00000000 00:08 9108       /dmabuf:vmpi
+a216f000-a229b000 rw-s 00000000 00:08 9107       /dmabuf:vmpi
+a229b000-a23c7000 rw-s 00000000 00:08 9106       /dmabuf:vmpi
+a23c7000-a24f3000 rw-s 00000000 00:08 9105       /dmabuf:vmpi
+a24f3000-a24f4000 ---p 00000000 00:00 0 
+a24f4000-a26f3000 rw-p 00000000 00:00 0 
+a26f3000-a26f4000 ---p 00000000 00:00 0 
+a26f4000-a28f3000 rw-p 00000000 00:00 0 
+a28f3000-a28f4000 ---p 00000000 00:00 0 
+a28f4000-a2af3000 rw-p 00000000 00:00 0 
+a2af3000-a2af4000 ---p 00000000 00:00 0 
+a2af4000-a2cf3000 rw-p 00000000 00:00 0 
+a2cf3000-a2cf4000 ---p 00000000 00:00 0 
+a2cf4000-a2ef3000 rw-p 00000000 00:00 0 
+a2ef3000-a2ef4000 ---p 00000000 00:00 0 
+a2ef4000-a30f3000 rw-p 00000000 00:00 0 
+a30f3000-a30f4000 ---p 00000000 00:00 0 
+a30f4000-a32f3000 rw-p 00000000 00:00 0 
+a32f3000-a32f4000 ---p 00000000 00:00 0 
+a32f4000-a34f3000 rw-p 00000000 00:00 0 
+a34f3000-a34f4000 ---p 00000000 00:00 0 
+a34f4000-a36f3000 rw-p 00000000 00:00 0 
+a36f3000-a36f4000 ---p 00000000 00:00 0 
+a36f4000-a38f3000 rw-p 00000000 00:00 0 
+a38f3000-a38f4000 ---p 00000000 00:00 0 
+a38f4000-a3af3000 rw-p 00000000 00:00 0 
+a3b63000-a3b64000 ---p 00000000 00:00 0 
+a3b64000-a3d63000 rw-p 00000000 00:00 0 
+a3d63000-a3d64000 ---p 00000000 00:00 0 
+a3d64000-a3f63000 rw-p 00000000 00:00 0 
+a3f63000-a3f64000 ---p 00000000 00:00 0 
+a3f64000-a4163000 rw-p 00000000 00:00 0 
+a4163000-a42f3000 rw-s 00000000 00:08 9054       /dmabuf:ff660000.npu
+a42f3000-a42f4000 ---p 00000000 00:00 0 
+a42f4000-a44f3000 rw-p 00000000 00:00 0 
+a4503000-a4504000 ---p 00000000 00:00 0 
+a4504000-a4703000 rw-p 00000000 00:00 0 
+a4706000-a4707000 ---p 00000000 00:00 0 
+a4707000-a4906000 rw-p 00000000 00:00 0 
+a4906000-a4907000 ---p 00000000 00:00 0 
+a4907000-a4b06000 rw-p 00000000 00:00 0 
+a4b06000-a4b07000 ---p 00000000 00:00 0 
+a4b07000-a4d6e000 rw-p 00000000 00:00 0 
+a4d6e000-a4d6f000 ---p 00000000 00:00 0 
+a4d6f000-a4f6e000 rw-p 00000000 00:00 0 
+a4fbf000-a4fc3000 rw-s 00000000 00:05 353        /dev/video19
+a4fc3000-a4fc7000 rw-s 00000000 00:05 353        /dev/video19
+a4fc7000-a4fcb000 rw-s 00000000 00:05 353        /dev/video19
+a4fcb000-a4fcf000 rw-s 00000000 00:05 353        /dev/video19
+a4fcf000-a4fd2000 rw-s 00000000 00:05 354        /dev/video20
+a4fd2000-a4feb000 rw-s 00000000 00:08 9056       /dmabuf:ff660000.npu
+a4feb000-a504f000 rw-s 00000000 00:08 9055       /dmabuf:ff660000.npu
+a504f000-a517b000 rw-s 00000000 00:08 9053       /dmabuf:ff660000.npu
+a517b000-a52a7000 rw-s 00000000 00:08 7144       /dmabuf:ff660000.npu
+a52a7000-a605a000 rw-s 00000000 00:08 9052       /dmabuf:ff660000.npu
+a605a000-a605b000 ---p 00000000 00:00 0 
+a605b000-a625a000 rw-p 00000000 00:00 0 
+a625a000-a6280000 rw-s 00000000 00:05 117        /dev/dri/card0
+a6280000-a62a6000 rw-s 00000000 00:05 117        /dev/dri/card0
+a62a6000-a62b6000 rw-p 00000000 00:00 0 
+a62b6000-a62b9000 r-xp 00000000 b3:07 4026       /lib/libatomic.so.1.2.0
+a62b9000-a62c8000 ---p 00000000 00:00 0 
+a62c8000-a62c9000 r--p 00002000 b3:07 4026       /lib/libatomic.so.1.2.0
+a62c9000-a62ca000 rw-p 00003000 b3:07 4026       /lib/libatomic.so.1.2.0
+a62ca000-a62cb000 rw-p 00000000 00:00 0 
+a62cb000-a62e2000 r-xp 00000000 b3:07 589        /usr/lib/libz.so.1.2.13
+a62e2000-a62f1000 ---p 00000000 00:00 0 
+a62f1000-a62f2000 r--p 00016000 b3:07 589        /usr/lib/libz.so.1.2.13
+a62f2000-a62f3000 rw-p 00017000 b3:07 589        /usr/lib/libz.so.1.2.13
+a62f3000-a6509000 r-xp 00000000 b3:07 570        /usr/lib/libcrypto.so.1.1
+a6509000-a6518000 ---p 00000000 00:00 0 
+a6518000-a652f000 r--p 00215000 b3:07 570        /usr/lib/libcrypto.so.1.1
+a652f000-a6530000 rw-p 0022c000 b3:07 570        /usr/lib/libcrypto.so.1.1
+a6530000-a6533000 rw-p 00000000 00:00 0 
+a6533000-a659d000 r-xp 00000000 b3:07 578        /usr/lib/libssl.so.1.1
+a659d000-a65ad000 ---p 00000000 00:00 0 
+a65ad000-a65b2000 r--p 0006a000 b3:07 578        /usr/lib/libssl.so.1.1
+a65b2000-a65b5000 rw-p 0006f000 b3:07 578        /usr/lib/libssl.so.1.1
+a65b5000-a661c000 r-xp 00000000 b3:07 4052       /lib/libuClibc-1.0.31.so
+a661c000-a662c000 ---p 00000000 00:00 0 
+a662c000-a662d000 r--p 00067000 b3:07 4052       /lib/libuClibc-1.0.31.so
+a662d000-a662e000 rw-p 00068000 b3:07 4052       /lib/libuClibc-1.0.31.so
+a662e000-a6644000 rw-p 00000000 00:00 0 
+a6644000-a6662000 r-xp 00000000 b3:07 4027       /lib/libgcc_s.so.1
+a6662000-a6671000 ---p 00000000 00:00 0 
+a6671000-a6672000 r--p 0001d000 b3:07 4027       /lib/libgcc_s.so.1
+a6672000-a6673000 rw-p 0001e000 b3:07 4027       /lib/libgcc_s.so.1
+a6673000-a6764000 r-xp 00000000 b3:07 4051       /lib/libstdc++.so.6.0.25
+a6764000-a6773000 ---p 00000000 00:00 0 
+a6773000-a6778000 r--p 000f0000 b3:07 4051       /lib/libstdc++.so.6.0.25
+a6778000-a677b000 rw-p 000f5000 b3:07 4051       /lib/libstdc++.so.6.0.25
+a677b000-a677c000 rw-p 00000000 00:00 0 
+a677c000-a67aa000 r-xp 00000000 b3:05 116        /oem/usr/share/deskbot/lib/librknnmrt.so
+a67aa000-a67b9000 ---p 00000000 00:00 0 
+a67b9000-a67ba000 r--p 0002d000 b3:05 116        /oem/usr/share/deskbot/lib/librknnmrt.so
+a67ba000-a67bb000 rw-p 0002e000 b3:05 116        /oem/usr/share/deskbot/lib/librknnmrt.so
+a67bb000-a68cc000 r-xp 00000000 b3:05 112        /oem/usr/share/deskbot/lib/librkaiq.so
+a68cc000-a68db000 ---p 00000000 00:00 0 
+a68db000-a68e2000 r--p 00110000 b3:05 112        /oem/usr/share/deskbot/lib/librkaiq.so
+a68e2000-a691b000 rw-p 00117000 b3:05 112        /oem/usr/share/deskbot/lib/librkaiq.so
+a691b000-a691f000 rw-p 00000000 00:00 0 
+a691f000-a6947000 r-xp 00000000 b3:05 114        /oem/usr/share/deskbot/lib/librga.so
+a6947000-a6956000 ---p 00000000 00:00 0 
+a6956000-a6957000 r--p 00027000 b3:05 114        /oem/usr/share/deskbot/lib/librga.so
+a6957000-a6958000 rw-p 00028000 b3:05 114        /oem/usr/share/deskbot/lib/librga.so
+a6958000-a6959000 rw-p 00000000 00:00 0 
+a6959000-a6983000 r-xp 00000000 b3:05 115        /oem/usr/share/deskbot/lib/librockchip_mpp.so.1
+a6983000-a6992000 ---p 00000000 00:00 0 
+a6992000-a6993000 r--p 00029000 b3:05 115        /oem/usr/share/deskbot/lib/librockchip_mpp.so.1
+a6993000-a6994000 rw-p 0002a000 b3:05 115        /oem/usr/share/deskbot/lib/librockchip_mpp.so.1
+a6994000-a6995000 rw-p 00000000 00:00 0 
+a6995000-a6a7e000 r-xp 00000000 b3:05 113        /oem/usr/share/deskbot/lib/librockit.so
+a6a7e000-a6a8d000 ---p 00000000 00:00 0 
+a6a8d000-a6a90000 r--p 000e8000 b3:05 113        /oem/usr/share/deskbot/lib/librockit.so
+a6a90000-a6a91000 rw-p 000eb000 b3:05 113        /oem/usr/share/deskbot/lib/librockit.so
+a6a91000-a6a94000 rw-p 00000000 00:00 0 
+a6a94000-a6d15000 r-xp 00000000 b3:07 3519       /usr/lib/libopenblas_armv7p-r0.3.21.so
+a6d15000-a6d25000 ---p 00000000 00:00 0 
+a6d25000-a6d27000 r--p 00281000 b3:07 3519       /usr/lib/libopenblas_armv7p-r0.3.21.so
+a6d27000-a6d28000 rw-p 00283000 b3:07 3519       /usr/lib/libopenblas_armv7p-r0.3.21.so
+a6d28000-a6d29000 rw-p 00000000 00:00 0 
+a6d29000-a6d58000 r-xp 00000000 b3:07 505        /usr/lib/libjsoncpp.so.25
+a6d58000-a6d67000 ---p 00000000 00:00 0 
+a6d67000-a6d68000 r--p 0002e000 b3:07 505        /usr/lib/libjsoncpp.so.25
+a6d68000-a6d69000 rw-p 0002f000 b3:07 505        /usr/lib/libjsoncpp.so.25
+a6d69000-a6d87000 r-xp 00000000 b3:07 636        /usr/lib/libportaudio.so.2.0.0
+a6d87000-a6d96000 ---p 00000000 00:00 0 
+a6d96000-a6d97000 r--p 0001d000 b3:07 636        /usr/lib/libportaudio.so.2.0.0
+a6d97000-a6d98000 rw-p 0001e000 b3:07 636        /usr/lib/libportaudio.so.2.0.0
+a6d98000-a6df8000 r-xp 00000000 b3:07 606        /usr/lib/libopus.so.0.8.0
+a6df8000-a6e07000 ---p 00000000 00:00 0 
+a6e07000-a6e08000 r--p 0005f000 b3:07 606        /usr/lib/libopus.so.0.8.0
+a6e08000-a6e09000 rw-p 00060000 b3:07 606        /usr/lib/libopus.so.0.8.0
+a6e09000-a6eed000 r-xp 00000000 b3:07 507        /usr/lib/libasound.so.2.0.0
+a6eed000-a6efd000 ---p 00000000 00:00 0 
+a6efd000-a6f01000 r--p 000e4000 b3:07 507        /usr/lib/libasound.so.2.0.0
+a6f01000-a6f02000 rw-p 000e8000 b3:07 507        /usr/lib/libasound.so.2.0.0
+a6f02000-a6f7d000 r-xp 00000000 b3:07 550        /usr/lib/libcurl.so.4.8.0
+a6f7d000-a6f8c000 ---p 00000000 00:00 0 
+a6f8c000-a6f8e000 r--p 0007a000 b3:07 550        /usr/lib/libcurl.so.4.8.0
+a6f8e000-a6f90000 rw-p 0007c000 b3:07 550        /usr/lib/libcurl.so.4.8.0
+a6f90000-a6f9c000 r-xp 00000000 b3:07 857        /usr/lib/libjson-c.so.5.2.0
+a6f9c000-a6fab000 ---p 00000000 00:00 0 
+a6fab000-a6fac000 r--p 0000b000 b3:07 857        /usr/lib/libjson-c.so.5.2.0
+a6fac000-a6fad000 rw-p 0000c000 b3:07 857        /usr/lib/libjson-c.so.5.2.0
+a6fad000-a6fb8000 r-xp 00000000 b3:05 186        /oem/usr/lib/libdrm.so.2.4.0
+a6fb8000-a6fc7000 ---p 00000000 00:00 0 
+a6fc7000-a6fc8000 r--p 0000a000 b3:05 186        /oem/usr/lib/libdrm.so.2.4.0
+a6fc8000-a6fc9000 rw-p 0000b000 b3:05 186        /oem/usr/lib/libdrm.so.2.4.0
+a6fc9000-a6fcf000 r-xp 00000000 b3:07 4049       /lib/ld-uClibc-1.0.31.so
+a6fcf000-a6fd2000 rw-s 00000000 00:05 354        /dev/video20
+a6fd2000-a6fd5000 rw-s 00000000 00:05 354        /dev/video20
+a6fd5000-a6fd8000 rw-s 00000000 00:05 354        /dev/video20
+a6fd8000-a6fdb000 rw-s 00000000 00:08 9051       /dmabuf:ff660000.npu
+a6fdb000-a6fdf000 rw-p 00000000 00:00 0 
+a6fdf000-a6fe0000 r--p 00006000 b3:07 4049       /lib/ld-uClibc-1.0.31.so
+a6fe0000-a6fe1000 rw-p 00007000 b3:07 4049       /lib/ld-uClibc-1.0.31.so
+ae8e0000-ae901000 rwxp 00000000 00:00 0          [stack]
+aeea7000-aeea8000 r-xp 00000000 00:00 0          [sigpage]
+ffff0000-ffff1000 r-xp 00000000 00:00 0          [vectors]
+[file descriptors]
+total 0
+lrwx------    1 root     root            64 Jan  1 15:23 0 -> /dmabuf:ff660000.npu
+l-wx------    1 root     root            64 Jan  1 15:23 1 -> /userdata/deskbot/deskbot.log
+lrwx------    1 root     root            64 Jan  1 15:23 10 -> /dmabuf:ff660000.npu
+lrwx------    1 root     root            64 Jan  1 15:23 11 -> /tmp/aiq0.lock
+lrwx------    1 root     root            64 Jan  1 15:23 12 -> /dev/v4l-subdev2
+lrwx------    1 root     root            64 Jan  1 15:23 13 -> /dev/v4l-subdev3
+lrwx------    1 root     root            64 Jan  1 15:23 14 -> /dev/video19
+lrwx------    1 root     root            64 Jan  1 15:23 15 -> /dev/video20
+lrwx------    1 root     root            64 Jan  1 15:23 16 -> /dev/v4l-subdev0
+lrwx------    1 root     root            64 Jan  1 15:23 17 -> /dev/video0
+lrwx------    1 root     root            64 Jan  1 15:23 18 -> /dev/video1
+lrwx------    1 root     root            64 Jan  1 15:23 19 -> /dev/video18
+l-wx------    1 root     root            64 Jan  1 15:23 2 -> /userdata/deskbot/deskbot.log
+lrwx------    1 root     root            64 Jan  1 15:23 20 -> /dev/video17
+lrwx------    1 root     root            64 Jan  1 15:23 21 -> socket:[9061]
+lr-x------    1 root     root            64 Jan  1 15:23 22 -> pipe:[9062]
+l-wx------    1 root     root            64 Jan  1 15:23 23 -> pipe:[9062]
+lr-x------    1 root     root            64 Jan  1 15:23 24 -> /dmabuf:
+lr-x------    1 root     root            64 Jan  1 15:23 25 -> /dmabuf:
+lr-x------    1 root     root            64 Jan  1 15:23 26 -> /dmabuf:
+lr-x------    1 root     root            64 Jan  1 15:23 27 -> /dmabuf:
+lr-x------    1 root     root            64 Jan  1 15:23 28 -> pipe:[9075]
+l-wx------    1 root     root            64 Jan  1 15:23 29 -> pipe:[9075]
+lrwx------    1 root     root            64 Jan  1 15:23 3 -> /dev/dri/card0
+lr-x------    1 root     root            64 Jan  1 15:23 30 -> /dmabuf:
+lr-x------    1 root     root            64 Jan  1 15:23 31 -> /dmabuf:
+lr-x------    1 root     root            64 Jan  1 15:23 32 -> /dmabuf:
+lr-x------    1 root     root            64 Jan  1 15:23 33 -> /dmabuf:
+lr-x------    1 root     root            64 Jan  1 15:23 34 -> pipe:[9082]
+l-wx------    1 root     root            64 Jan  1 15:23 35 -> pipe:[9082]
+lr-x------    1 root     root            64 Jan  1 15:23 36 -> pipe:[9085]
+l-wx------    1 root     root            64 Jan  1 15:23 37 -> pipe:[9085]
+lrwx------    1 root     root            64 Jan  1 15:23 38 -> /tmp/rt_log_level
+lrwx------    1 root     root            64 Jan  1 15:23 39 -> /tmp/rt_log_level
+lr-x------    1 root     root            64 Jan  1 15:23 4 -> /dev/input/event0
+lr-x------    1 root     root            64 Jan  1 15:23 40 -> anon_inode:inotify
+lrwx------    1 root     root            64 Jan  1 15:23 41 -> /dev/mpi/vlog
+lrwx------    1 root     root            64 Jan  1 15:23 42 -> socket:[9090]
+lrwx------    1 root     root            64 Jan  1 15:23 43 -> /dev/mpi/valloc
+lrwx------    1 root     root            64 Jan  1 15:23 44 -> /dev/mpi/vsys
+lrwx------    1 root     root            64 Jan  1 15:23 45 -> /dev/mpi/vrgn
+lrwx------    1 root     root            64 Jan  1 15:23 46 -> /dev/mpi/venc
+lrwx------    1 root     root            64 Jan  1 15:23 47 -> /dev/mpi/vpss
+lrwx------    1 root     root            64 Jan  1 15:23 48 -> /dev/mpi/vvi
+lrwx------    1 root     root            64 Jan  1 15:23 49 -> /dev/mpi/vrga
+lrwx------    1 root     root            64 Jan  1 15:23 5 -> /dev/rknpu
+lrwx------    1 root     root            64 Jan  1 15:23 50 -> /dev/mpi/venc
+lrwx------    1 root     root            64 Jan  1 15:23 51 -> /dev/video11
+lrwx------    1 root     root            64 Jan  1 15:23 52 -> /dev/video12
+lrwx------    1 root     root            64 Jan  1 15:23 53 -> /dev/video13
+lrwx------    1 root     root            64 Jan  1 15:23 54 -> /dev/mpi/valloc
+lrwx------    1 root     root            64 Jan  1 15:23 55 -> /dev/mpi/valloc
+lrwx------    1 root     root            64 Jan  1 15:23 56 -> /dev/rga
+lrwx------    1 root     root            64 Jan  1 15:23 57 -> /dev/video11
+lrwx------    1 root     root            64 Jan  1 15:23 58 -> /dmabuf:vmpi
+lrwx------    1 root     root            64 Jan  1 15:23 59 -> /dmabuf:vmpi
+lrwx------    1 root     root            64 Jan  1 15:23 6 -> /dmabuf:ff660000.npu
+lrwx------    1 root     root            64 Jan  1 15:23 60 -> /dmabuf:vmpi
+lrwx------    1 root     root            64 Jan  1 15:23 61 -> /dmabuf:vmpi
+lrwx------    1 root     root            64 Jan  1 15:23 7 -> /dmabuf:ff660000.npu
+lrwx------    1 root     root            64 Jan  1 15:23 8 -> /dmabuf:ff660000.npu
+lrwx------    1 root     root            64 Jan  1 15:23 9 -> /dmabuf:ff660000.npu

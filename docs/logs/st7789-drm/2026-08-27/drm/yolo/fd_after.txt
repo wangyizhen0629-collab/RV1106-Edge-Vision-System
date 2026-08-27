@@ -1,0 +1,10 @@
+total 0
+l-wx------    1 root     root            64 Jan  1 15:26 1 -> /userdata/deskbot/deskbot.log
+l-wx------    1 root     root            64 Jan  1 15:26 2 -> /userdata/deskbot/deskbot.log
+lrwx------    1 root     root            64 Jan  1 15:26 3 -> /dev/dri/card0
+lrwx------    1 root     root            64 Jan  1 15:26 38 -> /tmp/rt_log_level
+lrwx------    1 root     root            64 Jan  1 15:26 39 -> /tmp/rt_log_level
+lr-x------    1 root     root            64 Jan  1 15:26 4 -> /dev/input/event0
+lr-x------    1 root     root            64 Jan  1 15:26 40 -> anon_inode:inotify
+lrwx------    1 root     root            64 Jan  1 15:26 54 -> /dev/mpi/valloc
+lrwx------    1 root     root            64 Jan  1 15:26 56 -> /dev/rga

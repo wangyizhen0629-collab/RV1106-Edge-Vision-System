@@ -1,0 +1,32 @@
+collector_version=1
+scenario=yolo
+samples=120
+interval_s=1
+board_date_local=Fri Jan  1 15:23:06 UTC 2021
+board_date_utc=Fri Jan  1 15:23:06 UTC 2021
+output_dir=/userdata/st7789-drm-stage3/yolo
+note=Board RTC may be inaccurate; preserve the host-side capture time when copying this directory.
+
+[uname]
+Linux root 5.10.110 #5 Thu Aug 27 12:00:48 CST 2026 armv7l GNU/Linux
+
+[uptime]
+791.11 583.92
+
+[cmdline]
+user_debug=31 storagemedia=sd androidboot.storagemedia=sd androidboot.mode=normal  rootwait earlycon=uart8250,mmio32,0xff4c0000 console=ttyFIQ0 snd_soc_core.prealloc_buffer_size_kbytes=16 coherent_pool=0 root=/dev/mmcblk1p7 rootfstype=ext4 rk_dma_heap_cma=66M blkdevparts=mmcblk1:32K(env),512K@32K(idblock),256K(uboot),32M(boot),512M(oem),256M(userdata),6G(rootfs),-(media)
+
+[mounts]
+/dev/root on / type ext4 (rw,relatime)
+devtmpfs on /dev type devtmpfs (rw,relatime,size=27772k,nr_inodes=6943,mode=755)
+proc on /proc type proc (rw,relatime)
+devpts on /dev/pts type devpts (rw,relatime,gid=5,mode=620,ptmxmode=666)
+tmpfs on /dev/shm type tmpfs (rw,relatime,mode=777)
+tmpfs on /tmp type tmpfs (rw,relatime)
+tmpfs on /run type tmpfs (rw,nosuid,nodev,relatime,mode=755)
+sysfs on /sys type sysfs (rw,relatime)
+/dev/mmcblk1p7 on /mnt/sdcard type ext4 (rw,noatime)
+/dev/block/by-name/userdata on /userdata type ext4 (rw,relatime)
+/dev/block/by-name/oem on /oem type ext4 (rw,relatime)
+none on /sys/kernel/config type configfs (rw,relatime)
+adb on /dev/usb-ffs/adb type functionfs (rw,relatime)

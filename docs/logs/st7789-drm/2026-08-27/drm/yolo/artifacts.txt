@@ -1,0 +1,5 @@
+[checksums]
+f74590f30d4d2027b2a8f9b1ae7cfcdc401e3713922180747acdee1737c9cf8e  /oem/usr/share/deskbot/main
+7e72c8caa060ea15d69109e4af6c1f80005cbd1be14bbe1f6f2af9175861c44a  /oem/usr/share/deskbot/model/yolov5.rknn
+71c7035fc061c43e6e51e10bd1d495424bfbbad3873b66f72b98a1816224886b  /oem/usr/lib/libdrm.so
+71c7035fc061c43e6e51e10bd1d495424bfbbad3873b66f72b98a1816224886b  /oem/usr/lib/libdrm.so.2

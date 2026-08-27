@@ -9,12 +9,18 @@ extern "C" {
 
 #if LV_USE_SIMULATOR
     #define LV_USE_LINUX_FBDEV 0
+    #define LV_USE_LINUX_DRM 0
     #define LV_USE_EVDEV 0
     #define LV_USE_SDL 1
 #else
-    #define LV_USE_LINUX_FBDEV 1
+    #define LV_USE_LINUX_FBDEV 0
+    #define LV_USE_LINUX_DRM 1
     #define LV_USE_EVDEV 1
     #define LV_USE_SDL 0
+#endif
+
+#if (LV_USE_LINUX_FBDEV + LV_USE_LINUX_DRM + LV_USE_SDL) != 1
+    #error "Exactly one LVGL display backend must be enabled"
 #endif
 
 #ifdef __cplusplus

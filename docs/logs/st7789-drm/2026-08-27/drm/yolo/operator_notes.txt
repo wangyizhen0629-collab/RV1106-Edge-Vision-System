@@ -1,0 +1,8 @@
+scenario=yolo
+screen_color_correct=yes
+screen_orientation_correct=yes
+screen_offset_correct=yes
+visible_tearing=no
+visible_flicker=no
+transient_corruption=no
+operator_notes=用户确认 YOLO 颜色、方向和 offset 正常，无明显撕裂、闪烁或花屏；重复进入/退出及约 30 分钟连续刷新正常。

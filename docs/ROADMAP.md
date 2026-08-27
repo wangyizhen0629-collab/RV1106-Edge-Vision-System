@@ -210,7 +210,7 @@ dmesg | tail -n 200
 - `Demo/DeskBot_demo/lvgl/src/drivers/display/drm/`
 - `docs/`
 
-阶段一确认旧链路由 `fbtft@0`/`sitronix,st7789v` 绑定 `fb_st7789v`。阶段二已完成：新增 `sitronix,st7789v-dbi` TinyDRM 驱动、切换 DTS/defconfig、解绑 fbtft，并修复 Rockchip SPI 奇数分片导致的 16-bit partial word。实机确认 connector connected、mode 320×240，颜色/方向/offset/刷新正常，Home/YOLO 持续运行约 30 分钟。下一步接入 LVGL linux_drm 并采集性能数据。
+阶段一确认旧链路由 `fbtft@0`/`sitronix,st7789v` 绑定 `fb_st7789v`。阶段二已完成：新增 `sitronix,st7789v-dbi` TinyDRM 驱动、切换 DTS/defconfig、解绑 fbtft，并修复 Rockchip SPI 奇数分片导致的 16-bit partial word。阶段三也已完成：DeskBot/LVGL 直接使用 `/dev/dri/card0`，不再持有 `/dev/fb0`；Home/YOLO 画面、重复页面生命周期、约 30 分钟持续刷新和单轮同口径采样通过。YOLO 应用 FPS/进程 CPU 基本持平，系统 busy 呈下降趋势；旧 fbtft debug 和采样起点会干扰差值，最终 Performance Report 需补多轮冷启动复测后再给出性能提升比例。
 
 ### 预期产出
 

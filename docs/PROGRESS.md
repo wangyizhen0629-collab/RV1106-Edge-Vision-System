@@ -13,6 +13,7 @@
 - [ ] TODO：实现 VI/VPSS 采图链路并完成前后性能对比。
 - [x] ST7789V DRM 阶段一完成：Home/YOLO 实机 FB 基线、运行时链路、驱动迁移参数和人工视觉结果均已固化；实测 SCLK/reset/DC 波形未采集，作为非阻塞证据限制保留。
 - [x] ST7789V DRM 阶段二完成：mipi-dbi TinyDRM 驱动、fbtft 解绑和 16-bit SPI 分片修复已通过实机验证；DRM connector connected、mode 320×240，颜色/方向/offset/刷新正常，Home/YOLO 持续运行约 30 分钟。
+- [x] ST7789V DRM 阶段三完成：DeskBot/LVGL 已直接使用 `/dev/dri/card0`，Home/YOLO 画面、重复页面生命周期、约 30 分钟持续刷新和单轮同口径性能采样通过；最终提升比例留待多轮 Performance Report。
 - [ ] TODO：形成最终 Performance Report。
 
 ## 记录约定
@@ -37,6 +38,20 @@
 - 下一步：
 
 ## 历史记录
+
+### 2026-08-27：ST7789V DRM 阶段三——LVGL 直连 DRM/KMS
+
+- 状态：完成（主机交叉构建、板端 DRM 直连、功能、约 30 分钟稳定性和一轮同口径性能采样均通过）
+- 目标：将 DeskBot 显示后端从 DRM fbdev emulation `/dev/fb0` 切换到 LVGL linux_drm `/dev/dri/card0`，验证 RGB565 双缓冲 atomic page flip，并按阶段一口径复测功能、稳定性和性能。
+- 分支：`feat/st7789v-drm`
+- 基线版本/commit：`aad007f4a`；阶段一提交 `2b0fb8b38`，阶段二提交 `aad007f4a`。
+- 修改文件：`Demo/DeskBot_demo/CMakeLists.txt`、`Demo/DeskBot_demo/conf/dev_conf.h`、`Demo/DeskBot_demo/lv_conf.h`、`SDK/rv1106-sdk/sysdrv/tools/board/buildroot/echo_mate_defconfig`（仅选择性纳入 `BR2_PACKAGE_LIBDRM=y`）、`docs/ST7789V_DRM_STAGE3.md`、`docs/logs/st7789-drm/2026-08-27/stage3_host_build.md`、`docs/logs/st7789-drm/2026-08-27/drm/`、`docs/ROADMAP.md`、`docs/PROGRESS.md`。
+- 验证命令：fresh CMake ARM 配置和完整构建；`file`、`readelf -d`、目标 `nm`、`strings` 核对产物；板端核对 `/proc/<pid>/exe` 哈希和 fd；比较 Home/YOLO 采样前后 dmesg；运行 `summarize_fb_display_baseline.py` 和 `summarize_ai_camera_metrics.py`；执行 `git diff --check`。
+- 日志路径：`docs/ST7789V_DRM_STAGE3.md`、`docs/logs/st7789-drm/2026-08-27/stage3_host_build.md`、`docs/logs/st7789-drm/2026-08-27/drm/board_drm_summary.md` 和同目录 Home/YOLO 原始采样。
+- 结果：ARM 仅启用 linux_drm；目标程序链接 `libdrm.so.2`，包含 DRM create/set_file 符号和 `/dev/dri/card0` 默认路径；板端运行文件哈希匹配，DeskBot 持有 card0 且不持有 fb0。颜色、方向、页面操作、offset、撕裂/闪烁/花屏检查通过，重复进入/退出 YOLO 和约 30 分钟持续刷新正常；采样前后 dmesg 无变化，YOLO metrics failures 为 0。
+- 性能数据：Home 的 FB/DRM 进程 CPU 均值为 3.00%/2.96%，系统 busy 为 7.64%/6.83%；YOLO 为 35.71%/36.22% 和 51.19%/39.81%，应用 FPS 为 8.889/8.807，e2e p95 为 193/191 ms。DRM YOLO RSS 均值为 10872 KiB，FB 为 13691 KiB。旧 FB 的 fbtft `debug=7` 与不同内存起点会干扰差值，故仅记录趋势，不声明最终提升比例。
+- 遗留问题：采样时 `CmaFree=0 kB`，虽未阻止当前 DRM/RKNN 运行，仍需在冷启动、重复生命周期和长稳中观察；DRM 无 fbtft `Display update` 记录，SPI throughput 为 N/A；正式性能报告应补至少两轮同条件采样。
+- 下一步：进入 Performance Report 阶段，统一冷启动和采样顺序，补两轮数据并报告中位数、范围和证据限制；条件允许再做 2 小时长稳。
 
 ### 2026-07-17～2026-07-18：LED DTS 蓝灯使能接入
 
