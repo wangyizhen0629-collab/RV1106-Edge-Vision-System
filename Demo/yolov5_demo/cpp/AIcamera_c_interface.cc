@@ -29,8 +29,21 @@
 #endif
 #include "yolov5.h"
 
+/*
+ * AI 相机 C 接口的整体数据流：
+ *
+ *   RK MPI 后端：VI -> VPSS RGB888/DMA-BUF -> RKNN -> 画框 -> RGB565
+ *   OpenCV 后端：VideoCapture BGR -> RKNN 输入内存 -> RKNN -> 画框 -> RGB565
+ *                                                        |
+ *                                                        v
+ *                                         双缓冲区 -> LVGL/调用方
+ *
+ * 推理和绘制在独立 pthread 中执行；C API 仅负责启停、复制最新完整帧和读取
+ * 统计值。共享图像采用双缓冲，避免 UI 读到正在写入的半帧。
+ */
 namespace {
 
+// DeskBot 页面固定使用 320x240、每像素 2 字节的 RGB565 帧。
 constexpr int kDisplayWidth = 320;
 constexpr int kDisplayHeight = 240;
 constexpr int kDisplayPixelSize = 2;
@@ -38,6 +51,7 @@ constexpr size_t kDisplayBufferSize =
     static_cast<size_t>(kDisplayWidth) * kDisplayHeight * kDisplayPixelSize;
 constexpr size_t kLatencyBucketCount = 1001;
 
+// 延迟统计使用单调时钟，避免系统时间跳变造成负值或异常峰值。
 uint64_t monotonic_us()
 {
     const auto now = std::chrono::steady_clock::now().time_since_epoch();
@@ -58,12 +72,14 @@ const char *backend_name(ai_camera_backend_t backend)
 }
 
 struct Histogram {
+    // 桶下标直接表示向上取整后的毫秒数；最后一桶收纳 >=1000 ms 的样本。
     std::array<uint64_t, kLatencyBucketCount> buckets{};
     uint64_t count = 0;
     uint64_t sum_us = 0;
 
     void add(uint64_t duration_us)
     {
+        // 向上取整可保证所有非零、但不足 1 ms 的耗时进入 1 ms 桶。
         const size_t bucket = std::min(
             static_cast<size_t>((duration_us + 999U) / 1000U),
             kLatencyBucketCount - 1U);
@@ -84,6 +100,7 @@ struct Histogram {
         if (count == 0) {
             return 0.0;
         }
+        // 最近秩法：取第 ceil(N * 0.95) 个样本所在的毫秒桶。
         const uint64_t target = (count * 95U + 99U) / 100U;
         uint64_t cumulative = 0;
         for (size_t i = 0; i < buckets.size(); ++i) {
@@ -97,6 +114,7 @@ struct Histogram {
 };
 
 struct CameraStatsState {
+    // 原始计数和直方图只在 g_stats_mutex 保护下访问。
     ai_camera_backend_t backend = AI_CAMERA_BACKEND_AUTO;
     uint64_t started_at_us = 0;
     uint64_t first_published_at_us = 0;
@@ -121,6 +139,7 @@ struct CameraStatsState {
 std::mutex g_stats_mutex;
 CameraStatsState g_stats;
 
+// 每次启动相机都清空上一轮数据；预热帧仍发布，但不进入性能统计。
 void reset_stats(uint32_t warmup_frames)
 {
     std::lock_guard<std::mutex> lock(g_stats_mutex);
@@ -156,12 +175,14 @@ void record_recovery()
 #if defined(DESKBOT_HAS_RK_MPI)
 void update_media_stats(const RkMediaPipelineStats &media)
 {
+    // RK Media 层是采集、队列和恢复指标的唯一数据源，复制快照避免重复累加。
     std::lock_guard<std::mutex> lock(g_stats_mutex);
     g_stats.frames_acquired = media.frames_acquired;
     g_stats.queue_drops = media.frames_dropped;
     g_stats.frame_timeouts = media.get_timeouts;
     g_stats.recoveries = media.recovery_successes;
     g_stats.max_queue_depth = media.max_queue_depth;
+    // 恢复成功数不会大于尝试数；两者之差计入可观测失败总数。
     const uint64_t recovery_failures =
         media.recovery_attempts - media.recovery_successes;
     g_stats.failures = std::max(
@@ -177,6 +198,7 @@ void record_completed_frame(uint64_t queue_wait_us, uint64_t inference_us,
     std::lock_guard<std::mutex> lock(g_stats_mutex);
     ++g_stats.frames_inferred;
     ++g_stats.frames_published;
+    // 预热阶段用于消化模型首次运行、缓存填充和曝光收敛带来的抖动。
     if (g_stats.frames_published <= g_stats.warmup_frames) {
         return;
     }
@@ -219,6 +241,7 @@ ai_camera_stats_t snapshot_stats()
     result.recoveries = g_stats.recoveries;
     result.failures = g_stats.failures;
     result.max_queue_depth = g_stats.max_queue_depth;
+    // N 帧之间仅有 N-1 个时间间隔，因此 FPS 分子使用 N-1。
     if (g_stats.measurement_frames > 1 &&
         g_stats.last_published_at_us > g_stats.first_published_at_us) {
         result.fps = static_cast<double>(g_stats.measurement_frames - 1U) * 1000000.0 /
@@ -260,6 +283,7 @@ void log_metrics(bool final)
     std::fflush(stdout);
 }
 
+// 输出双缓冲的所有指针、前台索引和帧序号由同一把锁保护。
 std::mutex g_frame_mutex;
 std::array<uint8_t *, 2> g_output_buffers{{nullptr, nullptr}};
 int g_front_buffer = 0;
@@ -268,6 +292,7 @@ uint64_t g_frame_sequence = 0;
 bool allocate_output_buffers()
 {
     std::lock_guard<std::mutex> lock(g_frame_mutex);
+    // calloc 让首次读取在尚无有效帧时也得到确定的全黑内容。
     g_output_buffers[0] = static_cast<uint8_t *>(std::calloc(1, kDisplayBufferSize));
     g_output_buffers[1] = static_cast<uint8_t *>(std::calloc(1, kDisplayBufferSize));
     if (g_output_buffers[0] == nullptr || g_output_buffers[1] == nullptr) {
@@ -300,6 +325,7 @@ bool publish_output(const uint8_t *pixels)
     if (g_output_buffers[0] == nullptr || g_output_buffers[1] == nullptr) {
         return false;
     }
+    // 始终写后台缓冲；整帧复制完成后才切换索引并递增序号。
     const int back_buffer = 1 - g_front_buffer;
     std::memcpy(g_output_buffers[back_buffer], pixels, kDisplayBufferSize);
     g_front_buffer = back_buffer;
@@ -324,6 +350,7 @@ public:
             return false;
         }
 
+        // 两种采集后端色彩顺序不同，统一转换到 BGR 后再调用 OpenCV 绘制。
         if (source_is_rgb) {
             cv::resize(source, display_rgb_, cv::Size(kDisplayWidth, kDisplayHeight),
                        0, 0, cv::INTER_LINEAR);
@@ -335,10 +362,12 @@ public:
 
         for (int i = 0; i < results.count; ++i) {
             const object_detect_result &det = results.results[i];
+            // 检测框坐标位于模型输入空间，需要映射到 320x240 显示空间。
             int left = det.box.left * kDisplayWidth / model_width;
             int top = det.box.top * kDisplayHeight / model_height;
             int right = det.box.right * kDisplayWidth / model_width;
             int bottom = det.box.bottom * kDisplayHeight / model_height;
+            // 限制坐标既能防止后处理异常越界，也能处理落在图像边缘的框。
             left = std::clamp(left, 0, kDisplayWidth - 1);
             right = std::clamp(right, 0, kDisplayWidth - 1);
             top = std::clamp(top, 0, kDisplayHeight - 1);
@@ -362,23 +391,27 @@ public:
         std::snprintf(fps_text, sizeof(fps_text), "fps=%.1f", fps);
         cv::putText(display_bgr_, fps_text, cv::Point(0, 14),
                     cv::FONT_HERSHEY_SIMPLEX, 0.4, cv::Scalar(0, 255, 0), 1);
+        // LVGL 侧消费 RGB565；转换结果是连续的 320*240*2 字节帧。
         cv::cvtColor(display_bgr_, display_565_, cv::COLOR_BGR2BGR565);
         return publish_output(display_565_.data);
     }
 
 private:
+    // 复用 Mat 存储，避免每帧申请/释放显示和颜色转换缓冲区。
     cv::Mat display_rgb_;
     cv::Mat display_bgr_;
     cv::Mat display_565_;
 };
 
 struct CameraThreadConfig {
+    // 线程持有字符串本体，camera.iq_dir 指向 iq_dir.c_str()，避免悬空指针。
     ai_camera_config_t camera{};
     std::string model_path;
     std::string iq_dir;
 };
 
 enum class StartupState {
+    // pending 期间 start_ai_camera_ex() 等待工作线程报告后端是否真正就绪。
     idle,
     pending,
     ready,
@@ -397,6 +430,7 @@ std::atomic<bool> g_stop_requested{false};
 void signal_startup(StartupState state, int error)
 {
     std::lock_guard<std::mutex> lock(g_lifecycle_mutex);
+    // 只接受第一次结果，避免后端退出时覆盖已经上报给启动方的状态。
     if (g_startup_state == StartupState::pending) {
         g_startup_state = state;
         g_startup_error = error;
@@ -410,6 +444,8 @@ uint64_t capture_timestamp_us(uint64_t frame_pts, uint64_t acquired_at_us,
                               bool *used_media_pts)
 {
     const uint64_t now_us = monotonic_us();
+    // 仅接受与本机单调时钟同域、且距当前不足 10 秒的 PTS；否则用软件
+    // 取帧时刻兜底，防止不同时间基或未初始化 PTS 污染端到端延迟。
     if (frame_pts != 0 && frame_pts <= now_us && now_us - frame_pts < 10000000U) {
         *used_media_pts = true;
         return frame_pts;
@@ -426,6 +462,7 @@ void maybe_log_metrics(const CameraThreadConfig &config)
         return;
     }
     const ai_camera_stats_t stats = snapshot_stats();
+    // 基于排除预热后的帧数打印，保证不同启动过程的日志采样点一致。
     if (stats.measurement_frames != 0 &&
         stats.measurement_frames % interval == 0) {
         log_metrics(false);
@@ -436,6 +473,7 @@ void maybe_log_metrics(const CameraThreadConfig &config)
 int run_rkmpi_backend(rknn_app_context_t *rknn_context,
                       const CameraThreadConfig &config)
 {
+    // VPSS 输出尺寸直接对齐模型输入，硬件完成缩放和颜色转换。
     RkMediaPipelineConfig media_config;
     media_config.vi_dev_id = config.camera.vi_dev_id;
     media_config.vi_pipe_id = config.camera.vi_pipe_id;
@@ -455,6 +493,7 @@ int run_rkmpi_backend(rknn_app_context_t *rknn_context,
 
     RkMediaPipeline pipeline(std::move(media_config));
     if (pipeline.start() != 0) {
+        // -2 专门表示后端未能启动，供 AUTO 模式判断是否回退 OpenCV。
         return -2;
     }
 
@@ -465,6 +504,7 @@ int run_rkmpi_backend(rknn_app_context_t *rknn_context,
 
     while (!g_stop_requested.load(std::memory_order_acquire)) {
         RkMediaFrame frame{};
+        // 这里使用短超时，使线程能及时响应 stop；管线内部另有硬件取帧超时。
         if (!pipeline.pop(&frame, 100)) {
             update_media_stats(pipeline.stats());
             if (!pipeline.is_running()) {
@@ -473,8 +513,10 @@ int run_rkmpi_backend(rknn_app_context_t *rknn_context,
             continue;
         }
 
+        // 从成功 pop 到 release 的所有分支都必须最终归还 frame。
         bool completed = false;
         const uint64_t queue_exit_us = monotonic_us();
+        // queue_wait 反映生产者取到帧后，帧在软件队列中滞留的时间。
         const uint64_t queue_wait_us = queue_exit_us - frame.acquired_at_us;
         bool used_media_pts = false;
         const uint64_t frame_start_us = capture_timestamp_us(
@@ -482,6 +524,8 @@ int run_rkmpi_backend(rknn_app_context_t *rknn_context,
         uint64_t inference_us = 0;
 
         try {
+            // RKNN 张量行跨度可能因硬件对齐大于逻辑宽度；VPSS 帧必须采用
+            // 完全相同的虚拟跨度，DMA-BUF 才能被模型直接读取。
             const uint32_t expected_stride =
                 rknn_context->input_attrs[0].w_stride == 0
                     ? static_cast<uint32_t>(rknn_context->model_width)
@@ -500,14 +544,17 @@ int run_rkmpi_backend(rknn_app_context_t *rknn_context,
                 const size_t buffer_size = pipeline.buffer_size(frame);
                 object_detect_result_list results{};
 
+                // DMA-BUF 推理路径让 RKNN 直接消费 VPSS 输出，不做整帧 memcpy。
                 const uint64_t inference_start_us = monotonic_us();
                 const int inference_ret = inference_yolov5_model_dmabuf(
                     rknn_context, dma_buf_fd, virtual_address, buffer_size, &results);
                 inference_us = monotonic_us() - inference_start_us;
 
+                // 推理完成后同步缓存，再让 CPU/OpenCV 读取同一 RGB888 缓冲区。
                 if (inference_ret == 0 && pipeline.sync_for_cpu(frame) == 0) {
                     const size_t row_stride =
                         static_cast<size_t>(frame.info.stVFrame.u32VirWidth) * 3U;
+                    // Mat 只包装外部媒体内存，不拥有也不释放该 VPSS 帧。
                     cv::Mat rgb_frame(rknn_context->model_height,
                                       rknn_context->model_width, CV_8UC3,
                                       virtual_address, row_stride);
@@ -521,6 +568,7 @@ int run_rkmpi_backend(rknn_app_context_t *rknn_context,
             std::fprintf(stderr, "[ai_camera] OpenCV render failure: %s\n", error.what());
         }
 
+        // 必须在 rgb_frame/推理不再访问媒体内存后归还 VPSS 帧。
         pipeline.release(&frame);
         update_media_stats(pipeline.stats());
 
@@ -533,6 +581,7 @@ int run_rkmpi_backend(rknn_app_context_t *rknn_context,
         } else {
             ++consecutive_failures;
             record_failure();
+            // 连续推理或渲染失败通常不是采集超时，交给上层退出并重新启动。
             if (consecutive_failures >= config.camera.timeout_recovery_threshold) {
                 std::fprintf(stderr,
                              "[ai_camera] %d consecutive inference/render failures\n",
@@ -557,6 +606,7 @@ int run_rkmpi_backend(rknn_app_context_t *, const CameraThreadConfig &)
 bool reopen_opencv_camera(cv::VideoCapture *capture,
                           const CameraThreadConfig &config)
 {
+    // release 后重开可恢复 V4L2 设备短暂断流；实际返回尺寸由驱动决定。
     capture->release();
     if (!capture->open(config.camera.opencv_device_index)) {
         return false;
@@ -578,6 +628,7 @@ int run_opencv_backend(rknn_app_context_t *rknn_context,
     signal_startup(StartupState::ready, 0);
     RenderBuffers renderer;
     cv::Mat bgr_frame;
+    // 让 OpenCV resize 直接写入 RKNN 已分配的输入张量，省去一次拷贝。
     cv::Mat model_input(rknn_context->model_height, rknn_context->model_width,
                         CV_8UC3, rknn_context->input_mems[0]->virt_addr);
     int consecutive_capture_failures = 0;
@@ -590,6 +641,7 @@ int run_opencv_backend(rknn_app_context_t *rknn_context,
             record_failure();
             if (consecutive_capture_failures >=
                 config.camera.timeout_recovery_threshold) {
+                // 达到阈值后关闭并重开设备；成功恢复后重新累计失败次数。
                 if (!reopen_opencv_camera(&capture, config)) {
                     break;
                 }
@@ -606,6 +658,7 @@ int run_opencv_backend(rknn_app_context_t *rknn_context,
         bool completed = false;
         uint64_t inference_us = 0;
         try {
+            // OpenCV 后端提供 BGR，resize 后直接作为普通内存 RKNN 输入。
             cv::resize(bgr_frame, model_input,
                        cv::Size(rknn_context->model_width,
                                 rknn_context->model_height),
@@ -639,6 +692,7 @@ int run_opencv_backend(rknn_app_context_t *rknn_context,
 
 void *inference_thread(void *opaque)
 {
+    // unique_ptr 接管启动方通过 release() 转移来的配置，线程退出时自动释放。
     std::unique_ptr<CameraThreadConfig> config(
         static_cast<CameraThreadConfig *>(opaque));
     rknn_app_context_t rknn_context{};
@@ -646,6 +700,7 @@ void *inference_thread(void *opaque)
     int result = -1;
 
     try {
+        // 模型和后处理是两个独立资源，使用标志保证只反初始化成功的部分。
         if (init_yolov5_model(config->model_path.c_str(), &rknn_context) != 0) {
             signal_startup(StartupState::failed, -1);
         } else if (init_post_process() != 0) {
@@ -656,6 +711,7 @@ void *inference_thread(void *opaque)
 
             if (requested_backend != AI_CAMERA_BACKEND_OPENCV) {
                 result = run_rkmpi_backend(&rknn_context, *config);
+                // AUTO 才允许回退；显式选择 RK MPI 时，初始化失败直接上报。
                 if (result == -2 && requested_backend == AI_CAMERA_BACKEND_AUTO &&
                     !g_stop_requested.load(std::memory_order_acquire)) {
                     std::fprintf(stderr,
@@ -680,6 +736,7 @@ void *inference_thread(void *opaque)
         signal_startup(StartupState::failed, -1);
     }
 
+    // 工作线程统一负责释放模型相关资源，避免启停线程间转移 RKNN 所有权。
     if (post_process_initialized) {
         deinit_post_process();
     }
@@ -688,6 +745,7 @@ void *inference_thread(void *opaque)
 
     {
         std::lock_guard<std::mutex> lock(g_lifecycle_mutex);
+        // 若后端尚未来得及 signal_startup 就退出，需要在此解除启动方等待。
         if (g_startup_state == StartupState::pending) {
             g_startup_state = StartupState::failed;
             g_startup_error = result == 0 ? -1 : result;
@@ -704,6 +762,7 @@ bool parse_environment_int(const char *name, int minimum, int maximum, int *valu
     if (text == nullptr || *text == '\0') {
         return false;
     }
+    // strtol 同时检查溢出、尾随字符和业务范围；非法值保留默认配置。
     errno = 0;
     char *end = nullptr;
     const long parsed = std::strtol(text, &end, 10);
@@ -718,6 +777,8 @@ bool parse_environment_int(const char *name, int minimum, int maximum, int *valu
 
 void apply_environment_config(ai_camera_config_t *config)
 {
+    // 环境变量仅用于便捷覆盖默认值；显式传给 start_ai_camera_ex() 的配置
+    // 不会再次经过这里修改。
     const char *backend = std::getenv("DESKBOT_CAMERA_BACKEND");
     if (backend != nullptr) {
         if (std::strcmp(backend, "rkmpi") == 0) {
@@ -760,6 +821,7 @@ void apply_environment_config(ai_camera_config_t *config)
 
 bool valid_config(const ai_camera_config_t &config)
 {
+    // struct_size 是 C ABI 的版本护栏，防止新旧头文件布局不一致时越界读取。
     return config.struct_size == sizeof(ai_camera_config_t) &&
            config.backend >= AI_CAMERA_BACKEND_AUTO &&
            config.backend <= AI_CAMERA_BACKEND_OPENCV &&
@@ -777,6 +839,7 @@ void ai_camera_default_config(ai_camera_config_t *config)
     if (config == nullptr) {
         return;
     }
+    // 先清零可确保将来结构体新增字段时默认值仍然确定。
     *config = {};
     config->struct_size = sizeof(*config);
     config->backend = AI_CAMERA_BACKEND_AUTO;
@@ -800,6 +863,7 @@ void ai_camera_default_config(ai_camera_config_t *config)
 
 int start_ai_camera(const char *model_path)
 {
+    // 兼容旧接口：默认参数允许通过环境变量调整，随后复用扩展启动接口。
     ai_camera_config_t config;
     ai_camera_default_config(&config);
     apply_environment_config(&config);
@@ -814,6 +878,7 @@ int start_ai_camera_ex(const char *model_path, const ai_camera_config_t *config)
     }
 
     std::unique_lock<std::mutex> lock(g_lifecycle_mutex);
+    // 当前实现只允许一个相机工作线程和一组全局输出缓冲区。
     if (g_thread_created) {
         return -1;
     }
@@ -825,6 +890,7 @@ int start_ai_camera_ex(const char *model_path, const ai_camera_config_t *config)
     thread_config->camera = *config;
     thread_config->model_path = model_path;
     thread_config->iq_dir = config->iq_dir;
+    // 修正浅拷贝后的字符指针，使线程配置指向自己拥有的 std::string。
     thread_config->camera.iq_dir = thread_config->iq_dir.c_str();
 
     reset_stats(config->metrics_warmup_frames);
@@ -840,9 +906,11 @@ int start_ai_camera_ex(const char *model_path, const ai_camera_config_t *config)
         free_output_buffers();
         return -1;
     }
+    // pthread 创建成功后，配置所有权转移给 inference_thread()。
     thread_config.release();
     g_thread_created = true;
 
+    // “线程已创建”不代表相机可用：同步等待模型和所选采集后端就绪。
     const bool startup_finished = g_startup_condition.wait_for(
         lock, std::chrono::milliseconds(config->startup_timeout_ms), [] {
             return g_startup_state != StartupState::pending;
@@ -851,6 +919,7 @@ int start_ai_camera_ex(const char *model_path, const ai_camera_config_t *config)
         return 0;
     }
 
+    // 初始化失败或超时都要请求线程退出并 join，避免后台残留半初始化资源。
     g_stop_requested.store(true, std::memory_order_release);
     const pthread_t thread = g_camera_thread;
     lock.unlock();
@@ -870,6 +939,7 @@ int stop_ai_camera(void)
         return -1;
     }
 
+    // join 前释放生命周期锁：线程收尾阶段也需要该锁更新全局状态。
     g_stop_requested.store(true, std::memory_order_release);
     const pthread_t thread = g_camera_thread;
     lock.unlock();
@@ -886,6 +956,7 @@ int stop_ai_camera(void)
 
 void get_buf_data(uint8_t *buffer)
 {
+    // 保留原有无长度参数接口；新代码应优先调用 get_buf_data_ex()。
     (void)get_buf_data_ex(buffer, kDisplayBufferSize, nullptr);
 }
 
@@ -895,6 +966,7 @@ int get_buf_data_ex(uint8_t *buffer, size_t buffer_size, uint64_t *sequence)
         return -1;
     }
 
+    // 在锁内复制完整前台帧，防止生产者切换并覆盖正在读取的缓冲区。
     std::lock_guard<std::mutex> lock(g_frame_mutex);
     if (g_output_buffers[g_front_buffer] == nullptr) {
         return -1;
@@ -903,6 +975,7 @@ int get_buf_data_ex(uint8_t *buffer, size_t buffer_size, uint64_t *sequence)
     if (sequence != nullptr) {
         *sequence = g_frame_sequence;
     }
+    // 1 表示缓冲区已分配但尚未发布首帧；只有 0 表示数据有效。
     return g_frame_sequence == 0 ? 1 : 0;
 }
 
@@ -911,6 +984,7 @@ int get_ai_camera_stats(ai_camera_stats_t *stats)
     if (stats == nullptr) {
         return -1;
     }
+    // snapshot_stats() 在内部加锁，调用方得到自洽的一次性快照。
     *stats = snapshot_stats();
     return 0;
 }

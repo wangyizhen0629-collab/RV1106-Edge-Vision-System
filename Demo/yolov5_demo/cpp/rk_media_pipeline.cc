@@ -22,12 +22,24 @@
 #include "rk_aiq_user_api2_sysctl.h"
 #endif
 
+/*
+ * RK Media 采集管线：
+ *
+ *   Sensor/ISP -> VI(NV12) -> VPSS(缩放并转为 RGB888) -> 有界帧队列
+ *
+ * producer_loop() 独占从 VPSS 取帧的动作，消费方通过 pop() 取得帧，并且
+ * 必须调用 release() 将底层 MEDIA_BUFFER 归还 VPSS。队列只保存句柄，不复制
+ * 像素数据，以避免在 RV1106 上产生额外的内存带宽和延迟。
+ */
 namespace {
 
+// 固定上限使环形队列可以静态分配，避免视频线程运行期间动态申请内存。
 constexpr int kMaxQueueCapacity = 4;
+// 连续取帧超时后的整条管线重建参数。
 constexpr int kRecoveryAttempts = 3;
 constexpr int kRecoveryBackoffMs = 100;
 
+// steady_clock 不受系统时间校准影响，适合统计帧等待时间和处理延迟。
 uint64_t monotonic_us()
 {
     const auto now = std::chrono::steady_clock::now().time_since_epoch();
@@ -47,6 +59,7 @@ public:
     explicit Impl(RkMediaPipelineConfig config)
         : config_(std::move(config))
     {
+        // 在进入厂商 MPI 接口前收紧配置，保证数组索引和超时参数始终有效。
         config_.queue_capacity =
             std::clamp(config_.queue_capacity, 1, kMaxQueueCapacity);
         config_.frame_timeout_ms = std::max(config_.frame_timeout_ms, 1);
@@ -61,12 +74,14 @@ public:
 
     int start()
     {
+        // 生命周期锁用于串行化 start/stop；running_ 负责跨线程发布运行状态。
         std::lock_guard<std::mutex> lifecycle_lock(lifecycle_mutex_);
         if (running_.load(std::memory_order_acquire)) {
             return -1;
         }
 
         if (init_pipeline() != 0) {
+            // init_pipeline() 可能只完成了一部分，按状态标志逆序清理。
             teardown_pipeline();
             return -1;
         }
@@ -80,6 +95,7 @@ public:
     {
         std::lock_guard<std::mutex> lifecycle_lock(lifecycle_mutex_);
         const bool was_running = running_.exchange(false, std::memory_order_acq_rel);
+        // 同时唤醒等待新帧和等待帧归还的线程，避免停止流程永久阻塞。
         queue_condition_.notify_all();
         ownership_condition_.notify_all();
 
@@ -89,6 +105,8 @@ public:
 
         if (was_running || pipeline_initialized_) {
             std::unique_lock<std::mutex> queue_lock(queue_mutex_);
+            // 先释放队列内的帧，再等待已经 pop 给消费方的帧被 release。
+            // 所有 VPSS 帧归还后才能销毁 VPSS 组及 RK MPI 系统。
             drain_queue_locked();
             ownership_condition_.wait(queue_lock,
                                       [this] { return outstanding_frames_ == 0; });
@@ -107,6 +125,7 @@ public:
         const auto ready = [this] {
             return queue_count_ > 0 || !running_.load(std::memory_order_acquire);
         };
+        // 负超时表示无限等待；非负值用于让调用方周期性检查退出条件。
         if (timeout_ms < 0) {
             queue_condition_.wait(lock, ready);
         } else if (!queue_condition_.wait_for(lock, std::chrono::milliseconds(timeout_ms),
@@ -119,6 +138,8 @@ public:
         }
 
         *frame = queue_[queue_head_];
+        // 转移帧句柄的所有权：槽位置空，但 outstanding_frames_ 保持不变，
+        // 直到消费方显式调用 release()。
         queue_[queue_head_] = {};
         queue_head_ = (queue_head_ + 1U) % queue_.size();
         --queue_count_;
@@ -131,6 +152,7 @@ public:
             return -1;
         }
 
+        // 每次成功的 GetChnFrame 都必须恰好对应一次 ReleaseChnFrame。
         const int ret = RK_MPI_VPSS_ReleaseChnFrame(
             config_.vpss_group_id, config_.vpss_channel_id, &frame->info);
         frame->valid = false;
@@ -157,6 +179,7 @@ public:
         if (!frame.valid || frame.info.stVFrame.pMbBlk == nullptr) {
             return nullptr;
         }
+        // 虚拟地址供 CPU/OpenCV 读取同一块媒体缓冲区。
         return RK_MPI_MB_Handle2VirAddr(frame.info.stVFrame.pMbBlk);
     }
 
@@ -165,6 +188,7 @@ public:
         if (!frame.valid || frame.info.stVFrame.pMbBlk == nullptr) {
             return -1;
         }
+        // DMA-BUF fd 可直接导入 RKNN，避免把整帧复制到另一块输入内存。
         return RK_MPI_MB_Handle2Fd(frame.info.stVFrame.pMbBlk);
     }
 
@@ -181,6 +205,7 @@ public:
         if (!frame.valid || frame.info.stVFrame.pMbBlk == nullptr) {
             return -1;
         }
+        // RKNN/VPSS 等硬件写过 DMA 缓冲区后，使其内容对 CPU 读取可见。
         const int ret = RK_MPI_SYS_MmzFlushCache(frame.info.stVFrame.pMbBlk, RK_TRUE);
         if (ret != RK_SUCCESS) {
             log_mpi_error("RK_MPI_SYS_MmzFlushCache(read)", ret);
@@ -198,10 +223,12 @@ public:
 private:
     int start_isp()
     {
+        // manage_isp=false 表示 ISP/RKAIQ 生命周期由进程外或其他模块负责。
         if (!config_.manage_isp) {
             return 0;
         }
 #if defined(DESKBOT_HAS_RKAIQ)
+        // 物理摄像头编号用于找到 sensor 名称；后续 RKAIQ API 以名称建上下文。
         rk_aiq_static_info_t static_info{};
         XCamReturn aiq_ret =
             rk_aiq_uapi2_sysctl_enumStaticMetasByPhyId(config_.vi_dev_id, &static_info);
@@ -211,6 +238,7 @@ private:
             return -1;
         }
 
+        // 在 init 之前限制 raw 接收缓冲数量，兼顾流水线并发与内存占用。
         aiq_ret = rk_aiq_uapi2_sysctl_preInit_devBufCnt(
             static_info.sensor_info.sensor_name, "rkraw_rx", 2);
         if (aiq_ret != XCAM_RETURN_NO_ERROR) {
@@ -227,6 +255,7 @@ private:
             return -1;
         }
 
+        // 宽高传 0 让 RKAIQ 按传感器/媒体拓扑选择工作模式。
         aiq_ret = rk_aiq_uapi2_sysctl_prepare(aiq_context_, 0, 0,
                                               RK_AIQ_WORKING_MODE_NORMAL);
         if (aiq_ret != XCAM_RETURN_NO_ERROR) {
@@ -255,6 +284,7 @@ private:
     void stop_isp()
     {
 #if defined(DESKBOT_HAS_RKAIQ)
+        // stop/deinit 与 start_isp() 对称；即使 stop 失败也继续释放上下文。
         if (aiq_context_ != nullptr) {
             if (aiq_started_) {
                 const XCamReturn ret = rk_aiq_uapi2_sysctl_stop(aiq_context_, false);
@@ -272,6 +302,7 @@ private:
 
     int init_pipeline()
     {
+        // 初始化顺序必须从上游运行时到下游通道，最后再绑定 VI 和 VPSS。
         if (start_isp() != 0) {
             return -1;
         }
@@ -284,6 +315,8 @@ private:
         }
         sys_initialized_ = true;
 
+        // 某些系统启动脚本可能已配置/启用 VI，因此这里只补齐缺失状态，并
+        // 用 owns_vi_device_ 记录本对象是否有权在退出时关闭设备。
         VI_DEV_ATTR_S dev_attr{};
         ret = RK_MPI_VI_GetDevAttr(config_.vi_dev_id, &dev_attr);
         if (ret == RK_ERR_VI_NOT_CONFIG) {
@@ -314,6 +347,8 @@ private:
         }
 
         VI_CHN_ATTR_S vi_attr{};
+        // VI 输出 sensor 尺寸的 NV12。DMABUF 允许后续硬件模块共享缓冲区；
+        // Depth=0 表示应用不直接从 VI 拉帧，帧由绑定关系送往 VPSS。
         vi_attr.stIspOpt.u32BufCount =
             static_cast<RK_U32>(std::min(config_.queue_capacity + 2, 8));
         vi_attr.stIspOpt.enMemoryType = VI_V4L2_MEMORY_TYPE_DMABUF;
@@ -339,6 +374,7 @@ private:
         }
         vi_channel_enabled_ = true;
 
+        // VPSS 组的最大尺寸需同时容纳输入和输出，给缩放方向留出空间。
         VPSS_GRP_ATTR_S group_attr{};
         group_attr.u32MaxW = static_cast<RK_U32>(
             std::max(config_.source_width, config_.output_width));
@@ -357,6 +393,8 @@ private:
         }
         vpss_group_created_ = true;
 
+        // VPSS 通道一次完成模型输入尺寸缩放和 NV12 -> RGB888 转换。
+        // RGB888 可同时供 RKNN 推理和 OpenCV 绘制使用。
         VPSS_CHN_ATTR_S channel_attr{};
         channel_attr.enChnMode = VPSS_CHN_MODE_USER;
         channel_attr.u32Width = static_cast<RK_U32>(config_.output_width);
@@ -367,6 +405,7 @@ private:
         channel_attr.enCompressMode = COMPRESS_MODE_NONE;
         channel_attr.stFrameRate.s32SrcFrameRate = -1;
         channel_attr.stFrameRate.s32DstFrameRate = -1;
+        // Depth 决定应用可取出的帧数；FrameBufCnt 是通道内部缓冲池规模。
         channel_attr.u32Depth =
             static_cast<RK_U32>(std::min(config_.queue_capacity + 1, 8));
         channel_attr.u32FrameBufCnt =
@@ -393,6 +432,8 @@ private:
         }
         vpss_group_started_ = true;
 
+        // MPP_CHN_S 中 VPSS 的 DevId 表示组号，ChnId=0 表示组输入端；
+        // 实际输出通道号只在 Set/Get/ReleaseChnFrame 时使用。
         vi_source_ = {};
         vi_source_.enModId = RK_ID_VI;
         vi_source_.s32DevId = config_.vi_dev_id;
@@ -423,6 +464,8 @@ private:
 
     void teardown_pipeline()
     {
+        // 按绑定、下游、上游、全局运行时的逆序拆除；各状态位使本函数可在
+        // 初始化中途失败、正常停止和恢复重建三种场景下重复安全调用。
         if (vi_vpss_bound_) {
             const int ret = RK_MPI_SYS_UnBind(&vi_source_, &vpss_destination_);
             if (ret != RK_SUCCESS) {
@@ -483,6 +526,7 @@ private:
         int consecutive_timeouts = 0;
         while (running_.load(std::memory_order_acquire)) {
             RkMediaFrame frame{};
+            // GetChnFrame 返回的是 VPSS 缓冲句柄，而不是像素副本。
             const int ret = RK_MPI_VPSS_GetChnFrame(
                 config_.vpss_group_id, config_.vpss_channel_id, &frame.info,
                 config_.frame_timeout_ms);
@@ -493,6 +537,8 @@ private:
                     ++stats_.get_timeouts;
                 }
                 ++consecutive_timeouts;
+                // 偶发超时只计数；达到阈值才重建管线，避免传感器短暂抖动
+                // 导致频繁停止/启动 ISP 和 VI。
                 if (consecutive_timeouts >= config_.timeout_recovery_threshold &&
                     running_.load(std::memory_order_acquire)) {
                     if (!recover_pipeline()) {
@@ -510,6 +556,7 @@ private:
             frame.valid = true;
 
             std::unique_lock<std::mutex> lock(queue_mutex_);
+            // outstanding_frames_ 同时包含“还在队列中”和“已交给消费方”的帧。
             ++outstanding_frames_;
             ++stats_.frames_acquired;
 
@@ -520,6 +567,7 @@ private:
             }
 
             if (queue_count_ == static_cast<size_t>(config_.queue_capacity)) {
+                // 实时预览优先保留最新帧：队列满时释放最旧帧，而不是阻塞采集。
                 RkMediaFrame dropped = queue_[queue_head_];
                 queue_[queue_head_] = {};
                 queue_head_ = (queue_head_ + 1U) % queue_.size();
@@ -540,6 +588,7 @@ private:
 
     bool valid_frame(const RkMediaFrame &frame) const
     {
+        // 逻辑宽高必须等于模型输入；虚拟宽高允许因硬件对齐而更大。
         const VIDEO_FRAME_S &video = frame.info.stVFrame;
         return video.pMbBlk != nullptr && video.enPixelFormat == RK_FMT_RGB888 &&
                video.u32Width == static_cast<RK_U32>(config_.output_width) &&
@@ -549,6 +598,7 @@ private:
 
     void release_locked(RkMediaFrame *frame)
     {
+        // 调用方已持有 queue_mutex_；单独实现以供丢帧、清队列和恢复路径复用。
         if (frame == nullptr || !frame->valid) {
             return;
         }
@@ -567,6 +617,7 @@ private:
 
     void drain_queue_locked()
     {
+        // 这里只能释放仍在环形队列里的帧，已 pop 的帧由消费方归还。
         while (queue_count_ > 0) {
             RkMediaFrame frame = queue_[queue_head_];
             queue_[queue_head_] = {};
@@ -584,6 +635,7 @@ private:
             std::unique_lock<std::mutex> lock(queue_mutex_);
             ++stats_.recovery_attempts;
             recovering_ = true;
+            // 在销毁 VPSS 前清空队列并等待所有外借帧归还，否则底层句柄会失效。
             drain_queue_locked();
             ownership_condition_.wait(lock, [this] {
                 return outstanding_frames_ == 0 ||
@@ -601,6 +653,7 @@ private:
         teardown_pipeline();
 
         bool recovered = false;
+        // 每次失败后彻底清理已初始化的部分，再做有限次数重试。
         for (int attempt = 0;
              attempt < kRecoveryAttempts && running_.load(std::memory_order_acquire);
              ++attempt) {
@@ -624,20 +677,24 @@ private:
     }
 
     RkMediaPipelineConfig config_;
+    // lifecycle_mutex_ 保护启停；queue_mutex_ 保护队列、帧所有权计数和统计值。
     mutable std::mutex lifecycle_mutex_;
     mutable std::mutex queue_mutex_;
     std::condition_variable queue_condition_;
     std::condition_variable ownership_condition_;
+    // 固定容量环形队列；实际可用容量由 config_.queue_capacity 决定。
     std::array<RkMediaFrame, kMaxQueueCapacity> queue_{};
     size_t queue_head_ = 0;
     size_t queue_tail_ = 0;
     size_t queue_count_ = 0;
+    // 已从 VPSS 取得但尚未 Release 的总帧数。
     size_t outstanding_frames_ = 0;
     bool recovering_ = false;
     std::atomic<bool> running_{false};
     std::thread producer_;
     RkMediaPipelineStats stats_{};
 
+    // 分阶段状态用于失败回滚，防止关闭非本对象拥有的资源。
     bool pipeline_initialized_ = false;
     bool sys_initialized_ = false;
     bool owns_vi_device_ = false;
@@ -650,11 +707,13 @@ private:
     MPP_CHN_S vpss_destination_{};
 
 #if defined(DESKBOT_HAS_RKAIQ)
+    // 仅在编译进 RKAIQ 且 manage_isp=true 时持有该上下文。
     rk_aiq_sys_ctx_t *aiq_context_ = nullptr;
     bool aiq_started_ = false;
 #endif
 };
 
+// 对外类采用 PImpl，避免在头文件中暴露线程、同步原语和 RKAIQ 类型。
 RkMediaPipeline::RkMediaPipeline(RkMediaPipelineConfig config)
     : impl_(std::make_unique<Impl>(std::move(config)))
 {
